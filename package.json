@@ -1,0 +1,19 @@
+{
+  "name": "bredor",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@cycle/dom": "15.2.0",
+    "@cycle/run": "1.0.0",
+    "html-webpack-plugin": "2.28.0",
+    "kotlin": "1.1.0",
+    "webpack": "2.2.1",
+    "webpack-dev-server": "2.4.1",
+    "webpack-kotlin-loader": "0.3.2",
+    "xstream": "10.3.0"
+  }
+}
