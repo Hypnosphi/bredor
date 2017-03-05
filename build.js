@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 112);
+/******/ 	return __webpack_require__(__webpack_require__.s = 116);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -90,7 +90,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var symbol_observable_1 = __webpack_require__(109);
+var symbol_observable_1 = __webpack_require__(113);
 var NO = {};
 exports.NO = NO;
 function noop() { }
@@ -1948,8 +1948,8 @@ exports.default = Stream;
 
 
 var assign        = __webpack_require__(13)
-  , normalizeOpts = __webpack_require__(69)
-  , isCallable    = __webpack_require__(63)
+  , normalizeOpts = __webpack_require__(71)
+  , isCallable    = __webpack_require__(65)
   , contains      = __webpack_require__(25)
 
   , d;
@@ -2095,7 +2095,7 @@ exports.getSelectors = getSelectors;
 "use strict";
 
 
-module.exports = __webpack_require__(83)() ? Symbol : __webpack_require__(85);
+module.exports = __webpack_require__(85)() ? Symbol : __webpack_require__(87);
 
 
 /***/ }),
@@ -2755,9 +2755,9 @@ module.exports = function (x) { return (toString.call(x) === id); };
 "use strict";
 
 
-module.exports = __webpack_require__(58)()
+module.exports = __webpack_require__(60)()
 	? Object.assign
-	: __webpack_require__(59);
+	: __webpack_require__(61);
 
 
 /***/ }),
@@ -3447,7 +3447,7 @@ module.exports = function (/*customCreate*/) {
 
 
 
-var isObject      = __webpack_require__(64)
+var isObject      = __webpack_require__(66)
   , value         = __webpack_require__(0)
 
   , isPrototypeOf = Object.prototype.isPrototypeOf
@@ -3514,7 +3514,7 @@ module.exports = (function (status) {
 	return false;
 }())));
 
-__webpack_require__(61);
+__webpack_require__(63);
 
 
 /***/ }),
@@ -3524,9 +3524,9 @@ __webpack_require__(61);
 "use strict";
 
 
-module.exports = __webpack_require__(71)()
+module.exports = __webpack_require__(73)()
 	? String.prototype.contains
-	: __webpack_require__(72);
+	: __webpack_require__(74);
 
 
 /***/ }),
@@ -3536,7 +3536,7 @@ module.exports = __webpack_require__(71)()
 "use strict";
 
 
-var isIterable = __webpack_require__(76);
+var isIterable = __webpack_require__(78);
 
 module.exports = function (value) {
 	if (!isIterable(value)) throw new TypeError(value + " is not iterable");
@@ -3551,7 +3551,7 @@ module.exports = function (value) {
 "use strict";
 
 
-module.exports = __webpack_require__(78)() ? Map : __webpack_require__(82);
+module.exports = __webpack_require__(80)() ? Map : __webpack_require__(84);
 
 
 /***/ }),
@@ -3797,8 +3797,12 @@ module.exports = function(module) {
 /* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
-(function (_, Kotlin, $module$xstream, $module$_cycle_dom, $module$_cycle_run) {
+(function (_, Kotlin, $module$xstream, $module$_cycle_dom, $module$_cycle_run, $module$jsonp) {
   'use strict';
+  var Error_0 = Kotlin.kotlin.Error;
+  var toInt = Kotlin.kotlin.text.toInt_pdl1vz$;
+  var joinToString = Kotlin.kotlin.collections.joinToString_fmv235$;
+  var split = Kotlin.kotlin.text.split_ip8yn$;
   var last = Kotlin.kotlin.collections.last_2p1efm$;
   var IllegalStateException = Kotlin.kotlin.IllegalStateException;
   var get_lastIndex = Kotlin.kotlin.collections.get_lastIndex_55thoc$;
@@ -3821,7 +3825,6 @@ module.exports = function(module) {
   var Map$Entry = Kotlin.kotlin.collections.Map.Entry;
   var Map = Kotlin.kotlin.collections.Map;
   var toSet = Kotlin.kotlin.collections.toSet_7wnvza$;
-  var joinToString = Kotlin.kotlin.collections.joinToString_fmv235$;
   var emptySet = Kotlin.kotlin.collections.emptySet_287e2$;
   var LinkedHashMap_init = Kotlin.kotlin.collections.LinkedHashMap_init_73mtqc$;
   var MutableMap = Kotlin.kotlin.collections.MutableMap;
@@ -3836,6 +3839,22 @@ module.exports = function(module) {
   var toList = Kotlin.kotlin.collections.toList_7wnvza$;
   var mutableListOf_0 = Kotlin.kotlin.collections.mutableListOf_i5x0yv$;
   var Any = Object;
+  var first_0 = Kotlin.kotlin.collections.first_us0mfu$;
+  var lazy = Kotlin.kotlin.lazy_klfg04$;
+  Params$Json.prototype = Object.create(Params$Delegate.prototype);
+  Params$Json.prototype.constructor = Params$Json;
+  Params$Bool.prototype = Object.create(Params$Delegate.prototype);
+  Params$Bool.prototype.constructor = Params$Bool;
+  Params$Integer.prototype = Object.create(Params$Delegate.prototype);
+  Params$Integer.prototype.constructor = Params$Integer;
+  Params$StringList.prototype = Object.create(Params$Delegate.prototype);
+  Params$StringList.prototype.constructor = Params$StringList;
+  Params$IntList.prototype = Object.create(Params$Delegate.prototype);
+  Params$IntList.prototype.constructor = Params$IntList;
+  Params$PropList.prototype = Object.create(Params$Delegate.prototype);
+  Params$PropList.prototype.constructor = Params$PropList;
+  Params$EnumString.prototype = Object.create(Params$Delegate.prototype);
+  Params$EnumString.prototype.constructor = Params$EnumString;
   StringAttribute.prototype = Object.create(Attribute.prototype);
   StringAttribute.prototype.constructor = StringAttribute;
   BooleanAttribute.prototype = Object.create(Attribute.prototype);
@@ -4098,24 +4117,42 @@ module.exports = function(module) {
   VAR_.prototype.constructor = VAR_;
   VIDEO.prototype = Object.create(HTMLTag.prototype);
   VIDEO.prototype.constructor = VIDEO;
+  VKReq$Users.prototype = Object.create(VKReq.prototype);
+  VKReq$Users.prototype.constructor = VKReq$Users;
+  VKReq$Users$Get.prototype = Object.create(VKReq$Users.prototype);
+  VKReq$Users$Get.prototype.constructor = VKReq$Users$Get;
+  VKReq$Photos.prototype = Object.create(VKReq.prototype);
+  VKReq$Photos.prototype.constructor = VKReq$Photos;
+  VKReq$Photos$GetAlbums.prototype = Object.create(VKReq$Photos.prototype);
+  VKReq$Photos$GetAlbums.prototype.constructor = VKReq$Photos$GetAlbums;
+  Case.prototype = Object.create(Enum.prototype);
+  Case.prototype.constructor = Case;
   function app$lambda$lambda$lambda($receiver_17, it) {
-    $receiver_17.unaryPlus_pdl1vz$(it);
+    var tmp$_17;
+    tmp$_17 = it.iterator();
+    while (tmp$_17.hasNext()) {
+      var element_17 = tmp$_17.next();
+      var receiver = element_17.album;
+      img($receiver_17, receiver.title, receiver.thumb_src);
+    }
   }
-  function app$lambda$lambda(this$) {
+  function app$lambda$lambda($receiver_17, it) {
+    var $receiver_18 = it.user;
+    img($receiver_17, get_fullName($receiver_18), $receiver_18.photo_50);
+    $receiver_17.invoke_kkoh0z$(it.albums, app$lambda$lambda$lambda);
+  }
+  function app$lambda(closure$sources) {
     return function ($receiver_17) {
-      $receiver_17.unaryPlus_pdl1vz$('hello ');
-      this$.invoke_reqebo$($module$xstream.default.of('you'), app$lambda$lambda$lambda);
+      $receiver_17.unaryPlus_pdl1vz$('\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0430\u043B\u044C\u0431\u043E\u043C, \u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u0445\u043E\u0442\u0438\u0442\u0435 \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C');
+      $receiver_17.invoke_kkoh0z$(closure$sources.VK.me, app$lambda$lambda);
     };
   }
-  function app$lambda($receiver_17) {
-    div($receiver_17, void 0, app$lambda$lambda($receiver_17));
-  }
-  function app(sources) {
-    console.log(sources);
-    return new AppSinks(single(app$lambda));
+  function app_0(sources) {
+    return new AppSinks(appDiv(app$lambda(sources)).debug('vtree'), $module$xstream.default.of());
   }
   function AppDrivers(selector) {
     this.DOM = $module$_cycle_dom.makeDOMDriver(selector);
+    this.VK = VKDriver;
   }
   AppDrivers.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
@@ -4129,8 +4166,9 @@ module.exports = function(module) {
     simpleName: 'AppSources',
     interfaces: []
   };
-  function AppSinks(DOM) {
+  function AppSinks(DOM, VK_0) {
     this.DOM = DOM;
+    this.VK = VK_0;
   }
   AppSinks.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
@@ -4139,8 +4177,204 @@ module.exports = function(module) {
   };
   function main(args) {
     $module$_cycle_run.run(Kotlin.getCallableRef('app', function (sources) {
-      return app(sources);
+      return app_0(sources);
     }), new AppDrivers('#app'));
+  }
+  function Params(source_3, initParams) {
+    if (source_3 === void 0)
+      source_3 = null;
+    this.params_0 = new URLSearchParams(source_3);
+    var tmp$_17;
+    for (tmp$_17 = 0; tmp$_17 !== initParams.length; ++tmp$_17) {
+      var element_17 = initParams[tmp$_17];
+      var name = element_17.component1()
+      , value = element_17.component2();
+      this.params_0.set(name, value);
+    }
+  }
+  Params.prototype.toString = function () {
+    return this.params_0.toString();
+  };
+  Params.prototype.getValue_t0xcdd$ = function (thisRef, property) {
+    var tmp$_17;
+    return (tmp$_17 = this.params_0.get(property.callableName)) != null ? tmp$_17 : '';
+  };
+  Params.prototype.setValue_s4twwd$ = function (thisRef, property, value) {
+    this.params_0.set(property.callableName, value);
+  };
+  function Params$Delegate($outer) {
+    this.$outer = $outer;
+  }
+  Params$Delegate.prototype.getValue_t0xcdd$ = function (thisRef, property) {
+    return this.deserialize_61zpoe$(this.$outer.getValue_t0xcdd$(thisRef, property));
+  };
+  Params$Delegate.prototype.setValue_cvomos$ = function (thisRef, property, value) {
+    this.$outer.setValue_s4twwd$(thisRef, property, JSON.stringify(value));
+  };
+  Params$Delegate.prototype.deserialize_61zpoe$ = function (str) {
+    throw new Error_0('readonly');
+  };
+  Params$Delegate.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'Delegate',
+    interfaces: []
+  };
+  function Params$Json($outer) {
+    this.$outer = $outer;
+    Params$Delegate.call(this, this.$outer);
+  }
+  Params$Json.prototype.serialize_11rb$ = function (value) {
+    return JSON.stringify(value);
+  };
+  Params$Json.prototype.deserialize_61zpoe$ = function (str) {
+    return JSON.parse(str);
+  };
+  Params$Json.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'Json',
+    interfaces: [Params$Delegate]
+  };
+  function Params$Bool($outer) {
+    this.$outer = $outer;
+    Params$Delegate.call(this, this.$outer);
+  }
+  Params$Bool.prototype.serialize_11rb$ = function (value) {
+    return value ? '1' : '0';
+  };
+  Params$Bool.prototype.deserialize_61zpoe$ = function (str) {
+    return Kotlin.equals(str, '1');
+  };
+  Params$Bool.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'Bool',
+    interfaces: [Params$Delegate]
+  };
+  function Params$Integer($outer) {
+    this.$outer = $outer;
+    Params$Delegate.call(this, this.$outer);
+  }
+  Params$Integer.prototype.serialize_11rb$ = function (value) {
+    return value.toString();
+  };
+  Params$Integer.prototype.deserialize_61zpoe$ = function (str) {
+    return toInt(str);
+  };
+  Params$Integer.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'Integer',
+    interfaces: [Params$Delegate]
+  };
+  function Params$StringList($outer) {
+    this.$outer = $outer;
+    Params$Delegate.call(this, this.$outer);
+    this.separator_0 = ',';
+  }
+  Params$StringList.prototype.serialize_11rb$ = function (value) {
+    return joinToString(value, this.separator_0);
+  };
+  Params$StringList.prototype.deserialize_61zpoe$ = function (str) {
+    return split(str, [this.separator_0]);
+  };
+  Params$StringList.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'StringList',
+    interfaces: [Params$Delegate]
+  };
+  function Params$IntList($outer) {
+    this.$outer = $outer;
+    Params$Delegate.call(this, this.$outer);
+  }
+  Params$IntList.prototype.serialize_11rb$ = function (value) {
+    var tmp$_17 = new Params$StringList(this.$outer);
+    var destination_17 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$(Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$(value, 10));
+    var tmp$_18;
+    tmp$_18 = value.iterator();
+    while (tmp$_18.hasNext()) {
+      var item = tmp$_18.next();
+      destination_17.add_11rb$(item.toString());
+    }
+    return tmp$_17.serialize_11rb$(destination_17);
+  };
+  Params$IntList.prototype.deserialize_61zpoe$ = function (str) {
+    var $receiver_17 = (new Params$StringList(this.$outer)).deserialize_61zpoe$(str);
+    var destination_17 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$(Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$($receiver_17, 10));
+    var tmp$_17;
+    tmp$_17 = $receiver_17.iterator();
+    while (tmp$_17.hasNext()) {
+      var item = tmp$_17.next();
+      destination_17.add_11rb$(toInt(item));
+    }
+    return destination_17;
+  };
+  Params$IntList.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'IntList',
+    interfaces: [Params$Delegate]
+  };
+  function Params$PropList($outer) {
+    this.$outer = $outer;
+    Params$Delegate.call(this, this.$outer);
+  }
+  Params$PropList.prototype.serialize_11rb$ = function (value) {
+    var tmp$_17 = new Params$StringList(this.$outer);
+    var transform = Kotlin.getPropertyCallableRef('name', 1, function ($receiver_17) {
+      return $receiver_17.callableName;
+    });
+    var destination_17 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$(Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$(value, 10));
+    var tmp$_18;
+    tmp$_18 = value.iterator();
+    while (tmp$_18.hasNext()) {
+      var item = tmp$_18.next();
+      destination_17.add_11rb$(transform(item));
+    }
+    return tmp$_17.serialize_11rb$(destination_17);
+  };
+  Params$PropList.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'PropList',
+    interfaces: [Params$Delegate]
+  };
+  function Params$EnumString($outer) {
+    this.$outer = $outer;
+    Params$Delegate.call(this, this.$outer);
+  }
+  Params$EnumString.prototype.serialize_11rb$ = function (value) {
+    return value.name;
+  };
+  Params$EnumString.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'EnumString',
+    interfaces: [Params$Delegate]
+  };
+  Params.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'Params',
+    interfaces: []
+  };
+  function Builder() {
+  }
+  Builder.$metadata$ = {
+    kind: Kotlin.Kind.INTERFACE,
+    simpleName: 'Builder',
+    interfaces: []
+  };
+  var create_0 = Kotlin.defineInlineFunction('_compiled-tmp.app.create_1s2aq8$', function (create$T_0, isT, $receiver_17) {
+    var ctor = Kotlin.kotlin.js.get_js_1yb8b7$(Kotlin.getKClass(create$T_0));
+    return new ctor();
+  });
+  var invoke = Kotlin.defineInlineFunction('_compiled-tmp.app.invoke_q9bdrh$', function (invoke$T_0, isT, $receiver_17, handler) {
+    var ctor = Kotlin.kotlin.js.get_js_1yb8b7$(Kotlin.getKClass(invoke$T_0));
+    var $receiver_18 = new ctor();
+    handler($receiver_18);
+    return $receiver_18;
+  });
+  function jsObject(handler) {
+    var obj = {};
+    handler(obj);
+    return obj;
+  }
+  function js_0(handler) {
+    return jsObject(handler);
   }
   function setEvent($receiver_17, name, callback) {
     $receiver_17[name] = callback;
@@ -4589,7 +4823,7 @@ module.exports = function(module) {
   }
   function div$lambda($receiver_17) {
   }
-  function div_0($receiver_17, classes, block) {
+  function div($receiver_17, classes, block) {
     if (classes === void 0)
       classes = null;
     if (block === void 0)
@@ -4827,7 +5061,7 @@ module.exports = function(module) {
   }
   function img$lambda($receiver_17) {
   }
-  function img($receiver_17, alt, src, classes, block) {
+  function img_0($receiver_17, alt, src, classes, block) {
     if (alt === void 0)
       alt = null;
     if (src === void 0)
@@ -4931,7 +5165,7 @@ module.exports = function(module) {
   }
   function map$lambda($receiver_17) {
   }
-  function map($receiver_17, name, classes, block) {
+  function map_0($receiver_17, name, classes, block) {
     if (name === void 0)
       name = null;
     if (classes === void 0)
@@ -7690,7 +7924,7 @@ module.exports = function(module) {
   }
   function div$lambda_0($receiver_17) {
   }
-  function div($receiver_17, classes, block) {
+  function div_0($receiver_17, classes, block) {
     if (classes === void 0)
       classes = null;
     if (block === void 0)
@@ -7915,7 +8149,7 @@ module.exports = function(module) {
   }
   function img$lambda_0($receiver_17) {
   }
-  function img_0($receiver_17, alt, src, classes, block) {
+  function img($receiver_17, alt, src, classes, block) {
     if (alt === void 0)
       alt = null;
     if (src === void 0)
@@ -17322,6 +17556,9 @@ module.exports = function(module) {
     this.data = new Node$data$ObjectLiteral();
     this.children = Kotlin.kotlin.collections.ArrayList_init_ww73n8$();
   }
+  Node_0.prototype.setAttr_jyasbz$ = function (name, value) {
+    this.data.attrs[name] = value;
+  };
   Node_0.prototype.addText_61zpoe$ = function (added) {
     if (this.text == null)
       this.text = added;
@@ -17429,12 +17666,19 @@ module.exports = function(module) {
     }
   });
   HBuilder.prototype.onTagStart_tkgjla$ = function (tag) {
-    var $receiver_17 = this.stack_0;
-    var element_17 = new Node_0(tag.tagName);
-    $receiver_17.add_11rb$(element_17);
+    var node = new Node_0(tag.tagName);
+    var tmp$_17;
+    tmp$_17 = tag.attributes.entries.iterator();
+    while (tmp$_17.hasNext()) {
+      var element_17 = tmp$_17.next();
+      var name = element_17.key;
+      var value = element_17.value;
+      node.setAttr_jyasbz$(name, value);
+    }
+    this.stack_0.add_11rb$(node);
   };
   HBuilder.prototype.onTagAttributeChange_5n2z71$ = function (tag, attribute, value) {
-    this.current_0.data.attrs[attribute] = value;
+    this.current_0.setAttr_jyasbz$(attribute, value);
   };
   HBuilder.prototype.onTagEvent_azi6uv$ = function (tag, event, value) {
   };
@@ -17474,7 +17718,7 @@ module.exports = function(module) {
       closure$node.resolved = vtree;
     };
   }
-  HBuilder.prototype.invoke_reqebo$ = function ($receiver_17, handler) {
+  HBuilder.prototype.invoke_kkoh0z$ = function ($receiver_17, handler) {
     var node = new ReactiveNode();
     this.current_0.addChild_ghr9b3$(node);
     var stream = h_0($receiver_17, handler);
@@ -17508,11 +17752,21 @@ module.exports = function(module) {
   function h_0(stream, handler) {
     return flatMap_0(stream, h$lambda(handler));
   }
-  function single$lambda(it) {
+  function appDiv$lambda$lambda(closure$handler, this$) {
+    return function ($receiver_17) {
+      closure$handler(this$);
+    };
+  }
+  function appDiv$lambda(closure$handler) {
+    return function ($receiver_17) {
+      div_0($receiver_17, void 0, appDiv$lambda$lambda(closure$handler, $receiver_17));
+    };
+  }
+  function appDiv$lambda_0(it) {
     return first(it);
   }
-  function single(handler) {
-    return h_1(handler).map(single$lambda);
+  function appDiv(handler) {
+    return h_1(appDiv$lambda(handler)).map(appDiv$lambda_0);
   }
   function flatMap_0($receiver_17, project) {
     return $receiver_17.map(project).flatten();
@@ -17520,12 +17774,496 @@ module.exports = function(module) {
   function combine$lambda(closure$project) {
     return function (values) {
       var tmp$_17, tmp$_18;
-      return closure$project((tmp$_17 = values[0]) == null || Kotlin.isType(tmp$_17, Any) ? tmp$_17 : Kotlin.throwCCE(), (tmp$_18 = values[1]) == null || Kotlin.isType(tmp$_18, Any) ? tmp$_18 : Kotlin.throwCCE());
+      return closure$project(Kotlin.isType(tmp$_17 = values[0], Any) ? tmp$_17 : Kotlin.throwCCE(), Kotlin.isType(tmp$_18 = values[1], Any) ? tmp$_18 : Kotlin.throwCCE());
     };
   }
   function combine_0(s1, s2, project) {
     return $module$xstream.default.combine(s1, s2).map(combine$lambda(project));
   }
+  function create_1(producer) {
+    return $module$xstream.default.create(jsObject(producer));
+  }
+  function jsonpStream$lambda$lambda$lambda(closure$listener) {
+    return function (err, data) {
+      if (err != null)
+        closure$listener.error(err);
+      else {
+        closure$listener.next(data);
+      }
+    };
+  }
+  function jsonpStream$lambda$lambda(closure$url, closure$opts, closure$cancel) {
+    return function (listener) {
+      closure$cancel.v = $module$jsonp(closure$url, closure$opts, jsonpStream$lambda$lambda$lambda(listener));
+    };
+  }
+  function jsonpStream$lambda$lambda_0(closure$cancel) {
+    return function () {
+      var tmp$_17;
+      (tmp$_17 = closure$cancel.v) != null ? tmp$_17() : null;
+    };
+  }
+  function jsonpStream$lambda(closure$url, closure$opts) {
+    return function ($receiver_17) {
+      var cancel = {v: null};
+      $receiver_17.start = jsonpStream$lambda$lambda(closure$url, closure$opts, cancel);
+      $receiver_17.stop = jsonpStream$lambda$lambda_0(cancel);
+    };
+  }
+  function jsonpStream(url, opts) {
+    if (opts === void 0)
+      opts = null;
+    return create_1(jsonpStream$lambda(url, opts));
+  }
+  function addListener$lambda$lambda(it) {
+  }
+  function addListener$lambda$lambda_0(it) {
+  }
+  function addListener$lambda$lambda_1() {
+  }
+  function addListener$lambda($receiver_17) {
+    $receiver_17.next = addListener$lambda$lambda;
+    $receiver_17.error = addListener$lambda$lambda_0;
+    $receiver_17.complete = addListener$lambda$lambda_1;
+  }
+  function addListener($receiver_17, listener) {
+    if (listener === void 0)
+      listener = addListener$lambda;
+    $receiver_17.addListener(jsObject(listener));
+  }
+  var version;
+  var root;
+  function VKReq(ns, method) {
+    this.ns = ns;
+    this.method = method;
+    this.params = new Params(null, [to('v', version), to('access_token', VK_getInstance().access_token)]);
+    this.category = null;
+    this.urlBase_a8ygae$_0 = root + '/' + this.ns + '.' + this.method;
+  }
+  Object.defineProperty(VKReq.prototype, 'url', {
+    get: function () {
+      return this.urlBase_a8ygae$_0 + '?' + this.params;
+    }
+  });
+  function VKReq$response$lambda(it) {
+    var tmp$_17;
+    if (it.error != null) {
+      throw new Error_0(((tmp$_17 = it.error) != null ? tmp$_17 : Kotlin.throwNPE()).error_msg);
+    }
+    return it.response;
+  }
+  VKReq.prototype.response = function () {
+    var stream = jsonpStream(this.url);
+    return stream.map(VKReq$response$lambda);
+  };
+  function VKReq$Users(method) {
+    VKReq.call(this, 'users', method);
+  }
+  function VKReq$Users$Get() {
+    VKReq$Users$Get$Companion_getInstance();
+    VKReq$Users.call(this, 'get');
+    this.user_ids$delegate = new Params$IntList(this.params);
+    this.fields$delegate = new Params$PropList(this.params);
+    this.name_case$delegate = new Params$EnumString(this.params);
+  }
+  function VKReq$Users$Get$Companion() {
+    VKReq$Users$Get$Companion_instance = this;
+  }
+  VKReq$Users$Get$Companion.$metadata$ = {
+    kind: Kotlin.Kind.OBJECT,
+    simpleName: 'Companion',
+    interfaces: [Builder]
+  };
+  var VKReq$Users$Get$Companion_instance = null;
+  function VKReq$Users$Get$Companion_getInstance() {
+    if (VKReq$Users$Get$Companion_instance === null) {
+      new VKReq$Users$Get$Companion();
+    }
+    return VKReq$Users$Get$Companion_instance;
+  }
+  Object.defineProperty(VKReq$Users$Get.prototype, 'user_ids', {
+    get: function () {
+      return this.user_ids$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('user_ids'));
+    },
+    set: function (user_ids) {
+      this.user_ids$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('user_ids'), user_ids);
+    }
+  });
+  Object.defineProperty(VKReq$Users$Get.prototype, 'fields', {
+    get: function () {
+      return this.fields$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('fields'));
+    },
+    set: function (fields) {
+      this.fields$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('fields'), fields);
+    }
+  });
+  Object.defineProperty(VKReq$Users$Get.prototype, 'name_case', {
+    get: function () {
+      return this.name_case$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('name_case'));
+    }
+  });
+  VKReq$Users$Get.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'Get',
+    interfaces: [VKReq$Users]
+  };
+  VKReq$Users.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'Users',
+    interfaces: [VKReq]
+  };
+  function VKReq$Photos(method) {
+    VKReq.call(this, 'photos', method);
+  }
+  function VKReq$Photos$GetAlbums() {
+    VKReq$Photos$GetAlbums$Companion_getInstance();
+    VKReq$Photos.call(this, 'getAlbums');
+    this.owner_id$delegate = new Params$Integer(this.params);
+    this.album_ids$delegate = new Params$IntList(this.params);
+    this.offset$delegate = new Params$Integer(this.params);
+    this.count$delegate = new Params$Integer(this.params);
+    this.need_system$delegate = new Params$Bool(this.params);
+    this.need_covers$delegate = new Params$Bool(this.params);
+    this.photo_sizes$delegate = new Params$Bool(this.params);
+  }
+  function VKReq$Photos$GetAlbums$Companion() {
+    VKReq$Photos$GetAlbums$Companion_instance = this;
+  }
+  VKReq$Photos$GetAlbums$Companion.$metadata$ = {
+    kind: Kotlin.Kind.OBJECT,
+    simpleName: 'Companion',
+    interfaces: [Builder]
+  };
+  var VKReq$Photos$GetAlbums$Companion_instance = null;
+  function VKReq$Photos$GetAlbums$Companion_getInstance() {
+    if (VKReq$Photos$GetAlbums$Companion_instance === null) {
+      new VKReq$Photos$GetAlbums$Companion();
+    }
+    return VKReq$Photos$GetAlbums$Companion_instance;
+  }
+  Object.defineProperty(VKReq$Photos$GetAlbums.prototype, 'owner_id', {
+    get: function () {
+      return this.owner_id$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('owner_id'));
+    },
+    set: function (owner_id) {
+      this.owner_id$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('owner_id'), owner_id);
+    }
+  });
+  Object.defineProperty(VKReq$Photos$GetAlbums.prototype, 'album_ids', {
+    get: function () {
+      return this.album_ids$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('album_ids'));
+    },
+    set: function (album_ids) {
+      this.album_ids$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('album_ids'), album_ids);
+    }
+  });
+  Object.defineProperty(VKReq$Photos$GetAlbums.prototype, 'offset', {
+    get: function () {
+      return this.offset$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('offset'));
+    },
+    set: function (offset) {
+      this.offset$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('offset'), offset);
+    }
+  });
+  Object.defineProperty(VKReq$Photos$GetAlbums.prototype, 'count', {
+    get: function () {
+      return this.count$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('count'));
+    },
+    set: function (count) {
+      this.count$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('count'), count);
+    }
+  });
+  Object.defineProperty(VKReq$Photos$GetAlbums.prototype, 'need_system', {
+    get: function () {
+      return this.need_system$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('need_system'));
+    },
+    set: function (need_system) {
+      this.need_system$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('need_system'), need_system);
+    }
+  });
+  Object.defineProperty(VKReq$Photos$GetAlbums.prototype, 'need_covers', {
+    get: function () {
+      return this.need_covers$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('need_covers'));
+    },
+    set: function (need_covers) {
+      this.need_covers$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('need_covers'), need_covers);
+    }
+  });
+  Object.defineProperty(VKReq$Photos$GetAlbums.prototype, 'photo_sizes', {
+    get: function () {
+      return this.photo_sizes$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('photo_sizes'));
+    },
+    set: function (photo_sizes) {
+      this.photo_sizes$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('photo_sizes'), photo_sizes);
+    }
+  });
+  VKReq$Photos$GetAlbums.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'GetAlbums',
+    interfaces: [VKReq$Photos]
+  };
+  VKReq$Photos.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'Photos',
+    interfaces: [VKReq]
+  };
+  VKReq.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'VKReq',
+    interfaces: []
+  };
+  function VK() {
+    VK_instance = this;
+    this.params_0 = new Params(window.location.search, []);
+    this.access_token$delegate = this.params_0;
+    this.api_result$delegate = new Params$Json(this.params_0);
+    this.me = $module$xstream.default.of(new UserVM(first_0(this.api_result.response)));
+  }
+  Object.defineProperty(VK.prototype, 'access_token', {
+    get: function () {
+      return this.access_token$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('access_token'));
+    }
+  });
+  Object.defineProperty(VK.prototype, 'api_result', {
+    get: function () {
+      return this.api_result$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('api_result'));
+    }
+  });
+  VK.$metadata$ = {
+    kind: Kotlin.Kind.OBJECT,
+    simpleName: 'VK',
+    interfaces: []
+  };
+  var VK_instance = null;
+  function VK_getInstance() {
+    if (VK_instance === null) {
+      new VK();
+    }
+    return VK_instance;
+  }
+  function ResponseStream(category, stream) {
+    this.category = category;
+    this.stream = stream;
+  }
+  ResponseStream.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'ResponseStream',
+    interfaces: []
+  };
+  ResponseStream.prototype.component1 = function () {
+    return this.category;
+  };
+  ResponseStream.prototype.component2 = function () {
+    return this.stream;
+  };
+  ResponseStream.prototype.copy_kwmojb$ = function (category, stream) {
+    return new ResponseStream(category === void 0 ? this.category : category, stream === void 0 ? this.stream : stream);
+  };
+  ResponseStream.prototype.toString = function () {
+    return 'ResponseStream(category=' + Kotlin.toString(this.category) + (', stream=' + Kotlin.toString(this.stream)) + ')';
+  };
+  ResponseStream.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.category) | 0;
+    result = result * 31 + Kotlin.hashCode(this.stream) | 0;
+    return result;
+  };
+  ResponseStream.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.category, other.category) && Kotlin.equals(this.stream, other.stream)))));
+  };
+  function VKSource(responses, me) {
+    this.responses = responses;
+    this.me = me;
+  }
+  VKSource.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'VKSource',
+    interfaces: []
+  };
+  VKSource.prototype.component1 = function () {
+    return this.responses;
+  };
+  VKSource.prototype.component2 = function () {
+    return this.me;
+  };
+  VKSource.prototype.copy_ne2aan$ = function (responses, me) {
+    return new VKSource(responses === void 0 ? this.responses : responses, me === void 0 ? this.me : me);
+  };
+  VKSource.prototype.toString = function () {
+    return 'VKSource(responses=' + Kotlin.toString(this.responses) + (', me=' + Kotlin.toString(this.me)) + ')';
+  };
+  VKSource.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.responses) | 0;
+    result = result * 31 + Kotlin.hashCode(this.me) | 0;
+    return result;
+  };
+  VKSource.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.responses, other.responses) && Kotlin.equals(this.me, other.me)))));
+  };
+  function select$lambda_2(closure$category) {
+    return function (it) {
+      return Kotlin.equals(it.category, closure$category);
+    };
+  }
+  function select$lambda_3(it) {
+    var tmp$_17;
+    return Kotlin.isType(tmp$_17 = it.stream, Object) ? tmp$_17 : Kotlin.throwCCE();
+  }
+  function select_2($receiver_17, category) {
+    return flatMap_0($receiver_17.responses.filter(select$lambda_2(category)), select$lambda_3);
+  }
+  function VKDriver$lambda$lambda(it) {
+    var tmp$_17 = it.category;
+    var $receiver_17 = it.response();
+    addListener($receiver_17);
+    return new ResponseStream(tmp$_17, $receiver_17);
+  }
+  function VKDriver$lambda(sink, name) {
+    return new VKSource(sink.map(VKDriver$lambda$lambda), VK_getInstance().me);
+  }
+  var VKDriver;
+  function VKStructVM() {
+  }
+  VKStructVM.$metadata$ = {
+    kind: Kotlin.Kind.INTERFACE,
+    simpleName: 'VKStructVM',
+    interfaces: []
+  };
+  function UserVM(user) {
+    this.user = user;
+    this.albums$delegate = lazy(UserVM$albums$lambda(this));
+  }
+  Object.defineProperty(UserVM.prototype, 'albums', {
+    get: function () {
+      var $receiver_17 = this.albums$delegate;
+      new Kotlin.PropertyMetadata('albums');
+      return $receiver_17.value;
+    }
+  });
+  function UserVM$albums$lambda$lambda(it) {
+    var destination_17 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$(it.length);
+    var tmp$_17;
+    for (tmp$_17 = 0; tmp$_17 !== it.length; ++tmp$_17) {
+      var item = it[tmp$_17];
+      destination_17.add_11rb$(new AlbumVM(item));
+    }
+    return destination_17;
+  }
+  function UserVM$albums$lambda(this$UserVM) {
+    return function () {
+      VKReq$Photos$GetAlbums$Companion_getInstance();
+      var ctor = Kotlin.kotlin.js.get_js_1yb8b7$(Kotlin.getKClass(VKReq$Photos$GetAlbums));
+      var $receiver_17 = new ctor();
+      $receiver_17.owner_id = this$UserVM.user.id;
+      return $receiver_17.response().map(UserVM$albums$lambda$lambda);
+    };
+  }
+  UserVM.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'UserVM',
+    interfaces: [VKStructVM]
+  };
+  UserVM.prototype.component1 = function () {
+    return this.user;
+  };
+  UserVM.prototype.copy_7loy2s$ = function (user) {
+    return new UserVM(user === void 0 ? this.user : user);
+  };
+  UserVM.prototype.toString = function () {
+    return 'UserVM(user=' + Kotlin.toString(this.user) + ')';
+  };
+  UserVM.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.user) | 0;
+    return result;
+  };
+  UserVM.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && Kotlin.equals(this.user, other.user))));
+  };
+  function Case(name, ordinal) {
+    Enum.call(this);
+    this.name$ = name;
+    this.ordinal$ = ordinal;
+  }
+  function Case_initFields() {
+    Case_initFields = function () {
+    };
+    Case$nom_instance = new Case('nom', 0);
+    Case$gen_instance = new Case('gen', 1);
+    Case$dat_instance = new Case('dat', 2);
+    Case$acc_instance = new Case('acc', 3);
+    Case$ins_instance = new Case('ins', 4);
+    Case$abl_instance = new Case('abl', 5);
+  }
+  var Case$nom_instance;
+  function Case$nom_getInstance() {
+    Case_initFields();
+    return Case$nom_instance;
+  }
+  var Case$gen_instance;
+  function Case$gen_getInstance() {
+    Case_initFields();
+    return Case$gen_instance;
+  }
+  var Case$dat_instance;
+  function Case$dat_getInstance() {
+    Case_initFields();
+    return Case$dat_instance;
+  }
+  var Case$acc_instance;
+  function Case$acc_getInstance() {
+    Case_initFields();
+    return Case$acc_instance;
+  }
+  var Case$ins_instance;
+  function Case$ins_getInstance() {
+    Case_initFields();
+    return Case$ins_instance;
+  }
+  var Case$abl_instance;
+  function Case$abl_getInstance() {
+    Case_initFields();
+    return Case$abl_instance;
+  }
+  Case.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'Case',
+    interfaces: [Enum]
+  };
+  function Case$values() {
+    return [Case$nom_getInstance(), Case$gen_getInstance(), Case$dat_getInstance(), Case$acc_getInstance(), Case$ins_getInstance(), Case$abl_getInstance()];
+  }
+  Case.values = Case$values;
+  function Case$valueOf(name) {
+    switch (name) {
+      case 'nom':
+        return Case$nom_getInstance();
+      case 'gen':
+        return Case$gen_getInstance();
+      case 'dat':
+        return Case$dat_getInstance();
+      case 'acc':
+        return Case$acc_getInstance();
+      case 'ins':
+        return Case$ins_getInstance();
+      case 'abl':
+        return Case$abl_getInstance();
+      default:Kotlin.throwISE('No enum constant vk.Case.' + name);
+    }
+  }
+  Case.valueOf_61zpoe$ = Case$valueOf;
+  function get_fullName($receiver_17) {
+    return $receiver_17.first_name + ' ' + $receiver_17.last_name;
+  }
+  function AlbumVM(album) {
+    this.album = album;
+  }
+  AlbumVM.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'AlbumVM',
+    interfaces: [VKStructVM]
+  };
   JSDOMBuilder.prototype.onTagError_cjwpn3$ = TagConsumer.prototype.onTagError_cjwpn3$;
   DefaultUnsafe.prototype.unaryPlus_lvwjq6$ = Unsafe.prototype.unaryPlus_lvwjq6$;
   SingletonStringMap.prototype.getOrDefault_xwzc9p$ = Map.prototype.getOrDefault_xwzc9p$;
@@ -17814,11 +18552,23 @@ module.exports = function(module) {
   HBuilder$onTagContentUnsafe$ObjectLiteral.prototype.unaryPlus_lvwjq6$ = Unsafe.prototype.unaryPlus_lvwjq6$;
   HBuilder.prototype.onTagError_cjwpn3$ = TagConsumer.prototype.onTagError_cjwpn3$;
   var package$app = _.app || (_.app = {});
-  package$app.app_lwy2ck$ = app;
+  package$app.app_lwy2ck$ = app_0;
   package$app.AppDrivers = AppDrivers;
   package$app.AppSources = AppSources;
   package$app.AppSinks = AppSinks;
   package$app.main_kand9s$ = main;
+  Params.Delegate = Params$Delegate;
+  Params.Json = Params$Json;
+  Params.Bool = Params$Bool;
+  Params.Integer = Params$Integer;
+  Params.StringList = Params$StringList;
+  Params.IntList = Params$IntList;
+  Params.PropList = Params$PropList;
+  Params.EnumString = Params$EnumString;
+  package$app.Params = Params;
+  package$app.Builder = Builder;
+  package$app.jsObject_7qq44f$ = jsObject;
+  package$app.js_5ij4lk$ = js_0;
   var package$kotlinx = _.kotlinx || (_.kotlinx = {});
   var package$html = package$kotlinx.html || (package$kotlinx.html = {});
   var package$dom = package$html.dom || (package$html.dom = {});
@@ -17857,7 +18607,7 @@ module.exports = function(module) {
   package$js.details_v1c0ag$ = details;
   package$js.dfn_6e2jtu$ = dfn;
   package$js.dialog_o1mqye$ = dialog;
-  package$js.div_wkomt5$ = div_0;
+  package$js.div_wkomt5$ = div;
   package$js.dl_4s12uu$ = dl;
   package$js.dt_iewpf2$ = dt;
   package$js.em_bpkgve$ = em;
@@ -17881,7 +18631,7 @@ module.exports = function(module) {
   package$js.i_5jry8x$ = i;
   package$js.iframe_4ksjnb$ = iframe;
   package$js.iframe_g0q2yy$ = iframe_0;
-  package$js.img_6lw7hj$ = img;
+  package$js.img_6lw7hj$ = img_0;
   package$js.input_x8a5sv$ = input;
   package$js.ins_xcl8o4$ = ins;
   package$js.kbd_ijivhf$ = kbd;
@@ -17890,7 +18640,7 @@ module.exports = function(module) {
   package$js.legEnd_ax8bv3$ = legEnd;
   package$js.li_525bpd$ = li;
   package$js.link_iq3rqc$ = link;
-  package$js.map_ibzf9n$ = map;
+  package$js.map_ibzf9n$ = map_0;
   package$js.mark_44qn2n$ = mark;
   package$js.math_giqjli$ = math;
   package$js.mathml_61vnh7$ = mathml;
@@ -18324,7 +19074,7 @@ module.exports = function(module) {
   package$html.details_lsny6o$ = details_0;
   package$html.dfn_qz8qfa$ = dfn_0;
   package$html.dialog_tmuuku$ = dialog_0;
-  package$html.div_59el9d$ = div;
+  package$html.div_59el9d$ = div_0;
   package$html.dl_jwau0i$ = dl_0;
   package$html.dt_t7lw6$ = dt_0;
   package$html.em_83d4cy$ = em_0;
@@ -18348,7 +19098,7 @@ module.exports = function(module) {
   package$html.i_gncgg9$ = i_0;
   package$html.iframe_i3obeb$ = iframe_1;
   package$html.iframe_k7pgs2$ = iframe_2;
-  package$html.img_45d5o1$ = img_0;
+  package$html.img_45d5o1$ = img;
   package$html.input_mm0abt$ = input_0;
   package$html.ins_e5g22k$ = ins_0;
   package$html.kbd_10o0fv$ = kbd_0;
@@ -19532,11 +20282,60 @@ module.exports = function(module) {
   package$dom_0.Node = Node_0;
   package$dom_0.HBuilder = HBuilder;
   package$dom_0.h_i5xoex$ = h_1;
-  package$dom_0.h_6r8vx5$ = h_0;
-  package$dom_0.single_i5xoex$ = single;
+  package$dom_0.h_dlat7u$ = h_0;
+  package$dom_0.appDiv_i5xoex$ = appDiv;
   var package$xstream = package$lib.xstream || (package$lib.xstream = {});
-  package$xstream.flatMap_gxq96n$ = flatMap_0;
-  package$xstream.combine_k9vnfv$ = combine_0;
+  package$xstream.flatMap_im4ds3$ = flatMap_0;
+  package$xstream.combine_6klblv$ = combine_0;
+  package$xstream.create_oe1f0k$ = create_1;
+  package$xstream.jsonpStream_rzpbx2$ = jsonpStream;
+  package$xstream.addListener_lki0o0$ = addListener;
+  Object.defineProperty(VKReq$Users$Get, 'Companion', {
+    get: VKReq$Users$Get$Companion_getInstance
+  });
+  VKReq$Users.Get = VKReq$Users$Get;
+  VKReq.Users = VKReq$Users;
+  Object.defineProperty(VKReq$Photos$GetAlbums, 'Companion', {
+    get: VKReq$Photos$GetAlbums$Companion_getInstance
+  });
+  VKReq$Photos.GetAlbums = VKReq$Photos$GetAlbums;
+  VKReq.Photos = VKReq$Photos;
+  var package$vk = _.vk || (_.vk = {});
+  package$vk.VKReq = VKReq;
+  Object.defineProperty(package$vk, 'VK', {
+    get: VK_getInstance
+  });
+  package$vk.ResponseStream = ResponseStream;
+  package$vk.VKSource = VKSource;
+  package$vk.select_qk4zry$ = select_2;
+  Object.defineProperty(package$vk, 'VKDriver', {
+    get: function () {
+      return VKDriver;
+    }
+  });
+  package$vk.VKStructVM = VKStructVM;
+  package$vk.UserVM = UserVM;
+  Object.defineProperty(Case, 'nom', {
+    get: Case$nom_getInstance
+  });
+  Object.defineProperty(Case, 'gen', {
+    get: Case$gen_getInstance
+  });
+  Object.defineProperty(Case, 'dat', {
+    get: Case$dat_getInstance
+  });
+  Object.defineProperty(Case, 'acc', {
+    get: Case$acc_getInstance
+  });
+  Object.defineProperty(Case, 'ins', {
+    get: Case$ins_getInstance
+  });
+  Object.defineProperty(Case, 'abl', {
+    get: Case$abl_getInstance
+  });
+  package$vk.Case = Case;
+  package$vk.get_fullName_ml56i3$ = get_fullName;
+  package$vk.AlbumVM = AlbumVM;
   emptyMap = emptyMap_0();
   attributeStringString = new StringAttribute();
   attributeSetStringStringSet = new StringSetAttribute();
@@ -19727,10 +20526,13 @@ module.exports = function(module) {
   letterRangeLowerCase = new CharRange(97, 122);
   letterRangeUpperCase = new CharRange(65, 90);
   digitRange = new CharRange(48, 57);
+  version = '5.62';
+  root = 'https://api.vk.com/method';
+  VKDriver = VKDriver$lambda;
   Kotlin.defineModule('_compiled-tmp', _);
   main([]);
   return _;
-}(module.exports, __webpack_require__(88), __webpack_require__(1), __webpack_require__(42), __webpack_require__(48)));
+}(module.exports, __webpack_require__(91), __webpack_require__(1), __webpack_require__(42), __webpack_require__(48), __webpack_require__(90)));
 
 //@ sourceMappingURL=_compiled-tmp.js.map
 
@@ -20143,7 +20945,7 @@ exports.IsolateModule = IsolateModule;
 "use strict";
 
 var h_1 = __webpack_require__(7);
-var classNameFromVNode_1 = __webpack_require__(95);
+var classNameFromVNode_1 = __webpack_require__(99);
 var selectorParser_1 = __webpack_require__(28);
 var VNodeWrapper = (function () {
     function VNodeWrapper(rootElement) {
@@ -20606,10 +21408,10 @@ exports.isolateSink = isolateSink;
 
 "use strict";
 
-var snabbdom_1 = __webpack_require__(107);
+var snabbdom_1 = __webpack_require__(111);
 var xstream_1 = __webpack_require__(1);
 var MainDOMSource_1 = __webpack_require__(19);
-var tovnode_1 = __webpack_require__(108);
+var tovnode_1 = __webpack_require__(112);
 var VNodeWrapper_1 = __webpack_require__(40);
 var utils_1 = __webpack_require__(5);
 var modules_1 = __webpack_require__(47);
@@ -20687,8 +21489,8 @@ exports.makeDOMDriver = makeDOMDriver;
 "use strict";
 
 var HTMLSource_1 = __webpack_require__(18);
-var init = __webpack_require__(96);
-var modulesForHTML = __webpack_require__(99);
+var init = __webpack_require__(100);
+var modulesForHTML = __webpack_require__(103);
 var defaultModules = [
     modulesForHTML.attributes,
     modulesForHTML.props,
@@ -20780,15 +21582,15 @@ exports.mockDOMSource = mockDOMSource;
 
 "use strict";
 
-var class_1 = __webpack_require__(103);
+var class_1 = __webpack_require__(107);
 exports.ClassModule = class_1.default;
-var props_1 = __webpack_require__(105);
+var props_1 = __webpack_require__(109);
 exports.PropsModule = props_1.default;
-var attributes_1 = __webpack_require__(102);
+var attributes_1 = __webpack_require__(106);
 exports.AttrsModule = attributes_1.default;
-var style_1 = __webpack_require__(106);
+var style_1 = __webpack_require__(110);
 exports.StyleModule = style_1.default;
-var dataset_1 = __webpack_require__(104);
+var dataset_1 = __webpack_require__(108);
 exports.DatasetModule = dataset_1.default;
 var modules = [style_1.default, class_1.default, props_1.default, attributes_1.default, dataset_1.default];
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -21105,8 +21907,8 @@ module.exports = (function split(undef) {
 "use strict";
 
 
-var copy       = __webpack_require__(60)
-  , map        = __webpack_require__(68)
+var copy       = __webpack_require__(62)
+  , map        = __webpack_require__(70)
   , callable   = __webpack_require__(3)
   , validValue = __webpack_require__(0)
 
@@ -21140,10 +21942,387 @@ module.exports = function (props/*, bindTo*/) {
 /* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
+
+/**
+ * This is the web browser implementation of `debug()`.
+ *
+ * Expose `debug()` as the module.
+ */
+
+exports = module.exports = __webpack_require__(52);
+exports.log = log;
+exports.formatArgs = formatArgs;
+exports.save = save;
+exports.load = load;
+exports.useColors = useColors;
+exports.storage = 'undefined' != typeof chrome
+               && 'undefined' != typeof chrome.storage
+                  ? chrome.storage.local
+                  : localstorage();
+
+/**
+ * Colors.
+ */
+
+exports.colors = [
+  'lightseagreen',
+  'forestgreen',
+  'goldenrod',
+  'dodgerblue',
+  'darkorchid',
+  'crimson'
+];
+
+/**
+ * Currently only WebKit-based Web Inspectors, Firefox >= v31,
+ * and the Firebug extension (any Firefox version) are known
+ * to support "%c" CSS customizations.
+ *
+ * TODO: add a `localStorage` variable to explicitly enable/disable colors
+ */
+
+function useColors() {
+  // is webkit? http://stackoverflow.com/a/16459606/376773
+  return ('WebkitAppearance' in document.documentElement.style) ||
+    // is firebug? http://stackoverflow.com/a/398120/376773
+    (window.console && (console.firebug || (console.exception && console.table))) ||
+    // is firefox >= v31?
+    // https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages
+    (navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31);
+}
+
+/**
+ * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.
+ */
+
+exports.formatters.j = function(v) {
+  return JSON.stringify(v);
+};
+
+
+/**
+ * Colorize log arguments if enabled.
+ *
+ * @api public
+ */
+
+function formatArgs() {
+  var args = arguments;
+  var useColors = this.useColors;
+
+  args[0] = (useColors ? '%c' : '')
+    + this.namespace
+    + (useColors ? ' %c' : ' ')
+    + args[0]
+    + (useColors ? '%c ' : ' ')
+    + '+' + exports.humanize(this.diff);
+
+  if (!useColors) return args;
+
+  var c = 'color: ' + this.color;
+  args = [args[0], c, 'color: inherit'].concat(Array.prototype.slice.call(args, 1));
+
+  // the final "%c" is somewhat tricky, because there could be other
+  // arguments passed either before or after the %c, so we need to
+  // figure out the correct index to insert the CSS into
+  var index = 0;
+  var lastC = 0;
+  args[0].replace(/%[a-z%]/g, function(match) {
+    if ('%%' === match) return;
+    index++;
+    if ('%c' === match) {
+      // we only are interested in the *last* %c
+      // (the user may have provided their own)
+      lastC = index;
+    }
+  });
+
+  args.splice(lastC, 0, c);
+  return args;
+}
+
+/**
+ * Invokes `console.log()` when available.
+ * No-op when `console.log` is not a "function".
+ *
+ * @api public
+ */
+
+function log() {
+  // this hackery is required for IE8/9, where
+  // the `console.log` function doesn't have 'apply'
+  return 'object' === typeof console
+    && console.log
+    && Function.prototype.apply.call(console.log, console, arguments);
+}
+
+/**
+ * Save `namespaces`.
+ *
+ * @param {String} namespaces
+ * @api private
+ */
+
+function save(namespaces) {
+  try {
+    if (null == namespaces) {
+      exports.storage.removeItem('debug');
+    } else {
+      exports.storage.debug = namespaces;
+    }
+  } catch(e) {}
+}
+
+/**
+ * Load `namespaces`.
+ *
+ * @return {String} returns the previously persisted debug modes
+ * @api private
+ */
+
+function load() {
+  var r;
+  try {
+    r = exports.storage.debug;
+  } catch(e) {}
+  return r;
+}
+
+/**
+ * Enable namespaces listed in `localStorage.debug` initially.
+ */
+
+exports.enable(load());
+
+/**
+ * Localstorage attempts to return the localstorage.
+ *
+ * This is necessary because safari throws
+ * when a user disables cookies/localstorage
+ * and you attempt to access it.
+ *
+ * @return {LocalStorage}
+ * @api private
+ */
+
+function localstorage(){
+  try {
+    return window.localStorage;
+  } catch (e) {}
+}
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/**
+ * This is the common logic for both the Node.js and web browser
+ * implementations of `debug()`.
+ *
+ * Expose `debug()` as the module.
+ */
+
+exports = module.exports = debug;
+exports.coerce = coerce;
+exports.disable = disable;
+exports.enable = enable;
+exports.enabled = enabled;
+exports.humanize = __webpack_require__(95);
+
+/**
+ * The currently active debug mode names, and names to skip.
+ */
+
+exports.names = [];
+exports.skips = [];
+
+/**
+ * Map of special "%n" handling functions, for the debug "format" argument.
+ *
+ * Valid key names are a single, lowercased letter, i.e. "n".
+ */
+
+exports.formatters = {};
+
+/**
+ * Previously assigned color.
+ */
+
+var prevColor = 0;
+
+/**
+ * Previous log timestamp.
+ */
+
+var prevTime;
+
+/**
+ * Select a color.
+ *
+ * @return {Number}
+ * @api private
+ */
+
+function selectColor() {
+  return exports.colors[prevColor++ % exports.colors.length];
+}
+
+/**
+ * Create a debugger with the given `namespace`.
+ *
+ * @param {String} namespace
+ * @return {Function}
+ * @api public
+ */
+
+function debug(namespace) {
+
+  // define the `disabled` version
+  function disabled() {
+  }
+  disabled.enabled = false;
+
+  // define the `enabled` version
+  function enabled() {
+
+    var self = enabled;
+
+    // set `diff` timestamp
+    var curr = +new Date();
+    var ms = curr - (prevTime || curr);
+    self.diff = ms;
+    self.prev = prevTime;
+    self.curr = curr;
+    prevTime = curr;
+
+    // add the `color` if not set
+    if (null == self.useColors) self.useColors = exports.useColors();
+    if (null == self.color && self.useColors) self.color = selectColor();
+
+    var args = Array.prototype.slice.call(arguments);
+
+    args[0] = exports.coerce(args[0]);
+
+    if ('string' !== typeof args[0]) {
+      // anything else let's inspect with %o
+      args = ['%o'].concat(args);
+    }
+
+    // apply any `formatters` transformations
+    var index = 0;
+    args[0] = args[0].replace(/%([a-z%])/g, function(match, format) {
+      // if we encounter an escaped % then don't increase the array index
+      if (match === '%%') return match;
+      index++;
+      var formatter = exports.formatters[format];
+      if ('function' === typeof formatter) {
+        var val = args[index];
+        match = formatter.call(self, val);
+
+        // now we need to remove `args[index]` since it's inlined in the `format`
+        args.splice(index, 1);
+        index--;
+      }
+      return match;
+    });
+
+    if ('function' === typeof exports.formatArgs) {
+      args = exports.formatArgs.apply(self, args);
+    }
+    var logFn = enabled.log || exports.log || console.log.bind(console);
+    logFn.apply(self, args);
+  }
+  enabled.enabled = true;
+
+  var fn = exports.enabled(namespace) ? enabled : disabled;
+
+  fn.namespace = namespace;
+
+  return fn;
+}
+
+/**
+ * Enables a debug mode by namespaces. This can include modes
+ * separated by a colon and wildcards.
+ *
+ * @param {String} namespaces
+ * @api public
+ */
+
+function enable(namespaces) {
+  exports.save(namespaces);
+
+  var split = (namespaces || '').split(/[\s,]+/);
+  var len = split.length;
+
+  for (var i = 0; i < len; i++) {
+    if (!split[i]) continue; // ignore empty strings
+    namespaces = split[i].replace(/\*/g, '.*?');
+    if (namespaces[0] === '-') {
+      exports.skips.push(new RegExp('^' + namespaces.substr(1) + '$'));
+    } else {
+      exports.names.push(new RegExp('^' + namespaces + '$'));
+    }
+  }
+}
+
+/**
+ * Disable debug output.
+ *
+ * @api public
+ */
+
+function disable() {
+  exports.enable('');
+}
+
+/**
+ * Returns true if the given mode name is enabled, false otherwise.
+ *
+ * @param {String} name
+ * @return {Boolean}
+ * @api public
+ */
+
+function enabled(name) {
+  var i, len;
+  for (i = 0, len = exports.skips.length; i < len; i++) {
+    if (exports.skips[i].test(name)) {
+      return false;
+    }
+  }
+  for (i = 0, len = exports.names.length; i < len; i++) {
+    if (exports.names[i].test(name)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Coerce `val`.
+ *
+ * @param {Mixed} val
+ * @return {Mixed}
+ * @api private
+ */
+
+function coerce(val) {
+  if (val instanceof Error) return val.stack || val.message;
+  return val;
+}
+
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
-var toPosInt = __webpack_require__(56)
+var toPosInt = __webpack_require__(58)
   , value    = __webpack_require__(0)
 
   , indexOf = Array.prototype.indexOf
@@ -21173,19 +22352,19 @@ module.exports = function (searchElement/*, fromIndex*/) {
 
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(53)()
+module.exports = __webpack_require__(55)()
 	? Math.sign
-	: __webpack_require__(54);
+	: __webpack_require__(56);
 
 
 /***/ }),
-/* 53 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21199,7 +22378,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 54 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21213,13 +22392,13 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 55 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var sign = __webpack_require__(52)
+var sign = __webpack_require__(54)
 
   , abs = Math.abs, floor = Math.floor;
 
@@ -21232,13 +22411,13 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 56 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var toInteger = __webpack_require__(55)
+var toInteger = __webpack_require__(57)
 
   , max = Math.max;
 
@@ -21246,7 +22425,7 @@ module.exports = function (value) { return max(0, toInteger(value)); };
 
 
 /***/ }),
-/* 57 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21282,7 +22461,7 @@ module.exports = function (method, defVal) {
 
 
 /***/ }),
-/* 58 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21298,13 +22477,13 @@ module.exports = function () {
 
 
 /***/ }),
-/* 59 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var keys  = __webpack_require__(65)
+var keys  = __webpack_require__(67)
   , value = __webpack_require__(0)
 
   , max = Math.max;
@@ -21327,7 +22506,7 @@ module.exports = function (dest, src/*, …srcn*/) {
 
 
 /***/ }),
-/* 60 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21344,7 +22523,7 @@ module.exports = function (obj) {
 
 
 /***/ }),
-/* 61 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21387,17 +22566,17 @@ module.exports = (function () {
 
 
 /***/ }),
-/* 62 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(57)('forEach');
+module.exports = __webpack_require__(59)('forEach');
 
 
 /***/ }),
-/* 63 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21409,7 +22588,7 @@ module.exports = function (obj) { return typeof obj === 'function'; };
 
 
 /***/ }),
-/* 64 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21423,19 +22602,19 @@ module.exports = function (x) {
 
 
 /***/ }),
-/* 65 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(66)()
+module.exports = __webpack_require__(68)()
 	? Object.keys
-	: __webpack_require__(67);
+	: __webpack_require__(69);
 
 
 /***/ }),
-/* 66 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21450,7 +22629,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 67 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21464,14 +22643,14 @@ module.exports = function (object) {
 
 
 /***/ }),
-/* 68 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var callable = __webpack_require__(3)
-  , forEach  = __webpack_require__(62)
+  , forEach  = __webpack_require__(64)
 
   , call = Function.prototype.call;
 
@@ -21486,7 +22665,7 @@ module.exports = function (obj, cb/*, thisArg*/) {
 
 
 /***/ }),
-/* 69 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21510,7 +22689,7 @@ module.exports = function (options/*, …options*/) {
 
 
 /***/ }),
-/* 70 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21526,7 +22705,7 @@ module.exports = function (arg/*, …args*/) {
 
 
 /***/ }),
-/* 71 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21541,7 +22720,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 72 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21555,7 +22734,7 @@ module.exports = function (searchString/*, position*/) {
 
 
 /***/ }),
-/* 73 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21592,7 +22771,7 @@ ArrayIterator.prototype = Object.create(Iterator.prototype, {
 
 
 /***/ }),
-/* 74 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21601,7 +22780,7 @@ ArrayIterator.prototype = Object.create(Iterator.prototype, {
 var isArguments = __webpack_require__(12)
   , callable    = __webpack_require__(3)
   , isString    = __webpack_require__(14)
-  , get         = __webpack_require__(75)
+  , get         = __webpack_require__(77)
 
   , isArray = Array.isArray, call = Function.prototype.call
   , some = Array.prototype.some;
@@ -21645,7 +22824,7 @@ module.exports = function (iterable, cb/*, thisArg*/) {
 
 
 /***/ }),
-/* 75 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21653,8 +22832,8 @@ module.exports = function (iterable, cb/*, thisArg*/) {
 
 var isArguments    = __webpack_require__(12)
   , isString       = __webpack_require__(14)
-  , ArrayIterator  = __webpack_require__(73)
-  , StringIterator = __webpack_require__(77)
+  , ArrayIterator  = __webpack_require__(75)
+  , StringIterator = __webpack_require__(79)
   , iterable       = __webpack_require__(26)
   , iteratorSymbol = __webpack_require__(6).iterator;
 
@@ -21667,7 +22846,7 @@ module.exports = function (obj) {
 
 
 /***/ }),
-/* 76 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21689,7 +22868,7 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 77 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21733,7 +22912,7 @@ StringIterator.prototype = Object.create(Iterator.prototype, {
 
 
 /***/ }),
-/* 78 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21772,7 +22951,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 79 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21788,18 +22967,18 @@ module.exports = (function () {
 
 
 /***/ }),
-/* 80 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(70)('key',
+module.exports = __webpack_require__(72)('key',
 	'value', 'key+value');
 
 
 /***/ }),
-/* 81 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21809,7 +22988,7 @@ var setPrototypeOf    = __webpack_require__(9)
   , d                 = __webpack_require__(2)
   , Iterator          = __webpack_require__(15)
   , toStringTagSymbol = __webpack_require__(6).toStringTag
-  , kinds             = __webpack_require__(80)
+  , kinds             = __webpack_require__(82)
 
   , defineProperties = Object.defineProperties
   , unBind = Iterator.prototype._unBind
@@ -21844,24 +23023,24 @@ Object.defineProperty(MapIterator.prototype, toStringTagSymbol,
 
 
 /***/ }),
-/* 82 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var clear          = __webpack_require__(22)
-  , eIndexOf       = __webpack_require__(51)
+  , eIndexOf       = __webpack_require__(53)
   , setPrototypeOf = __webpack_require__(9)
   , callable       = __webpack_require__(3)
   , validValue     = __webpack_require__(0)
   , d              = __webpack_require__(2)
-  , ee             = __webpack_require__(87)
+  , ee             = __webpack_require__(89)
   , Symbol         = __webpack_require__(6)
   , iterator       = __webpack_require__(26)
-  , forOf          = __webpack_require__(74)
-  , Iterator       = __webpack_require__(81)
-  , isNative       = __webpack_require__(79)
+  , forOf          = __webpack_require__(76)
+  , Iterator       = __webpack_require__(83)
+  , isNative       = __webpack_require__(81)
 
   , call = Function.prototype.call
   , defineProperties = Object.defineProperties, getPrototypeOf = Object.getPrototypeOf
@@ -21955,7 +23134,7 @@ Object.defineProperty(MapPoly.prototype, Symbol.toStringTag, d('c', 'Map'));
 
 
 /***/ }),
-/* 83 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21979,7 +23158,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 84 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21995,7 +23174,7 @@ module.exports = function (x) {
 
 
 /***/ }),
-/* 85 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22004,7 +23183,7 @@ module.exports = function (x) {
 
 
 var d              = __webpack_require__(2)
-  , validateSymbol = __webpack_require__(86)
+  , validateSymbol = __webpack_require__(88)
 
   , create = Object.create, defineProperties = Object.defineProperties
   , defineProperty = Object.defineProperty, objPrototype = Object.prototype
@@ -22120,13 +23299,13 @@ defineProperty(HiddenSymbol.prototype, SymbolPolyfill.toPrimitive,
 
 
 /***/ }),
-/* 86 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isSymbol = __webpack_require__(84);
+var isSymbol = __webpack_require__(86);
 
 module.exports = function (value) {
 	if (!isSymbol(value)) throw new TypeError(value + " is not a symbol");
@@ -22135,7 +23314,7 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 87 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22274,7 +23453,110 @@ exports.methods = methods;
 
 
 /***/ }),
-/* 88 */
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Module dependencies
+ */
+
+var debug = __webpack_require__(51)('jsonp');
+
+/**
+ * Module exports.
+ */
+
+module.exports = jsonp;
+
+/**
+ * Callback index.
+ */
+
+var count = 0;
+
+/**
+ * Noop function.
+ */
+
+function noop(){}
+
+/**
+ * JSONP handler
+ *
+ * Options:
+ *  - param {String} qs parameter (`callback`)
+ *  - prefix {String} qs parameter (`__jp`)
+ *  - name {String} qs parameter (`prefix` + incr)
+ *  - timeout {Number} how long after a timeout error is emitted (`60000`)
+ *
+ * @param {String} url
+ * @param {Object|Function} optional options / callback
+ * @param {Function} optional callback
+ */
+
+function jsonp(url, opts, fn){
+  if ('function' == typeof opts) {
+    fn = opts;
+    opts = {};
+  }
+  if (!opts) opts = {};
+
+  var prefix = opts.prefix || '__jp';
+
+  // use the callback name that was passed if one was provided.
+  // otherwise generate a unique name by incrementing our counter.
+  var id = opts.name || (prefix + (count++));
+
+  var param = opts.param || 'callback';
+  var timeout = null != opts.timeout ? opts.timeout : 60000;
+  var enc = encodeURIComponent;
+  var target = document.getElementsByTagName('script')[0] || document.head;
+  var script;
+  var timer;
+
+
+  if (timeout) {
+    timer = setTimeout(function(){
+      cleanup();
+      if (fn) fn(new Error('Timeout'));
+    }, timeout);
+  }
+
+  function cleanup(){
+    if (script.parentNode) script.parentNode.removeChild(script);
+    window[id] = noop;
+    if (timer) clearTimeout(timer);
+  }
+
+  function cancel(){
+    if (window[id]) {
+      cleanup();
+    }
+  }
+
+  window[id] = function(data){
+    debug('jsonp got', data);
+    cleanup();
+    if (fn) fn(null, data);
+  };
+
+  // add qs component
+  url += (~url.indexOf('?') ? '&' : '?') + param + '=' + enc(id);
+  url = url.replace('?&', '?');
+
+  debug('jsonp req "%s"', url);
+
+  // create script
+  script = document.createElement('script');
+  script.src = url;
+  target.parentNode.insertBefore(script, target);
+
+  return cancel;
+}
+
+
+/***/ }),
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
@@ -55886,10 +57168,10 @@ Kotlin.isCharSequence = function(value) {
 })();
 
 }));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(94)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(98)))
 
 /***/ }),
-/* 89 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -56331,7 +57613,7 @@ module.exports = kebabCase;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
-/* 90 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -58678,7 +59960,7 @@ module.exports = remove;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(33)(module)))
 
 /***/ }),
-/* 91 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -59581,7 +60863,138 @@ module.exports = uniq;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
-/* 92 */
+/* 95 */
+/***/ (function(module, exports) {
+
+/**
+ * Helpers.
+ */
+
+var s = 1000;
+var m = s * 60;
+var h = m * 60;
+var d = h * 24;
+var y = d * 365.25;
+
+/**
+ * Parse or format the given `val`.
+ *
+ * Options:
+ *
+ *  - `long` verbose formatting [false]
+ *
+ * @param {String|Number} val
+ * @param {Object} options
+ * @return {String|Number}
+ * @api public
+ */
+
+module.exports = function(val, options){
+  options = options || {};
+  if ('string' == typeof val) return parse(val);
+  return options.long
+    ? long(val)
+    : short(val);
+};
+
+/**
+ * Parse the given `str` and return milliseconds.
+ *
+ * @param {String} str
+ * @return {Number}
+ * @api private
+ */
+
+function parse(str) {
+  str = '' + str;
+  if (str.length > 10000) return;
+  var match = /^((?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|years?|yrs?|y)?$/i.exec(str);
+  if (!match) return;
+  var n = parseFloat(match[1]);
+  var type = (match[2] || 'ms').toLowerCase();
+  switch (type) {
+    case 'years':
+    case 'year':
+    case 'yrs':
+    case 'yr':
+    case 'y':
+      return n * y;
+    case 'days':
+    case 'day':
+    case 'd':
+      return n * d;
+    case 'hours':
+    case 'hour':
+    case 'hrs':
+    case 'hr':
+    case 'h':
+      return n * h;
+    case 'minutes':
+    case 'minute':
+    case 'mins':
+    case 'min':
+    case 'm':
+      return n * m;
+    case 'seconds':
+    case 'second':
+    case 'secs':
+    case 'sec':
+    case 's':
+      return n * s;
+    case 'milliseconds':
+    case 'millisecond':
+    case 'msecs':
+    case 'msec':
+    case 'ms':
+      return n;
+  }
+}
+
+/**
+ * Short format for `ms`.
+ *
+ * @param {Number} ms
+ * @return {String}
+ * @api private
+ */
+
+function short(ms) {
+  if (ms >= d) return Math.round(ms / d) + 'd';
+  if (ms >= h) return Math.round(ms / h) + 'h';
+  if (ms >= m) return Math.round(ms / m) + 'm';
+  if (ms >= s) return Math.round(ms / s) + 's';
+  return ms + 'ms';
+}
+
+/**
+ * Long format for `ms`.
+ *
+ * @param {Number} ms
+ * @return {String}
+ * @api private
+ */
+
+function long(ms) {
+  return plural(ms, d, 'day')
+    || plural(ms, h, 'hour')
+    || plural(ms, m, 'minute')
+    || plural(ms, s, 'second')
+    || ms + ' ms';
+}
+
+/**
+ * Pluralization helper.
+ */
+
+function plural(ms, n, name) {
+  if (ms < n) return;
+  if (ms < n * 1.5) return Math.floor(ms / n) + ' ' + name;
+  return Math.ceil(ms / n) + ' ' + name + 's';
+}
+
+
+/***/ }),
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59678,7 +61091,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 93 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -59730,7 +61143,7 @@ module.exports = function parseSelector (selector, upper) {
 
 
 /***/ }),
-/* 94 */
+/* 98 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -59916,7 +61329,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 95 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59942,11 +61355,11 @@ exports.classNameFromVNode = classNameFromVNode;
 //# sourceMappingURL=classNameFromVNode.js.map
 
 /***/ }),
-/* 96 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var parseSelector = __webpack_require__(93)
+var parseSelector = __webpack_require__(97)
 var VOID_ELEMENTS = __webpack_require__(29).VOID
 var CONTAINER_ELEMENTS = __webpack_require__(29).CONTAINER
 
@@ -60022,7 +61435,7 @@ module.exports = function init (modules) {
 
 
 /***/ }),
-/* 97 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -60041,13 +61454,13 @@ module.exports = function attrsModule (vnode, attributes) {
 
 
 /***/ }),
-/* 98 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 var forOwn = __webpack_require__(10)
-var remove = __webpack_require__(90)
-var uniq = __webpack_require__(91)
+var remove = __webpack_require__(93)
+var uniq = __webpack_require__(94)
 
 // data.class
 
@@ -60078,20 +61491,20 @@ module.exports = function classModule (vnode, attributes) {
 
 
 /***/ }),
-/* 99 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 module.exports = {
-  class: __webpack_require__(98),
-  props: __webpack_require__(100),
-  attributes: __webpack_require__(97),
-  style: __webpack_require__(101)
+  class: __webpack_require__(102),
+  props: __webpack_require__(104),
+  attributes: __webpack_require__(101),
+  style: __webpack_require__(105)
 }
 
 
 /***/ }),
-/* 100 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -60151,14 +61564,14 @@ module.exports = function propsModule (vnode, attributes) {
 
 
 /***/ }),
-/* 101 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var assign = __webpack_require__(92)
+var assign = __webpack_require__(96)
 var forOwn = __webpack_require__(10)
 var escape = __webpack_require__(16)
-var kebabCase = __webpack_require__(89)
+var kebabCase = __webpack_require__(92)
 
 // data.style
 
@@ -60185,7 +61598,7 @@ module.exports = function styleModule (vnode, attributes) {
 
 
 /***/ }),
-/* 102 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60242,7 +61655,7 @@ exports.default = exports.attributesModule;
 //# sourceMappingURL=attributes.js.map
 
 /***/ }),
-/* 103 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60273,7 +61686,7 @@ exports.default = exports.classModule;
 //# sourceMappingURL=class.js.map
 
 /***/ }),
-/* 104 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60315,7 +61728,7 @@ exports.default = exports.datasetModule;
 //# sourceMappingURL=dataset.js.map
 
 /***/ }),
-/* 105 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60347,7 +61760,7 @@ exports.default = exports.propsModule;
 //# sourceMappingURL=props.js.map
 
 /***/ }),
-/* 106 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60439,7 +61852,7 @@ exports.default = exports.styleModule;
 //# sourceMappingURL=style.js.map
 
 /***/ }),
-/* 107 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60751,7 +62164,7 @@ exports.init = init;
 //# sourceMappingURL=snabbdom.js.map
 
 /***/ }),
-/* 108 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60801,14 +62214,14 @@ exports.default = toVNode;
 //# sourceMappingURL=tovnode.js.map
 
 /***/ }),
-/* 109 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(110);
+module.exports = __webpack_require__(114);
 
 
 /***/ }),
-/* 110 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60818,7 +62231,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ponyfill = __webpack_require__(111);
+var _ponyfill = __webpack_require__(115);
 
 var _ponyfill2 = _interopRequireDefault(_ponyfill);
 
@@ -60844,7 +62257,7 @@ exports['default'] = result;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(33)(module)))
 
 /***/ }),
-/* 111 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60873,7 +62286,7 @@ function symbolObservablePonyfill(root) {
 };
 
 /***/ }),
-/* 112 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(34);

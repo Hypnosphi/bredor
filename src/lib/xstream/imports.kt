@@ -2,5 +2,6 @@
 @file:JsQualifier("default")
 package lib.xstream
 
+external fun <T> create(producer: Producer<T>? = definedExternally /* null */): Stream<T>
 external fun <T> of(vararg items: T): Stream<T>
-external fun <T> combine(vararg streams: Stream<T>) : Stream<Array<T>>
+external fun combine(vararg streams: Stream<*>) : Stream<Array<dynamic>>

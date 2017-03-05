@@ -1,9 +1,6 @@
 package lib.cycle.dom
 
-import kotlinx.html.Entities
-import kotlinx.html.Tag
-import kotlinx.html.TagConsumer
-import kotlinx.html.Unsafe
+import kotlinx.html.*
 import lib.xstream.Stream
 import lib.xstream.combine
 import lib.xstream.flatMap
@@ -19,6 +16,11 @@ class Node(val selector: String = "", var text: String? = null) : Child {
         override var attrs = object {}
         override var props = object {}
     }
+
+    fun setAttr(name: String, value: String?) {
+        data.attrs[name] = value
+    }
+
     val children = mutableListOf<Child>()
 
     fun addText(added: String) {
@@ -81,11 +83,15 @@ class HBuilder : TagConsumer<Node> {
     var changes = of(Unit)
 
     override fun onTagStart(tag: Tag) {
-        stack += Node(tag.tagName)
+        val node = Node(tag.tagName)
+        tag.attributes.forEach { (name, value) ->
+            node.setAttr(name, value)
+        }
+        stack += node
     }
 
     override fun onTagAttributeChange(tag: Tag, attribute: String, value: String?) {
-        current.data.attrs[attribute] = value
+        current.setAttr(attribute, value)
     }
 
     override fun onTagEvent(tag: Tag, event: String, value: (Event) -> Unit) {}
@@ -142,5 +148,7 @@ fun <T> h(stream: Stream<T>, handler: HBuilder.(T) -> Unit): Stream<List<VNode>>
         h { handler(it) }
     }
 
-fun single(handler: HBuilder.() -> Unit) = h(handler).map { it.first() }
+fun appDiv(handler: HBuilder.() -> Unit) = h {
+    div { handler() }
+}.map { it.first() }
 
