@@ -42,3 +42,5 @@ fun <T> Stream<T>.addListener(
 ) {
     addListener(jsObject(listener))
 }
+
+fun <T, R> Stream<T>.fold(seed: R, accumulate: (acc: R, t: T) -> R) = fold(accumulate, seed)

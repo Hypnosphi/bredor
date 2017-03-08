@@ -61,6 +61,7 @@ object PaverModule : ModuleImpl() {
     }
 
     override fun update(oldVNode: VNode, vNode: VNode) {
-        paver(vNode)
+        // TODO perform diff checking
+        //paver(vNode)
     }
 }

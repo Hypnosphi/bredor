@@ -26,6 +26,8 @@ external interface Stream<T> {
     fun startWith(value: T): MemoryStream<T>
 
     fun remember(): MemoryStream<T>
+
+    fun <R> fold(accumulate: (acc: R, t: T) -> R, seed: R): MemoryStream<R>
 }
 
 external interface MetaStream<T> : Stream<Stream<T>> {

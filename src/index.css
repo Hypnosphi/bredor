@@ -9,18 +9,32 @@ h1, h2, h3, h4 {
     font-weight: 500;
 }
 
+h1 {
+    color: #222;
+    background: #fff;
+}
+
 .app {
     width: 795px;
     margin: 0 auto;
-    min-height: 100vh;
+    height: 100vh;
     background: #000;
     color: #fff;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 300;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.app ~ * {
+    flex-shrink: 0;
 }
 
 .selector {
     display: flex;
+    flex-grow: 1;
+    overflow: hidden;
 }
 
 .owners {
@@ -28,8 +42,11 @@ h1, h2, h3, h4 {
     flex-shrink: 0;
 }
 
+.owners > div {
+    position: relative;
+}
+
 .owner {
-    cursor: pointer;
     height: 50px;
     display: flex;
     position: relative;
@@ -40,6 +57,7 @@ h1, h2, h3, h4 {
 }
 
 .blackout {
+    cursor: pointer;
     background: rgba(0, 0, 0, 0.2);
     position: absolute;
     z-index: 1;
@@ -59,17 +77,63 @@ h1, h2, h3, h4 {
 }
 
 .ownerName {
-    padding: 0 8px;
-    line-height: 50px;
+    padding: 14px 8px;
     background: rgba(0, 0, 0, 0.8);
     z-index: 1;
+    color: #fff;
+    transition: color .15s ease-out;
 }
 
-.blackout:not(:hover) ~ .ownerName {
-    transition: opacity 0.15s ease-out;
-    opacity: 0;
+a.ownerName {
+    cursor: pointer;
+}
+
+a.ownerName:hover {
+    color: #f88;
+    transition: none;
+}
+
+.owner:not(:hover) > .ownerName {
+    display: none;
 }
 
 .albums {
     flex-grow: 1;
+}
+
+.albums > div {
+    position: relative;
+}
+
+.album {
+    background-size: cover;
+    cursor: pointer;
+    position: relative;
+}
+
+.description {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 8px;
+    line-height: 1.5;
+}
+
+.name {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 13px;
+}
+
+.count {
+    font-size: 11px;
+}
+
+.album:not(:hover) .description {
+    background: transparent;
+    color: transparent;
+    transition: background .15s ease-out, color .15s ease-out;
 }

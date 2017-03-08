@@ -4319,6 +4319,11 @@ if(false) {
       $receiver_17.unaryPlus_pdl1vz$(this$.name);
     };
   }
+  function owner$lambda$lambda$lambda_1(this$) {
+    return function ($receiver_17) {
+      $receiver_17.unaryPlus_pdl1vz$(this$.name);
+    };
+  }
   function owner$lambda$lambda(this$, this$owner, closure$isSelected) {
     return function ($receiver_17) {
       this$owner.key = this$.uid;
@@ -4328,13 +4333,63 @@ if(false) {
       }
       img($receiver_17, this$.name, this$.photo, void 0, owner$lambda$lambda$lambda);
       div($receiver_17, 'blackout');
-      div($receiver_17, 'ownerName', owner$lambda$lambda$lambda_0(this$));
+      if (this$.uid < 0)
+        a($receiver_17, 'https://vk.com/club' + -this$.uid, '_blank', 'ownerName', owner$lambda$lambda$lambda_0(this$));
+      else
+        div($receiver_17, 'ownerName', owner$lambda$lambda$lambda_1(this$));
     };
   }
   function owner($receiver_17, owner_0, isSelected) {
     if (isSelected === void 0)
       isSelected = false;
     div_0($receiver_17, 'owner', owner$lambda$lambda(owner_0, $receiver_17, isSelected));
+  }
+  function album$lambda$lambda$size(size_0) {
+    var realSize = size_0 !== 0 ? size_0 : 600;
+    return realSize.toString() + 'px';
+  }
+  function album$lambda$lambda$lambda$lambda(this$) {
+    return function ($receiver_17) {
+      $receiver_17.unaryPlus_pdl1vz$(this$.title);
+    };
+  }
+  function album$lambda$lambda$lambda$lambda_0(this$) {
+    return function ($receiver_17) {
+      $receiver_17.unaryPlus_pdl1vz$(this$.size.toString() + ' \u0444\u043E\u0442\u043E');
+    };
+  }
+  function album$lambda$lambda$lambda(this$) {
+    return function ($receiver_17) {
+      div($receiver_17, 'name', album$lambda$lambda$lambda$lambda(this$));
+      div($receiver_17, 'count', album$lambda$lambda$lambda$lambda_0(this$));
+    };
+  }
+  function album$lambda$lambda(this$) {
+    return function ($receiver_17) {
+      var tmp$_17;
+      var $receiver_18 = this$.sizes;
+      var firstOrNull_sfx99b$result;
+      firstOrNull_sfx99b$break: {
+        var tmp$_18;
+        for (tmp$_18 = 0; tmp$_18 !== $receiver_18.length; ++tmp$_18) {
+          var element_17 = $receiver_18[tmp$_18];
+          if (Kotlin.equals(element_17.type, 'x')) {
+            firstOrNull_sfx99b$result = element_17;
+            break firstOrNull_sfx99b$break;
+          }
+        }
+        firstOrNull_sfx99b$result = null;
+      }
+      var thumb = (tmp$_17 = firstOrNull_sfx99b$result) != null ? tmp$_17 : Kotlin.throwNPE();
+      var size = album$lambda$lambda$size;
+      var width = size(thumb.width);
+      var height = size(thumb.height);
+      set_style($receiver_17, 'width: ' + width + '; height: ' + height + '; background-image:url(' + thumb.src + ');');
+      div($receiver_17, 'description', album$lambda$lambda$lambda(this$));
+    };
+  }
+  function album($receiver_17, album_0) {
+    div_0($receiver_17, 'album', album$lambda$lambda(album_0.album));
   }
   function WithSelected(owners, selected) {
     this.owners = owners;
@@ -4366,6 +4421,18 @@ if(false) {
   WithSelected.prototype.equals = function (other) {
     return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.owners, other.owners) && Kotlin.equals(this.selected, other.selected)))));
   };
+  function scroll$lambda(it) {
+    return it.deltaY;
+  }
+  function scroll$lambda_0(a_2, b_2) {
+    return a_2 < b_2 ? a_2 - b_2 | 0 : 0;
+  }
+  function scroll$lambda_1(it) {
+    return 'top: ' + it + 'px;';
+  }
+  function scroll($receiver_17) {
+    return fold($receiver_17.events('wheel').map(scroll$lambda), 0, scroll$lambda_0).map(scroll$lambda_1);
+  }
   function app$lambda(it) {
     var tmp$_17;
     var el = Kotlin.isType(tmp$_17 = it.currentTarget, Element) ? tmp$_17 : Kotlin.throwCCE();
@@ -4414,8 +4481,9 @@ if(false) {
   function app$lambda$lambda_0($receiver_17) {
     $receiver_17.unaryPlus_pdl1vz$('\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0430\u043B\u044C\u0431\u043E\u043C, \u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u0445\u043E\u0442\u0438\u0442\u0435 \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C');
   }
-  function app$lambda$lambda$lambda$lambda(closure$owners, closure$selected, this$) {
+  function app$lambda$lambda$lambda$lambda$lambda$lambda(closure$it, closure$owners, closure$selected, this$) {
     return function ($receiver_17) {
+      set_style($receiver_17, closure$it);
       var $receiver_18 = closure$owners;
       var tmp$_17;
       tmp$_17 = $receiver_18.iterator();
@@ -4426,78 +4494,76 @@ if(false) {
       }
     };
   }
-  function app$lambda$lambda$lambda$lambda$lambda$lambda$lambda$lambda$size(size_0) {
-    var realSize = size_0 !== 0 ? size_0 : 600;
-    return realSize.toString();
-  }
-  function app$lambda$lambda$lambda$lambda$lambda$lambda$lambda$lambda(closure$thumb) {
+  function app$lambda$lambda$lambda$lambda$lambda(closure$it, closure$owners, closure$selected, this$) {
     return function ($receiver_17) {
-      var size = app$lambda$lambda$lambda$lambda$lambda$lambda$lambda$lambda$size;
-      $receiver_17.width = size(closure$thumb.width);
-      $receiver_17.height = size(closure$thumb.height);
+      div($receiver_17, void 0, app$lambda$lambda$lambda$lambda$lambda$lambda(closure$it, closure$owners, closure$selected, this$));
     };
   }
-  function app$lambda$lambda$lambda$lambda$lambda$lambda($receiver_17) {
+  function app$lambda$lambda$lambda$lambda(closure$owners, closure$selected) {
+    return function ($receiver_17, it) {
+      div_0($receiver_17, 'owners', app$lambda$lambda$lambda$lambda$lambda(it, closure$owners, closure$selected, $receiver_17));
+    };
+  }
+  function app$lambda$lambda$lambda$lambda$lambda$lambda$lambda$lambda($receiver_17) {
     $receiver_17.unaryPlus_pdl1vz$('\u0417\u0434\u0435\u0441\u044C \u043F\u043E\u043A\u0430 \u043D\u0435\u0442 \u0430\u043B\u044C\u0431\u043E\u043C\u043E\u0432');
   }
-  function app$lambda$lambda$lambda$lambda$lambda($receiver_17, it) {
+  function app$lambda$lambda$lambda$lambda$lambda$lambda$lambda($receiver_17, it) {
     if (!it.isEmpty()) {
       var tmp$_17;
       tmp$_17 = it.iterator();
       while (tmp$_17.hasNext()) {
         var element_17 = tmp$_17.next();
-        var receiver = element_17.album;
-        var tmp$_18;
-        var $receiver_18 = receiver.sizes;
-        var firstOrNull_sfx99b$result;
-        firstOrNull_sfx99b$break: {
-          var tmp$_19;
-          for (tmp$_19 = 0; tmp$_19 !== $receiver_18.length; ++tmp$_19) {
-            var element_18 = $receiver_18[tmp$_19];
-            if (Kotlin.equals(element_18.type, 'x')) {
-              firstOrNull_sfx99b$result = element_18;
-              break firstOrNull_sfx99b$break;
-            }
-          }
-          firstOrNull_sfx99b$result = null;
-        }
-        var thumb = (tmp$_18 = firstOrNull_sfx99b$result) != null ? tmp$_18 : Kotlin.throwNPE();
-        img_0($receiver_17, receiver.title, thumb.src, void 0, app$lambda$lambda$lambda$lambda$lambda$lambda$lambda$lambda(thumb));
+        album($receiver_17, element_17);
       }
     }
      else
-      h3($receiver_17, void 0, app$lambda$lambda$lambda$lambda$lambda$lambda);
+      h3($receiver_17, void 0, app$lambda$lambda$lambda$lambda$lambda$lambda$lambda$lambda);
   }
-  function app$lambda$lambda$lambda$lambda_0(closure$selected, this$) {
+  function app$lambda$lambda$lambda$lambda$lambda$lambda_0(closure$it, closure$selected, this$) {
     return function ($receiver_17) {
+      set_style($receiver_17, closure$it);
       this$.key = closure$selected.uid;
       var albums = closure$selected.albums();
       this$.paver_s8ev37$();
-      this$.invoke_p3d1op$(albums, app$lambda$lambda$lambda$lambda$lambda);
+      this$.invoke_p3d1op$(albums, app$lambda$lambda$lambda$lambda$lambda$lambda$lambda);
     };
   }
-  function app$lambda$lambda$lambda($receiver_17, f) {
-    var owners = f.component1()
-    , selected = f.component2();
-    div_0($receiver_17, 'owners', app$lambda$lambda$lambda$lambda(owners, selected, $receiver_17));
-    div_0($receiver_17, 'albums', app$lambda$lambda$lambda$lambda_0(selected, $receiver_17));
-  }
-  function app$lambda$lambda_1(closure$withSelected, this$) {
+  function app$lambda$lambda$lambda$lambda$lambda_0(closure$it, closure$selected, this$) {
     return function ($receiver_17) {
-      this$.invoke_p3d1op$(closure$withSelected, app$lambda$lambda$lambda);
+      div($receiver_17, void 0, app$lambda$lambda$lambda$lambda$lambda$lambda_0(closure$it, closure$selected, this$));
     };
   }
-  function app$lambda_2(closure$withSelected) {
+  function app$lambda$lambda$lambda$lambda_0(closure$selected) {
+    return function ($receiver_17, it) {
+      div_0($receiver_17, 'albums', app$lambda$lambda$lambda$lambda$lambda_0(it, closure$selected, $receiver_17));
+    };
+  }
+  function app$lambda$lambda$lambda(closure$scrollOwners, closure$scrollAlbums) {
+    return function ($receiver_17, f) {
+      var owners = f.component1()
+      , selected = f.component2();
+      $receiver_17.invoke_p3d1op$(closure$scrollOwners, app$lambda$lambda$lambda$lambda(owners, selected));
+      $receiver_17.invoke_p3d1op$(closure$scrollAlbums, app$lambda$lambda$lambda$lambda_0(selected));
+    };
+  }
+  function app$lambda$lambda_1(closure$withSelected, closure$scrollOwners, closure$scrollAlbums, this$) {
+    return function ($receiver_17) {
+      this$.invoke_p3d1op$(closure$withSelected, app$lambda$lambda$lambda(closure$scrollOwners, closure$scrollAlbums));
+    };
+  }
+  function app$lambda_2(closure$withSelected, closure$scrollOwners, closure$scrollAlbums) {
     return function ($receiver_17) {
       h1($receiver_17, void 0, app$lambda$lambda_0);
-      div_0($receiver_17, 'selector', app$lambda$lambda_1(closure$withSelected, $receiver_17));
+      div_0($receiver_17, 'selector', app$lambda$lambda_1(closure$withSelected, closure$scrollOwners, closure$scrollAlbums, $receiver_17));
     };
   }
   function app_0(sources) {
     var selectOwner = sources.DOM.select('.owner').events('click').map(app$lambda).startWith(0).debug('select');
+    var scrollOwners = scroll(sources.DOM.select('.owners'));
+    var scrollAlbums = scroll(sources.DOM.select('.albums'));
     var albumOwners = flatMap(sources.VK.me, app$lambda_0).debug('owners');
     var withSelected = combine_0(selectOwner, albumOwners, app$lambda_1).debug('selected');
-    return new AppSinks(appDiv('app', app$lambda_2(withSelected)).debug('vtree'), $module$xstream.default.of());
+    return new AppSinks(appDiv('app', app$lambda_2(withSelected, scrollOwners, scrollAlbums)).debug('vtree'), $module$xstream.default.of());
   }
   function AppDrivers(selector) {
     this.DOM = $module$_cycle_dom.makeDOMDriver(selector, DOMDriverOptions_init([PropsModule, AttrsModule, PaverModule_getInstance()]));
@@ -4911,7 +4977,7 @@ if(false) {
   }
   function a$lambda($receiver_17) {
   }
-  function a($receiver_17, href, target, classes, block) {
+  function a_0($receiver_17, href, target, classes, block) {
     if (href === void 0)
       href = null;
     if (target === void 0)
@@ -5441,7 +5507,7 @@ if(false) {
   }
   function img$lambda($receiver_17) {
   }
-  function img_1($receiver_17, alt, src, classes, block) {
+  function img_0($receiver_17, alt, src, classes, block) {
     if (alt === void 0)
       alt = null;
     if (src === void 0)
@@ -8024,7 +8090,7 @@ if(false) {
   var attributeThScopeEnumThScopeValues;
   function a$lambda_0($receiver_17) {
   }
-  function a_0($receiver_17, href, target, classes, block) {
+  function a_1($receiver_17, href, target, classes, block) {
     if (href === void 0)
       href = null;
     if (target === void 0)
@@ -8529,7 +8595,7 @@ if(false) {
   }
   function img$lambda_0($receiver_17) {
   }
-  function img_0($receiver_17, alt, src, classes, block) {
+  function img_1($receiver_17, alt, src, classes, block) {
     if (alt === void 0)
       alt = null;
     if (src === void 0)
@@ -12918,7 +12984,7 @@ if(false) {
   }
   function a$lambda_1($receiver_17) {
   }
-  function a_1($receiver_17, href, target, classes, block) {
+  function a($receiver_17, href, target, classes, block) {
     if (href === void 0)
       href = null;
     if (target === void 0)
@@ -18084,7 +18150,6 @@ if(false) {
     paver(vNode);
   };
   PaverModule.prototype.update = function (oldVNode, vNode) {
-    paver(vNode);
   };
   PaverModule.$metadata$ = {
     kind: Kotlin.Kind.OBJECT,
@@ -18434,6 +18499,9 @@ if(false) {
     if (listener === void 0)
       listener = addListener$lambda;
     $receiver_17.addListener(jsObject(listener));
+  }
+  function fold($receiver_17, seed, accumulate) {
+    return $receiver_17.fold(accumulate, seed);
   }
   var version;
   var root;
@@ -19005,8 +19073,8 @@ if(false) {
   function get_fullName($receiver_17) {
     return $receiver_17.first_name + ' ' + $receiver_17.last_name;
   }
-  function AlbumVM(album) {
-    this.album = album;
+  function AlbumVM(album_0) {
+    this.album = album_0;
   }
   AlbumVM.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
@@ -19413,7 +19481,9 @@ if(false) {
   package$app.asAlbumOwner_t15cx8$ = asAlbumOwner;
   package$app.asAlbumOwner_yu5nbi$ = asAlbumOwner_0;
   package$app.owner_6vov1f$ = owner;
+  package$app.album_6kxq3k$ = album;
   package$app.WithSelected = WithSelected;
+  package$app.scroll_2qyqs1$ = scroll;
   package$app.app_lwy2ck$ = app_0;
   package$app.AppDrivers = AppDrivers;
   package$app.AppSources = AppSources;
@@ -19443,7 +19513,7 @@ if(false) {
   package$dom.append_k9bwru$ = append;
   package$dom.get_append_y4uc6z$ = get_append;
   var package$js = package$html.js || (package$html.js = {});
-  package$js.a_5i6vd$ = a;
+  package$js.a_5i6vd$ = a_0;
   package$js.abbr_y8m8ul$ = abbr;
   package$js.address_ywnrmy$ = address;
   package$js.area_78z5jz$ = area;
@@ -19496,7 +19566,7 @@ if(false) {
   package$js.i_5jry8x$ = i;
   package$js.iframe_4ksjnb$ = iframe;
   package$js.iframe_g0q2yy$ = iframe_0;
-  package$js.img_6lw7hj$ = img_1;
+  package$js.img_6lw7hj$ = img_0;
   package$js.input_x8a5sv$ = input;
   package$js.ins_xcl8o4$ = ins;
   package$js.kbd_ijivhf$ = kbd;
@@ -19910,7 +19980,7 @@ if(false) {
   package$html.set_dataTextField_6l8dwp$ = set_dataTextField;
   package$html.get_dataValueField_6ojqtj$ = get_dataValueField;
   package$html.set_dataValueField_6l8dwp$ = set_dataValueField;
-  package$html.a_5skjyn$ = a_0;
+  package$html.a_5skjyn$ = a_1;
   package$html.abbr_6inr0p$ = abbr_0;
   package$html.address_a2fi0u$ = address_0;
   package$html.area_itdnqx$ = area_0;
@@ -19963,7 +20033,7 @@ if(false) {
   package$html.i_gncgg9$ = i_0;
   package$html.iframe_i3obeb$ = iframe_1;
   package$html.iframe_k7pgs2$ = iframe_2;
-  package$html.img_45d5o1$ = img_0;
+  package$html.img_45d5o1$ = img_1;
   package$html.input_mm0abt$ = input_0;
   package$html.ins_e5g22k$ = ins_0;
   package$html.kbd_10o0fv$ = kbd_0;
@@ -20790,7 +20860,7 @@ if(false) {
   package$html.aside_3uzs4w$ = aside_1;
   package$html.nav_19d8h1$ = nav_1;
   package$html.section_ac1jhf$ = section_1;
-  package$html.a_gu26kr$ = a_1;
+  package$html.a_gu26kr$ = a;
   package$html.audio_hb8i2y$ = audio_1;
   package$html.button_whohl6$ = button_1;
   package$html.getButton_2ghcrw$ = getButton;
@@ -21178,6 +21248,7 @@ if(false) {
   package$xstream.create_oe1f0k$ = create_1;
   package$xstream.jsonpStream_rzpbx2$ = jsonpStream;
   package$xstream.addListener_lki0o0$ = addListener;
+  package$xstream.fold_h36eba$ = fold;
   Object.defineProperty(VKReq$Users$Get, 'Companion', {
     get: VKReq$Users$Get$Companion_getInstance
   });
@@ -23155,7 +23226,7 @@ exports = module.exports = __webpack_require__(55)();
 
 
 // module
-exports.push([module.i, "body {\n    margin: 0;\n    background: #000;\n}\n\nh1, h2, h3, h4 {\n    margin: 0;\n    padding: 8px 16px 16px;\n    font-weight: 500;\n}\n\n.app {\n    width: 795px;\n    margin: 0 auto;\n    min-height: 100vh;\n    background: #000;\n    color: #fff;\n    font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n    font-weight: 300;\n}\n\n.selector {\n    display: flex;\n}\n\n.owners {\n    width: 50px;\n    flex-shrink: 0;\n}\n\n.owner {\n    cursor: pointer;\n    height: 50px;\n    display: flex;\n    position: relative;\n}\n\n.owner > * {\n    flex-shrink: 0;\n}\n\n.blackout {\n    background: rgba(0, 0, 0, 0.2);\n    position: absolute;\n    z-index: 1;\n    width: 50px;\n    height: 50px;\n    left: 0;\n    top: 0;\n}\n\n.blackout:not(:hover) {\n    background: rgba(0, 0, 0, 0.6);\n    transition: background 0.15s ease-out;\n}\n\n.selected > .blackout {\n    background: transparent;\n}\n\n.ownerName {\n    padding: 0 8px;\n    line-height: 50px;\n    background: rgba(0, 0, 0, 0.8);\n    z-index: 1;\n}\n\n.blackout:not(:hover) ~ .ownerName {\n    transition: opacity 0.15s ease-out;\n    opacity: 0;\n}\n\n.albums {\n    flex-grow: 1;\n}\n", ""]);
+exports.push([module.i, "body {\n    margin: 0;\n    background: #000;\n}\n\nh1, h2, h3, h4 {\n    margin: 0;\n    padding: 8px 16px 16px;\n    font-weight: 500;\n}\n\nh1 {\n    color: #222;\n    background: #fff;\n}\n\n.app {\n    width: 795px;\n    margin: 0 auto;\n    height: 100vh;\n    background: #000;\n    color: #fff;\n    font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n    font-weight: 300;\n    display: flex;\n    flex-direction: column;\n    overflow: hidden;\n}\n\n.app ~ * {\n    flex-shrink: 0;\n}\n\n.selector {\n    display: flex;\n    flex-grow: 1;\n    overflow: hidden;\n}\n\n.owners {\n    width: 50px;\n    flex-shrink: 0;\n}\n\n.owners > div {\n    position: relative;\n}\n\n.owner {\n    height: 50px;\n    display: flex;\n    position: relative;\n}\n\n.owner > * {\n    flex-shrink: 0;\n}\n\n.blackout {\n    cursor: pointer;\n    background: rgba(0, 0, 0, 0.2);\n    position: absolute;\n    z-index: 1;\n    width: 50px;\n    height: 50px;\n    left: 0;\n    top: 0;\n}\n\n.blackout:not(:hover) {\n    background: rgba(0, 0, 0, 0.6);\n    transition: background 0.15s ease-out;\n}\n\n.selected > .blackout {\n    background: transparent;\n}\n\n.ownerName {\n    padding: 14px 8px;\n    background: rgba(0, 0, 0, 0.8);\n    z-index: 1;\n    color: #fff;\n    transition: color .15s ease-out;\n}\n\na.ownerName {\n    cursor: pointer;\n}\n\na.ownerName:hover {\n    color: #f88;\n    transition: none;\n}\n\n.owner:not(:hover) > .ownerName {\n    display: none;\n}\n\n.albums {\n    flex-grow: 1;\n}\n\n.albums > div {\n    position: relative;\n}\n\n.album {\n    background-size: cover;\n    cursor: pointer;\n    position: relative;\n}\n\n.description {\n    position: absolute;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    background: rgba(0, 0, 0, 0.6);\n    padding: 8px;\n    line-height: 1.5;\n}\n\n.name {\n    text-overflow: ellipsis;\n    overflow: hidden;\n    white-space: nowrap;\n    font-size: 13px;\n}\n\n.count {\n    font-size: 11px;\n}\n\n.album:not(:hover) .description {\n    background: transparent;\n    color: transparent;\n    transition: background .15s ease-out, color .15s ease-out;\n}\n", ""]);
 
 // exports
 

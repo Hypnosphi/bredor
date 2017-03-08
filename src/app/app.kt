@@ -1,17 +1,17 @@
 package app
 
 import kotlinx.html.*
+import lib.cycle.dom.DOMSource
 import lib.paver.paver
 import lib.snabbdom.HBuilder
 import lib.snabbdom.appDiv
-import lib.xstream.Stream
-import lib.xstream.combine
-import lib.xstream.flatMap
-import lib.xstream.of
+import lib.xstream.*
 import org.w3c.dom.Element
+import org.w3c.dom.events.MouseEvent
 import vk.*
 import vk.VK.me
 import kotlin.coroutines.experimental.EmptyCoroutineContext.plus
+import kotlin.js.Math
 
 data class AlbumOwner(
     val uid: Int,
@@ -36,8 +36,36 @@ fun HBuilder.owner(owner: AlbumOwner, isSelected: Boolean = false) {
                 width = "50"
             }
             div("blackout")
-            div("ownerName") {
-                +name
+
+            when {
+                uid < 0 -> {
+                    a("https://vk.com/club${-uid}", "_blank", "ownerName") {
+                        +name
+                    }
+                }
+                else -> div("ownerName") { +name }
+            }
+        }
+    }
+}
+
+fun HBuilder.album(album: AlbumVM) {
+    with(album.album) {
+        div("album") {
+            val thumb = sizes.find { it.type == "x" }!!
+            fun size(size: Int): String {
+                val realSize = if (size != 0) size else 600
+                return "${realSize}px"
+            }
+
+            val width = size(thumb.width)
+            val height = size(thumb.height)
+
+            style = "width: $width; height: $height; background-image:url(${thumb.src});"
+
+            div("description") {
+                div("name") { +this@with.title }
+                div("count") { +"$size фото" }
             }
         }
     }
@@ -47,6 +75,12 @@ data class WithSelected(
     val owners: List<AlbumOwner>,
     val selected: AlbumOwner
 )
+
+fun DOMSource.scroll() : Stream<String> =
+    events("wheel")
+        .map { it.asDynamic().deltaY }
+        .fold(0) { a: Int, b: Int -> if (a < b) a - b else 0 }
+        .map { "top: ${it}px;" }
 
 fun app(sources: AppSources) : AppSinks {
     val selectOwner: Stream<Int> = sources.DOM
@@ -58,6 +92,14 @@ fun app(sources: AppSources) : AppSinks {
         }
         .startWith(0)
         .debug("select")
+
+    val scrollOwners: Stream<String> = sources.DOM
+        .select(".owners")
+        .scroll()
+
+    val scrollAlbums: Stream<String> = sources.DOM
+        .select(".albums")
+        .scroll()
 
     val albumOwners: Stream<List<AlbumOwner>> = sources.VK.me
         .flatMap {
@@ -89,34 +131,29 @@ fun app(sources: AppSources) : AppSinks {
 
             div("selector") {
                 withSelected { (owners, selected) ->
-                    div("owners") {
-                        owners.forEach {
-                            owner(it, it == selected)
+                    scrollOwners {
+                        div("owners") {
+                            div {
+                                style = it
+                                owners.forEach {
+                                    owner(it, it == selected)
+                                }
+                            }
                         }
                     }
-                    div("albums") {
-                        key = selected.uid
-                        val albums = selected.albums()
-                        paver()
-                        albums {
-                            when {
-                                it.isNotEmpty() -> {
-                                    it.forEach {
-                                        with(it.album) {
-                                            val thumb = sizes.find { it.type == "x" }!!
-                                            img(title, thumb.src) {
-                                                fun size(size: Int): String {
-                                                    val realSize = if (size != 0) size else 600
-                                                    return realSize.toString()
-                                                }
-
-                                                width = size(thumb.width)
-                                                height = size(thumb.height)
-                                            }
-                                        }
+                    scrollAlbums {
+                        div("albums") {
+                            div {
+                                style = it
+                                key = selected.uid
+                                val albums = selected.albums()
+                                paver()
+                                albums {
+                                    when {
+                                        it.isNotEmpty() -> it.forEach { album(it) }
+                                        else -> h3 { +"Здесь пока нет альбомов" }
                                     }
                                 }
-                                else -> h3 { +"Здесь пока нет альбомов" }
                             }
                         }
                     }
