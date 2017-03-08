@@ -1,6 +1,7 @@
 package lib.cycle.dom
 
 import lib.cycle.DriverFunction
+import lib.snabbdom.*
 import lib.xstream.MemoryStream
 import lib.xstream.Stream
 import org.w3c.dom.events.Event
@@ -14,17 +15,11 @@ external interface DOMSource {
     fun events(eventType: String, options: EventsFnOptions? = definedExternally /* null */): Stream<Event>
 }
 
-external interface VNode
 
-external interface VNodeData {
-    var attrs: dynamic
-    var props: dynamic
-}
-
-external interface Module
-
-external interface DOMDriverOptions {
-    var modules: Array<Module>?
+data class DOMDriverOptions(
+    val modules: Array<out Module>?
+) {
+    constructor(vararg modules: Module) : this(modules)
 }
 
 typealias DOMDriver = DriverFunction<VNode, DOMSource>

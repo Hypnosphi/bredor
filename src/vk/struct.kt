@@ -6,6 +6,11 @@ import app.*
 external interface VKStruct
 interface VKStructVM<T: VKStruct>
 
+external interface VKList<T : VKStruct> {
+    val count: Int
+    val items: Array<T>
+}
+
 external interface User : VKStruct {
     val id: Int
     val first_name: String
@@ -16,8 +21,9 @@ data class UserVM(val user: User) : VKStructVM<User> {
     val albums: Stream<List<AlbumVM>> by lazy {
         VKReq.Photos.GetAlbums {
             owner_id = user.id
+            need_covers = true
         }.response().map {
-            it.map(::AlbumVM)
+            it.items.map(::AlbumVM)
         }
     }
 }

@@ -50,7 +50,7 @@ sealed class VKReq<T>(val ns: String, val method: String) {
     }
 
     abstract class Photos<T>(method: String) : VKReq<T>("photos", method) {
-        class GetAlbums : Photos<Array<Album>>("getAlbums") {
+        class GetAlbums : Photos<VKList<Album>>("getAlbums") {
             companion object : Builder<GetAlbums>
 
             var owner_id by params.Integer()

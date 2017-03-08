@@ -1,0 +1,13 @@
+body {
+    width: 795px;
+}
+
+.selector {
+    display: flex;
+}
+
+.albums {
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+}

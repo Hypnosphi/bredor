@@ -6,7 +6,7 @@ import kotlin.reflect.KProperty
 import kotlin.reflect.KProperty1
 
 class Params(source: String? = null, vararg initParams: Pair<String, String>) {
-    private val params = URLSearchParams(source)
+    private val params = URLSearchParams(source ?: "")
     override fun toString() = params.toString()
 
     init {
@@ -25,7 +25,7 @@ class Params(source: String? = null, vararg initParams: Pair<String, String>) {
         operator fun getValue(thisRef: Any, property: KProperty<*>) : T =
             deserialize(this@Params.getValue(thisRef, property))
         operator fun setValue(thisRef: Any, property: KProperty<*>, value: T) {
-            this@Params.setValue(thisRef, property, JSON.stringify(value))
+            this@Params.setValue(thisRef, property, serialize(value))
         }
 
         abstract fun serialize(value: T) : String
@@ -90,3 +90,6 @@ fun <T> jsObject(handler: T.() -> Unit) : T {
 }
 
 fun js(handler: dynamic.() -> Unit) = jsObject(handler)
+
+@Suppress("NOTHING_TO_INLINE")
+inline fun debugger() = js("debugger;")

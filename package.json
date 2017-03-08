@@ -9,9 +9,11 @@
   "dependencies": {
     "@cycle/dom": "15.2.0",
     "@cycle/run": "1.0.0",
+    "css-loader": "0.26.2",
     "html-webpack-plugin": "2.28.0",
     "jsonp": "0.2.1",
     "kotlin": "1.1.0",
+    "style-loader": "0.13.2",
     "webpack": "2.2.1",
     "webpack-dev-server": "2.4.1",
     "webpack-kotlin-loader": "0.3.2",

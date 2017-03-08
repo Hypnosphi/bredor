@@ -1,5 +1,6 @@
 package lib.xstream
 
+import app.debugger
 import app.jsObject
 import lib.jsonp.*
 

@@ -117,5 +117,5 @@ val HTMLElement.append : TagConsumer<HTMLElement>
 private val Node.ownerDocumentExt: Document
     get() = when {
         this is Document -> this
-        else -> ownerDocument ?: throw IllegalStateException("Node has no ownerDocument")
+        else -> ownerDocument ?: throw IllegalStateException("NodeBuilder has no ownerDocument")
     }

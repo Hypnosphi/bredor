@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 116);
+/******/ 	return __webpack_require__(__webpack_require__.s = 121);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -90,7 +90,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var symbol_observable_1 = __webpack_require__(113);
+var symbol_observable_1 = __webpack_require__(118);
 var NO = {};
 exports.NO = NO;
 function noop() { }
@@ -1948,8 +1948,8 @@ exports.default = Stream;
 
 
 var assign        = __webpack_require__(13)
-  , normalizeOpts = __webpack_require__(71)
-  , isCallable    = __webpack_require__(65)
+  , normalizeOpts = __webpack_require__(77)
+  , isCallable    = __webpack_require__(71)
   , contains      = __webpack_require__(25)
 
   , d;
@@ -2095,7 +2095,7 @@ exports.getSelectors = getSelectors;
 "use strict";
 
 
-module.exports = __webpack_require__(85)() ? Symbol : __webpack_require__(87);
+module.exports = __webpack_require__(91)() ? Symbol : __webpack_require__(93);
 
 
 /***/ }),
@@ -2755,9 +2755,9 @@ module.exports = function (x) { return (toString.call(x) === id); };
 "use strict";
 
 
-module.exports = __webpack_require__(60)()
+module.exports = __webpack_require__(66)()
 	? Object.assign
-	: __webpack_require__(61);
+	: __webpack_require__(67);
 
 
 /***/ }),
@@ -2789,7 +2789,7 @@ var clear    = __webpack_require__(22)
   , callable = __webpack_require__(3)
   , value    = __webpack_require__(0)
   , d        = __webpack_require__(2)
-  , autoBind = __webpack_require__(50)
+  , autoBind = __webpack_require__(56)
   , Symbol   = __webpack_require__(6)
 
   , defineProperty = Object.defineProperty
@@ -3150,12 +3150,12 @@ exports.HTMLSource = HTMLSource;
 "use strict";
 
 var adapt_1 = __webpack_require__(4);
-var DocumentDOMSource_1 = __webpack_require__(36);
-var BodyDOMSource_1 = __webpack_require__(35);
-var ElementFinder_1 = __webpack_require__(37);
+var DocumentDOMSource_1 = __webpack_require__(40);
+var BodyDOMSource_1 = __webpack_require__(39);
+var ElementFinder_1 = __webpack_require__(41);
 var fromEvent_1 = __webpack_require__(11);
-var isolate_1 = __webpack_require__(43);
-var EventDelegator_1 = __webpack_require__(38);
+var isolate_1 = __webpack_require__(47);
+var EventDelegator_1 = __webpack_require__(42);
 var utils_1 = __webpack_require__(5);
 var eventTypesThatDontBubble = [
     "blur",
@@ -3447,7 +3447,7 @@ module.exports = function (/*customCreate*/) {
 
 
 
-var isObject      = __webpack_require__(66)
+var isObject      = __webpack_require__(72)
   , value         = __webpack_require__(0)
 
   , isPrototypeOf = Object.prototype.isPrototypeOf
@@ -3514,7 +3514,7 @@ module.exports = (function (status) {
 	return false;
 }())));
 
-__webpack_require__(63);
+__webpack_require__(69);
 
 
 /***/ }),
@@ -3524,9 +3524,9 @@ __webpack_require__(63);
 "use strict";
 
 
-module.exports = __webpack_require__(73)()
+module.exports = __webpack_require__(79)()
 	? String.prototype.contains
-	: __webpack_require__(74);
+	: __webpack_require__(80);
 
 
 /***/ }),
@@ -3536,7 +3536,7 @@ module.exports = __webpack_require__(73)()
 "use strict";
 
 
-var isIterable = __webpack_require__(78);
+var isIterable = __webpack_require__(84);
 
 module.exports = function (value) {
 	if (!isIterable(value)) throw new TypeError(value + " is not iterable");
@@ -3551,7 +3551,7 @@ module.exports = function (value) {
 "use strict";
 
 
-module.exports = __webpack_require__(80)() ? Map : __webpack_require__(84);
+module.exports = __webpack_require__(86)() ? Map : __webpack_require__(90);
 
 
 /***/ }),
@@ -3719,6 +3719,95 @@ exports.primitive = primitive;
 
 "use strict";
 
+var NamespaceURIs = {
+    "xlink": "http://www.w3.org/1999/xlink"
+};
+var booleanAttrs = ["allowfullscreen", "async", "autofocus", "autoplay", "checked", "compact", "controls", "declare",
+    "default", "defaultchecked", "defaultmuted", "defaultselected", "defer", "disabled", "draggable",
+    "enabled", "formnovalidate", "hidden", "indeterminate", "inert", "ismap", "itemscope", "loop", "multiple",
+    "muted", "nohref", "noresize", "noshade", "novalidate", "nowrap", "open", "pauseonexit", "readonly",
+    "required", "reversed", "scoped", "seamless", "selected", "sortable", "spellcheck", "translate",
+    "truespeed", "typemustmatch", "visible"];
+var booleanAttrsDict = Object.create(null);
+for (var i = 0, len = booleanAttrs.length; i < len; i++) {
+    booleanAttrsDict[booleanAttrs[i]] = true;
+}
+function updateAttrs(oldVnode, vnode) {
+    var key, cur, old, elm = vnode.elm, oldAttrs = oldVnode.data.attrs, attrs = vnode.data.attrs, namespaceSplit;
+    if (!oldAttrs && !attrs)
+        return;
+    if (oldAttrs === attrs)
+        return;
+    oldAttrs = oldAttrs || {};
+    attrs = attrs || {};
+    // update modified attributes, add new attributes
+    for (key in attrs) {
+        cur = attrs[key];
+        old = oldAttrs[key];
+        if (old !== cur) {
+            if (!cur && booleanAttrsDict[key])
+                elm.removeAttribute(key);
+            else {
+                namespaceSplit = key.split(":");
+                if (namespaceSplit.length > 1 && NamespaceURIs.hasOwnProperty(namespaceSplit[0]))
+                    elm.setAttributeNS(NamespaceURIs[namespaceSplit[0]], key, cur);
+                else
+                    elm.setAttribute(key, cur);
+            }
+        }
+    }
+    //remove removed attributes
+    // use `in` operator since the previous `for` iteration uses it (.i.e. add even attributes with undefined value)
+    // the other option is to remove all attributes with value == undefined
+    for (key in oldAttrs) {
+        if (!(key in attrs)) {
+            elm.removeAttribute(key);
+        }
+    }
+}
+exports.attributesModule = { create: updateAttrs, update: updateAttrs };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = exports.attributesModule;
+//# sourceMappingURL=attributes.js.map
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+function updateProps(oldVnode, vnode) {
+    var key, cur, old, elm = vnode.elm, oldProps = oldVnode.data.props, props = vnode.data.props;
+    if (!oldProps && !props)
+        return;
+    if (oldProps === props)
+        return;
+    oldProps = oldProps || {};
+    props = props || {};
+    for (key in oldProps) {
+        if (!props[key]) {
+            delete elm[key];
+        }
+    }
+    for (key in props) {
+        cur = props[key];
+        old = oldProps[key];
+        if (old !== cur && (key !== 'value' || elm[key] !== cur)) {
+            elm[key] = cur;
+        }
+    }
+}
+exports.propsModule = { create: updateProps, update: updateProps };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = exports.propsModule;
+//# sourceMappingURL=props.js.map
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 var h_1 = __webpack_require__(7);
 function copyToThunk(vnode, thunk) {
     thunk.elm = vnode.elm;
@@ -3766,7 +3855,7 @@ exports.default = exports.thunk;
 //# sourceMappingURL=thunk.js.map
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -3794,10 +3883,36 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
-(function (_, Kotlin, $module$xstream, $module$_cycle_dom, $module$_cycle_run, $module$jsonp) {
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(54);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(117)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../node_modules/css-loader/index.js!./index.css", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js!./index.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+(function (_, Kotlin, $module$xstream, $module$snabbdom_modules_props, $module$snabbdom_modules_attributes, $module$_cycle_dom, $module$_cycle_run, $module$jsonp) {
   'use strict';
   var Error_0 = Kotlin.kotlin.Error;
   var toInt = Kotlin.kotlin.text.toInt_pdl1vz$;
@@ -4117,6 +4232,8 @@ module.exports = function(module) {
   VAR_.prototype.constructor = VAR_;
   VIDEO.prototype = Object.create(HTMLTag.prototype);
   VIDEO.prototype.constructor = VIDEO;
+  PaverModule.prototype = Object.create(Module.prototype);
+  PaverModule.prototype.constructor = PaverModule;
   VKReq$Users.prototype = Object.create(VKReq.prototype);
   VKReq$Users.prototype.constructor = VKReq$Users;
   VKReq$Users$Get.prototype = Object.create(VKReq$Users.prototype);
@@ -4127,31 +4244,47 @@ module.exports = function(module) {
   VKReq$Photos$GetAlbums.prototype.constructor = VKReq$Photos$GetAlbums;
   Case.prototype = Object.create(Enum.prototype);
   Case.prototype.constructor = Case;
-  function app$lambda$lambda$lambda($receiver_17, it) {
+  function app$lambda$lambda$lambda$lambda(closure$it) {
+    return function ($receiver_17) {
+      var $receiver_18 = closure$it.user;
+      img($receiver_17, get_fullName($receiver_18), $receiver_18.photo_50);
+    };
+  }
+  function app$lambda$lambda$lambda$lambda$lambda($receiver_17, it) {
     var tmp$_17;
     tmp$_17 = it.iterator();
     while (tmp$_17.hasNext()) {
       var element_17 = tmp$_17.next();
       var receiver = element_17.album;
-      img($receiver_17, receiver.title, receiver.thumb_src);
+      img_0($receiver_17, receiver.title, receiver.thumb_src);
     }
   }
-  function app$lambda$lambda($receiver_17, it) {
-    var $receiver_18 = it.user;
-    img($receiver_17, get_fullName($receiver_18), $receiver_18.photo_50);
-    $receiver_17.invoke_kkoh0z$(it.albums, app$lambda$lambda$lambda);
+  function app$lambda$lambda$lambda$lambda_0(this$, closure$it) {
+    return function ($receiver_17) {
+      this$.paver_s8ev37$();
+      this$.invoke_p3d1op$(closure$it.albums, app$lambda$lambda$lambda$lambda$lambda);
+    };
+  }
+  function app$lambda$lambda$lambda($receiver_17, it) {
+    div($receiver_17, 'owners', app$lambda$lambda$lambda$lambda(it));
+    div($receiver_17, 'albums', app$lambda$lambda$lambda$lambda_0($receiver_17, it));
+  }
+  function app$lambda$lambda(closure$sources, this$) {
+    return function ($receiver_17) {
+      this$.invoke_p3d1op$(closure$sources.VK.me, app$lambda$lambda$lambda);
+    };
   }
   function app$lambda(closure$sources) {
     return function ($receiver_17) {
       $receiver_17.unaryPlus_pdl1vz$('\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0430\u043B\u044C\u0431\u043E\u043C, \u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u0445\u043E\u0442\u0438\u0442\u0435 \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C');
-      $receiver_17.invoke_kkoh0z$(closure$sources.VK.me, app$lambda$lambda);
+      div($receiver_17, 'selector', app$lambda$lambda(closure$sources, $receiver_17));
     };
   }
   function app_0(sources) {
     return new AppSinks(appDiv(app$lambda(sources)).debug('vtree'), $module$xstream.default.of());
   }
   function AppDrivers(selector) {
-    this.DOM = $module$_cycle_dom.makeDOMDriver(selector);
+    this.DOM = $module$_cycle_dom.makeDOMDriver(selector, DOMDriverOptions_init([$module$snabbdom_modules_props, $module$snabbdom_modules_attributes, PaverModule_getInstance()]));
     this.VK = VKDriver;
   }
   AppDrivers.$metadata$ = {
@@ -4183,7 +4316,7 @@ module.exports = function(module) {
   function Params(source_3, initParams) {
     if (source_3 === void 0)
       source_3 = null;
-    this.params_0 = new URLSearchParams(source_3);
+    this.params_0 = new URLSearchParams(source_3 != null ? source_3 : '');
     var tmp$_17;
     for (tmp$_17 = 0; tmp$_17 !== initParams.length; ++tmp$_17) {
       var element_17 = initParams[tmp$_17];
@@ -4209,7 +4342,7 @@ module.exports = function(module) {
     return this.deserialize_61zpoe$(this.$outer.getValue_t0xcdd$(thisRef, property));
   };
   Params$Delegate.prototype.setValue_cvomos$ = function (thisRef, property, value) {
-    this.$outer.setValue_s4twwd$(thisRef, property, JSON.stringify(value));
+    this.$outer.setValue_s4twwd$(thisRef, property, this.serialize_11rb$(value));
   };
   Params$Delegate.prototype.deserialize_61zpoe$ = function (str) {
     throw new Error_0('readonly');
@@ -4376,6 +4509,9 @@ module.exports = function(module) {
   function js_0(handler) {
     return jsObject(handler);
   }
+  var debugger_0 = Kotlin.defineInlineFunction('_compiled-tmp.app.debugger', function () {
+    debugger;
+  });
   function setEvent($receiver_17, name, callback) {
     $receiver_17[name] = callback;
   }
@@ -4524,7 +4660,7 @@ module.exports = function(module) {
     else {
       tmp$_17 = $receiver_17.ownerDocument;
       if (tmp$_17 == null) {
-        throw new IllegalStateException('Node has no ownerDocument');
+        throw new IllegalStateException('NodeBuilder has no ownerDocument');
       }
       return tmp$_17;
     }
@@ -4823,7 +4959,7 @@ module.exports = function(module) {
   }
   function div$lambda($receiver_17) {
   }
-  function div($receiver_17, classes, block) {
+  function div_0($receiver_17, classes, block) {
     if (classes === void 0)
       classes = null;
     if (block === void 0)
@@ -5061,7 +5197,7 @@ module.exports = function(module) {
   }
   function img$lambda($receiver_17) {
   }
-  function img_0($receiver_17, alt, src, classes, block) {
+  function img_1($receiver_17, alt, src, classes, block) {
     if (alt === void 0)
       alt = null;
     if (src === void 0)
@@ -7924,7 +8060,7 @@ module.exports = function(module) {
   }
   function div$lambda_0($receiver_17) {
   }
-  function div_0($receiver_17, classes, block) {
+  function div($receiver_17, classes, block) {
     if (classes === void 0)
       classes = null;
     if (block === void 0)
@@ -8149,7 +8285,7 @@ module.exports = function(module) {
   }
   function img$lambda_0($receiver_17) {
   }
-  function img($receiver_17, alt, src, classes, block) {
+  function img_0($receiver_17, alt, src, classes, block) {
     if (alt === void 0)
       alt = null;
     if (src === void 0)
@@ -12724,7 +12860,7 @@ module.exports = function(module) {
   }
   function img$lambda_1($receiver_17) {
   }
-  function img_1($receiver_17, alt, src, classes, block) {
+  function img($receiver_17, alt, src, classes, block) {
     if (alt === void 0)
       alt = null;
     if (src === void 0)
@@ -17539,6 +17675,166 @@ module.exports = function(module) {
     $receiver_17.consumer.onTagStart_tkgjla$(tag);
     $receiver_17.consumer.onTagEnd_tkgjla$(tag);
   }
+  function DOMDriverOptions(modules) {
+    this.modules = modules;
+  }
+  DOMDriverOptions.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'DOMDriverOptions',
+    interfaces: []
+  };
+  function DOMDriverOptions_init(modules, $this) {
+    $this = $this || Object.create(DOMDriverOptions.prototype);
+    DOMDriverOptions.call($this, modules);
+    return $this;
+  }
+  DOMDriverOptions.prototype.component1 = function () {
+    return this.modules;
+  };
+  DOMDriverOptions.prototype.copy_qnll97$ = function (modules) {
+    return new DOMDriverOptions_init(modules === void 0 ? this.modules : modules);
+  };
+  DOMDriverOptions.prototype.toString = function () {
+    return 'DOMDriverOptions(modules=' + Kotlin.toString(this.modules) + ')';
+  };
+  DOMDriverOptions.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.modules) | 0;
+    return result;
+  };
+  DOMDriverOptions.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && Kotlin.equals(this.modules, other.modules))));
+  };
+  function Tile(width, height, elm) {
+    this.width = width;
+    this.height = height;
+    this.elm = elm;
+  }
+  Tile.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'Tile',
+    interfaces: []
+  };
+  function Tile_init(elm, $this) {
+    $this = $this || Object.create(Tile.prototype);
+    Tile.call($this, elm.clientWidth, elm.clientHeight, elm);
+    return $this;
+  }
+  Tile.prototype.component1 = function () {
+    return this.width;
+  };
+  Tile.prototype.component2 = function () {
+    return this.height;
+  };
+  Tile.prototype.component3 = function () {
+    return this.elm;
+  };
+  Tile.prototype.copy_gsl7ep$ = function (width, height, elm) {
+    return new Tile_init(width === void 0 ? this.width : width, height === void 0 ? this.height : height, elm === void 0 ? this.elm : elm);
+  };
+  Tile.prototype.toString = function () {
+    return 'Tile(width=' + Kotlin.toString(this.width) + (', height=' + Kotlin.toString(this.height)) + (', elm=' + Kotlin.toString(this.elm)) + ')';
+  };
+  Tile.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.width) | 0;
+    result = result * 31 + Kotlin.hashCode(this.height) | 0;
+    result = result * 31 + Kotlin.hashCode(this.elm) | 0;
+    return result;
+  };
+  Tile.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.width, other.width) && Kotlin.equals(this.height, other.height) && Kotlin.equals(this.elm, other.elm)))));
+  };
+  function PaverOptions(renderTile) {
+    this.renderTile = renderTile;
+  }
+  PaverOptions.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'PaverOptions',
+    interfaces: []
+  };
+  PaverOptions.prototype.component1 = function () {
+    return this.renderTile;
+  };
+  PaverOptions.prototype.copy_jb9s1c$ = function (renderTile) {
+    return new PaverOptions(renderTile === void 0 ? this.renderTile : renderTile);
+  };
+  PaverOptions.prototype.toString = function () {
+    return 'PaverOptions(renderTile=' + Kotlin.toString(this.renderTile) + ')';
+  };
+  PaverOptions.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.renderTile) | 0;
+    return result;
+  };
+  PaverOptions.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && Kotlin.equals(this.renderTile, other.renderTile))));
+  };
+  function PaverModule() {
+    PaverModule_instance = this;
+    Module.call(this);
+  }
+  PaverModule.prototype.paver_lljt3l$ = function (vNode) {
+    var tmp$_17, tmp$_18, tmp$_19;
+    var paver = (tmp$_17 = vNode.data) != null ? tmp$_17.paver : null;
+    if (paver == null)
+      return;
+    var width = (tmp$_19 = paver.width) != null ? tmp$_19 : (tmp$_18 = vNode.elm) != null ? tmp$_18.clientWidth : null;
+    if (width == null)
+      return;
+    var children = vNode.children;
+    if (children == null)
+      return;
+    var destination_17 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$();
+    var tmp$_20;
+    for (tmp$_20 = 0; tmp$_20 !== children.length; ++tmp$_20) {
+      var element_17 = children[tmp$_20];
+      if (Kotlin.isType(element_17, VNode)) {
+        destination_17.add_11rb$(element_17);
+      }
+    }
+    var destination_18 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$();
+    var tmp$_21;
+    tmp$_21 = destination_17.iterator();
+    while (tmp$_21.hasNext()) {
+      var element_18 = tmp$_21.next();
+      if (element_18.elm != null) {
+        destination_18.add_11rb$(element_18);
+      }
+    }
+    var destination_19 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$(Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$(destination_18, 10));
+    var tmp$_22;
+    tmp$_22 = destination_18.iterator();
+    while (tmp$_22.hasNext()) {
+      var item = tmp$_22.next();
+      var tmp$_23;
+      destination_19.add_11rb$(Tile_init((tmp$_23 = item.elm) != null ? tmp$_23 : Kotlin.throwNPE()));
+    }
+    var tiles = Kotlin.kotlin.collections.copyToArray(destination_19);
+    var options = new PaverOptions(Kotlin.getPropertyCallableRef('elm', 1, function ($receiver_17) {
+      return $receiver_17.elm;
+    }));
+    var layout = Paver(tiles, width, options);
+    layout.render();
+  };
+  PaverModule.prototype.create_fx5w6s$ = function (emptyVNode, vNode) {
+    this.paver_lljt3l$(vNode);
+  };
+  PaverModule.prototype.update_fx5w6s$ = function (oldVNode, vNode) {
+    this.paver_lljt3l$(vNode);
+  };
+  PaverModule.$metadata$ = {
+    kind: Kotlin.Kind.OBJECT,
+    simpleName: 'PaverModule',
+    interfaces: [Module]
+  };
+  var PaverModule_instance = null;
+  function PaverModule_getInstance() {
+    if (PaverModule_instance === null) {
+      new PaverModule();
+    }
+    return PaverModule_instance;
+  }
   function Child() {
   }
   Child.$metadata$ = {
@@ -17546,50 +17842,50 @@ module.exports = function(module) {
     simpleName: 'Child',
     interfaces: []
   };
-  function Node_0(selector, text_0) {
+  function NodeBuilder(selector, text_0) {
     if (selector === void 0)
       selector = '';
     if (text_0 === void 0)
       text_0 = null;
     this.selector = selector;
     this.text = text_0;
-    this.data = new Node$data$ObjectLiteral();
+    this.data = jsObject(NodeBuilder$data$lambda);
     this.children = Kotlin.kotlin.collections.ArrayList_init_ww73n8$();
   }
-  Node_0.prototype.setAttr_jyasbz$ = function (name, value) {
+  NodeBuilder.prototype.setAttr_jyasbz$ = function (name, value) {
     this.data.attrs[name] = value;
   };
-  Node_0.prototype.addText_61zpoe$ = function (added) {
+  NodeBuilder.prototype.addText_61zpoe$ = function (added) {
     if (this.text == null)
       this.text = added;
     else
       this.text = plus(this.text, added);
   };
-  Node_0.prototype.textToChildren = function () {
+  NodeBuilder.prototype.textToChildren = function () {
     var t = this.text;
     if (t != null) {
       var $receiver_17 = this.children;
-      var element_17 = new Node_0('span', t);
+      var element_17 = new NodeBuilder('span', t);
       $receiver_17.add_11rb$(element_17);
       this.text = null;
     }
   };
-  Node_0.prototype.addChild_ghr9b3$ = function (child) {
+  NodeBuilder.prototype.addChild_lvjez1$ = function (child) {
     this.textToChildren();
     this.children.add_11rb$(child);
   };
-  Node_0.prototype.createChildren = function () {
+  NodeBuilder.prototype.createChildren = function () {
     this.textToChildren();
     var childNodes = Kotlin.kotlin.collections.ArrayList_init_ww73n8$();
     var tmp$_17;
     tmp$_17 = this.children.iterator();
     while (tmp$_17.hasNext()) {
       var element_17 = tmp$_17.next();
-      element_17.appendTo_i38am7$(childNodes);
+      element_17.appendTo_7cwi9d$(childNodes);
     }
     return toList(childNodes);
   };
-  Node_0.prototype.create = function () {
+  NodeBuilder.prototype.create = function () {
     if (this.children.isEmpty())
       return $module$_cycle_dom.h(this.selector, this.data, this.text);
     else {
@@ -17599,54 +17895,34 @@ module.exports = function(module) {
       return $module$_cycle_dom.h(tmp$_17, tmp$_18, Kotlin.kotlin.collections.copyToArray($receiver_17));
     }
   };
-  Node_0.prototype.appendTo_i38am7$ = function (list) {
+  NodeBuilder.prototype.appendTo_7cwi9d$ = function (list) {
     list.add_11rb$(this.create());
   };
-  function Node$data$ObjectLiteral() {
-    this.attrs_wqbpek$_0 = new Node$data$ObjectLiteral$attrs$ObjectLiteral();
-    this.props_wqbpek$_0 = new Node$data$ObjectLiteral$props$ObjectLiteral();
+  function NodeBuilder$data$lambda$ObjectLiteral() {
   }
-  Object.defineProperty(Node$data$ObjectLiteral.prototype, 'attrs', {
-    get: function () {
-      return this.attrs_wqbpek$_0;
-    },
-    set: function (attrs) {
-      this.attrs_wqbpek$_0 = attrs;
-    }
-  });
-  Object.defineProperty(Node$data$ObjectLiteral.prototype, 'props', {
-    get: function () {
-      return this.props_wqbpek$_0;
-    },
-    set: function (props) {
-      this.props_wqbpek$_0 = props;
-    }
-  });
-  function Node$data$ObjectLiteral$attrs$ObjectLiteral() {
-  }
-  Node$data$ObjectLiteral$attrs$ObjectLiteral.$metadata$ = {
+  NodeBuilder$data$lambda$ObjectLiteral.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
     interfaces: []
   };
-  function Node$data$ObjectLiteral$props$ObjectLiteral() {
+  function NodeBuilder$data$lambda$ObjectLiteral_0() {
   }
-  Node$data$ObjectLiteral$props$ObjectLiteral.$metadata$ = {
+  NodeBuilder$data$lambda$ObjectLiteral_0.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
     interfaces: []
   };
-  Node$data$ObjectLiteral.$metadata$ = {
+  function NodeBuilder$data$lambda($receiver_17) {
+    $receiver_17.attrs = new NodeBuilder$data$lambda$ObjectLiteral();
+    $receiver_17.props = new NodeBuilder$data$lambda$ObjectLiteral_0();
+  }
+  NodeBuilder.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
-    interfaces: []
-  };
-  Node_0.$metadata$ = {
-    kind: Kotlin.Kind.CLASS,
-    simpleName: 'Node',
+    simpleName: 'NodeBuilder',
     interfaces: [Child]
   };
   function ReactiveNode() {
     this.resolved = Kotlin.kotlin.collections.emptyList_287e2$();
   }
-  ReactiveNode.prototype.appendTo_i38am7$ = function (list) {
+  ReactiveNode.prototype.appendTo_7cwi9d$ = function (list) {
     list.addAll_brywnq$(this.resolved);
   };
   ReactiveNode.$metadata$ = {
@@ -17655,7 +17931,7 @@ module.exports = function(module) {
     interfaces: [Child]
   };
   function HBuilder() {
-    this.base = new Node_0();
+    this.base = new NodeBuilder();
     this.stack_0 = mutableListOf_0([this.base]);
     this.lastLeaved_0 = void 0;
     this.changes = $module$xstream.default.of(kotlin_0.Unit);
@@ -17666,7 +17942,7 @@ module.exports = function(module) {
     }
   });
   HBuilder.prototype.onTagStart_tkgjla$ = function (tag) {
-    var node = new Node_0(tag.tagName);
+    var node = new NodeBuilder(tag.tagName);
     var tmp$_17;
     tmp$_17 = tag.attributes.entries.iterator();
     while (tmp$_17.hasNext()) {
@@ -17684,7 +17960,7 @@ module.exports = function(module) {
   };
   HBuilder.prototype.onTagEnd_tkgjla$ = function (tag) {
     this.lastLeaved_0 = this.stack_0.removeAt_za3lpa$(get_lastIndex(this.stack_0));
-    this.current_0.addChild_ghr9b3$(this.lastLeaved_0);
+    this.current_0.addChild_lvjez1$(this.lastLeaved_0);
   };
   HBuilder.prototype.onTagContent_6bul2c$ = function (content) {
     this.current_0.addText_61zpoe$(content.toString());
@@ -17718,11 +17994,16 @@ module.exports = function(module) {
       closure$node.resolved = vtree;
     };
   }
-  HBuilder.prototype.invoke_kkoh0z$ = function ($receiver_17, handler) {
+  HBuilder.prototype.invoke_p3d1op$ = function ($receiver_17, handler) {
     var node = new ReactiveNode();
-    this.current_0.addChild_ghr9b3$(node);
+    this.current_0.addChild_lvjez1$(node);
     var stream = h_0($receiver_17, handler);
     this.changes = combine_0(this.changes, stream, HBuilder$invoke$lambda(node));
+  };
+  HBuilder.prototype.paver_s8ev37$ = function (width) {
+    if (width === void 0)
+      width = null;
+    this.current_0.data.paver = new PaverData(width);
   };
   HBuilder.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
@@ -17759,7 +18040,7 @@ module.exports = function(module) {
   }
   function appDiv$lambda(closure$handler) {
     return function ($receiver_17) {
-      div_0($receiver_17, void 0, appDiv$lambda$lambda(closure$handler, $receiver_17));
+      div($receiver_17, void 0, appDiv$lambda$lambda(closure$handler, $receiver_17));
     };
   }
   function appDiv$lambda_0(it) {
@@ -17768,6 +18049,59 @@ module.exports = function(module) {
   function appDiv(handler) {
     return h_1(appDiv$lambda(handler)).map(appDiv$lambda_0);
   }
+  function VNode() {
+  }
+  VNode.$metadata$ = {
+    kind: Kotlin.Kind.INTERFACE,
+    simpleName: 'VNode',
+    interfaces: []
+  };
+  function PaverData(width) {
+    if (width === void 0)
+      width = null;
+    this.width = width;
+  }
+  PaverData.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'PaverData',
+    interfaces: []
+  };
+  PaverData.prototype.component1 = function () {
+    return this.width;
+  };
+  PaverData.prototype.copy_s8ev37$ = function (width) {
+    return new PaverData(width === void 0 ? this.width : width);
+  };
+  PaverData.prototype.toString = function () {
+    return 'PaverData(width=' + Kotlin.toString(this.width) + ')';
+  };
+  PaverData.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.width) | 0;
+    return result;
+  };
+  PaverData.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && Kotlin.equals(this.width, other.width))));
+  };
+  function Module() {
+  }
+  Module.prototype.pre = function () {
+  };
+  Module.prototype.create_fx5w6s$ = function (emptyVNode, vNode) {
+  };
+  Module.prototype.update_fx5w6s$ = function (oldVNode, vNode) {
+  };
+  Module.prototype.destroy_lljt3l$ = function (vNode) {
+  };
+  Module.prototype.remove_ttl0uc$ = function (vNode, removeCallback) {
+  };
+  Module.prototype.post = function () {
+  };
+  Module.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'Module',
+    interfaces: []
+  };
   function flatMap_0($receiver_17, project) {
     return $receiver_17.map(project).flatten();
   }
@@ -18142,10 +18476,11 @@ module.exports = function(module) {
     }
   });
   function UserVM$albums$lambda$lambda(it) {
-    var destination_17 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$(it.length);
+    var $receiver_17 = it.items;
+    var destination_17 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$($receiver_17.length);
     var tmp$_17;
-    for (tmp$_17 = 0; tmp$_17 !== it.length; ++tmp$_17) {
-      var item = it[tmp$_17];
+    for (tmp$_17 = 0; tmp$_17 !== $receiver_17.length; ++tmp$_17) {
+      var item = $receiver_17[tmp$_17];
       destination_17.add_11rb$(new AlbumVM(item));
     }
     return destination_17;
@@ -18156,6 +18491,7 @@ module.exports = function(module) {
       var ctor = Kotlin.kotlin.js.get_js_1yb8b7$(Kotlin.getKClass(VKReq$Photos$GetAlbums));
       var $receiver_17 = new ctor();
       $receiver_17.owner_id = this$UserVM.user.id;
+      $receiver_17.need_covers = true;
       return $receiver_17.response().map(UserVM$albums$lambda$lambda);
     };
   }
@@ -18569,6 +18905,7 @@ module.exports = function(module) {
   package$app.Builder = Builder;
   package$app.jsObject_7qq44f$ = jsObject;
   package$app.js_5ij4lk$ = js_0;
+  package$app.debugger = debugger_0;
   var package$kotlinx = _.kotlinx || (_.kotlinx = {});
   var package$html = package$kotlinx.html || (package$kotlinx.html = {});
   var package$dom = package$html.dom || (package$html.dom = {});
@@ -18607,7 +18944,7 @@ module.exports = function(module) {
   package$js.details_v1c0ag$ = details;
   package$js.dfn_6e2jtu$ = dfn;
   package$js.dialog_o1mqye$ = dialog;
-  package$js.div_wkomt5$ = div;
+  package$js.div_wkomt5$ = div_0;
   package$js.dl_4s12uu$ = dl;
   package$js.dt_iewpf2$ = dt;
   package$js.em_bpkgve$ = em;
@@ -18631,7 +18968,7 @@ module.exports = function(module) {
   package$js.i_5jry8x$ = i;
   package$js.iframe_4ksjnb$ = iframe;
   package$js.iframe_g0q2yy$ = iframe_0;
-  package$js.img_6lw7hj$ = img_0;
+  package$js.img_6lw7hj$ = img_1;
   package$js.input_x8a5sv$ = input;
   package$js.ins_xcl8o4$ = ins;
   package$js.kbd_ijivhf$ = kbd;
@@ -19074,7 +19411,7 @@ module.exports = function(module) {
   package$html.details_lsny6o$ = details_0;
   package$html.dfn_qz8qfa$ = dfn_0;
   package$html.dialog_tmuuku$ = dialog_0;
-  package$html.div_59el9d$ = div_0;
+  package$html.div_59el9d$ = div;
   package$html.dl_jwau0i$ = dl_0;
   package$html.dt_t7lw6$ = dt_0;
   package$html.em_83d4cy$ = em_0;
@@ -19098,7 +19435,7 @@ module.exports = function(module) {
   package$html.i_gncgg9$ = i_0;
   package$html.iframe_i3obeb$ = iframe_1;
   package$html.iframe_k7pgs2$ = iframe_2;
-  package$html.img_45d5o1$ = img;
+  package$html.img_45d5o1$ = img_0;
   package$html.input_mm0abt$ = input_0;
   package$html.ins_e5g22k$ = ins_0;
   package$html.kbd_10o0fv$ = kbd_0;
@@ -19941,7 +20278,7 @@ module.exports = function(module) {
   package$html.allowSameOriginIframe_lm6cex$ = allowSameOriginIframe_0;
   package$html.allowFormSIframe_lm6cex$ = allowFormSIframe_0;
   package$html.allowScriptsIframe_lm6cex$ = allowScriptsIframe_0;
-  package$html.img_evw26v$ = img_1;
+  package$html.img_evw26v$ = img;
   package$html.input_e1g74z$ = input_1;
   package$html.buttonInput_ap9uf6$ = buttonInput;
   package$html.checkBoxInput_ap9uf6$ = checkBoxInput;
@@ -20278,12 +20615,25 @@ module.exports = function(module) {
   var package$lib = _.lib || (_.lib = {});
   var package$cycle = package$lib.cycle || (package$lib.cycle = {});
   var package$dom_0 = package$cycle.dom || (package$cycle.dom = {});
-  package$dom_0.Child = Child;
-  package$dom_0.Node = Node_0;
-  package$dom_0.HBuilder = HBuilder;
-  package$dom_0.h_i5xoex$ = h_1;
-  package$dom_0.h_dlat7u$ = h_0;
-  package$dom_0.appDiv_i5xoex$ = appDiv;
+  package$dom_0.DOMDriverOptions_init_siq366$ = DOMDriverOptions_init;
+  package$dom_0.DOMDriverOptions = DOMDriverOptions;
+  var package$paver = package$lib.paver || (package$lib.paver = {});
+  package$paver.Tile_init_2rdptt$ = Tile_init;
+  package$paver.Tile = Tile;
+  package$paver.PaverOptions = PaverOptions;
+  Object.defineProperty(package$paver, 'PaverModule', {
+    get: PaverModule_getInstance
+  });
+  var package$snabbdom = package$lib.snabbdom || (package$lib.snabbdom = {});
+  package$snabbdom.Child = Child;
+  package$snabbdom.NodeBuilder = NodeBuilder;
+  package$snabbdom.HBuilder = HBuilder;
+  package$snabbdom.h_sot92j$ = h_1;
+  package$snabbdom.h_eqlnrg$ = h_0;
+  package$snabbdom.appDiv_sot92j$ = appDiv;
+  package$snabbdom.VNode = VNode;
+  package$snabbdom.PaverData = PaverData;
+  package$snabbdom.Module = Module;
   var package$xstream = package$lib.xstream || (package$lib.xstream = {});
   package$xstream.flatMap_im4ds3$ = flatMap_0;
   package$xstream.combine_6klblv$ = combine_0;
@@ -20532,13 +20882,333 @@ module.exports = function(module) {
   Kotlin.defineModule('_compiled-tmp', _);
   main([]);
   return _;
-}(module.exports, __webpack_require__(91), __webpack_require__(1), __webpack_require__(42), __webpack_require__(48), __webpack_require__(90)));
+}(module.exports, __webpack_require__(97), __webpack_require__(1), __webpack_require__(33), __webpack_require__(32), __webpack_require__(46), __webpack_require__(52), __webpack_require__(96)));
 
 //@ sourceMappingURL=_compiled-tmp.js.map
 
 
 /***/ }),
-/* 35 */
+/* 38 */
+/***/ (function(module, exports) {
+
+window.Paver = function(dataSource, width, options) {
+  "use strict";
+
+  options = options || {};
+
+  var layout = {
+    dataSource: dataSource,
+    width: width,
+
+    preferredArea: options.preferredArea,
+    optimizeSteps: options.optimizeSteps || 3,
+    getPreferredArea: options.getPreferredArea,
+    minRowHeight: options.minRowHeight || (options.preferredArea ? Math.sqrt(options.preferredArea / 2) : 0),
+    maxRowHeight: options.maxRowHeight || (options.preferredArea ? Math.sqrt(options.preferredArea * 2) : 180),
+    minStackWidth: options.minStackWidth || (options.preferredArea ? Math.sqrt(options.preferredArea / 2) : 100),
+    minTileHeight: options.minTileHeight || (options.preferredArea ? Math.sqrt(options.preferredArea * 2) / 3 : 70),
+    maxRatio: options.maxRatio || 4,
+    minRatio: options.minRatio || 0.333,
+    margin: 'margin' in options ? options.margin : 2,
+    noStacks: options.noStacks,
+
+    rows: [],
+
+    build: function(fromRow) {
+      //console.time('build');
+      var rows = this.rows;
+      var count = this.dataSource && (this.dataSource.count ? this.dataSource.count() : this.dataSource.length) || 0;
+      var last = (rows.length > 0) ? rows[rows.length - 1].range.to : 0;
+
+      var rowWidth = this.width;
+      var preferredArea = this.preferredArea;
+      var minRowHeight, maxRowHeight,
+        minStackWidth, minTileHeight,
+        optimizeSteps, getPreferredArea;
+
+      if (preferredArea) {
+        optimizeSteps = Math.max(3, this.optimizeSteps || 3);
+        getPreferredArea = this.getPreferredArea;
+        minRowHeight = this.minRowHeight || Math.sqrt(preferredArea / 2);
+        maxRowHeight = this.maxRowHeight || Math.sqrt(preferredArea * 2);
+        minStackWidth = this.minStackWidth || Math.sqrt(preferredArea / 2);
+        minTileHeight = this.minTileHeight || (Math.sqrt(preferredArea * 2) / 3);
+      } else {
+        maxRowHeight = this.maxRowHeight || 180;
+        minStackWidth = this.minStackWidth || 100;
+        minTileHeight = this.minTileHeight || 70;
+      }
+
+      var maxRatio = this.maxRatio || 4;
+      var minRatio = this.minRatio || 0.333;
+      var margin = this.margin || 2;
+      var noStacks = this.noStacks;
+
+      if (fromRow === undefined) {
+        if (last == count - 1) {
+          return;
+        }
+
+        fromRow = rows.length - 1;
+      }
+
+      fromRow = Math.max(Math.min(fromRow, rows.length), 0);
+
+      rows.length = fromRow; // Truncate
+
+      var from = (fromRow < rows.length) ? rows[fromRow].range.from : 0;
+
+      var row = {
+        w1000: 0,
+        stacks: [],
+        range: { from: from }
+      }, stack = {
+        h1000: 0,
+        mh1000: 1000000,
+        tiles: [],
+        range: { from: from }
+      };
+
+      var best = false, bestScore, step = 0, totalScore = 0;
+
+      function compute(row, i) {
+        var score = 0;
+
+        row.width = 0;
+
+        for (var j = 0; j < row.stacks.length; j++) {
+          var stack = row.stacks[j];
+          stack.height = 0;
+          stack.width = Math.round(1000 * (row.height - (stack.tiles.length - 1) * margin) / stack.h1000);
+          if (i < count - 1 && j == row.stacks.length - 1) {
+            stack.width = rowWidth - row.width;
+            row.width = rowWidth;
+          } else {
+            row.width += stack.width + margin;
+          }
+
+          for (var k = 0; k < stack.tiles.length; k++) {
+            var tile = stack.tiles[k];
+            var ratio = Math.max(Math.min(tile.data.width / tile.data.height, maxRatio), minRatio);
+            tile.width = stack.width;
+            tile.height = Math.round(stack.width / ratio);
+            if (k == stack.tiles.length - 1) {
+              tile.height = row.height - stack.height;
+              stack.height = row.height;
+            } else {
+              stack.height += tile.height + margin;
+            }
+
+            if (preferredArea) {
+              var diff = (tile.width * tile.height - (getPreferredArea ? getPreferredArea(tile.data, tile.index) || preferredArea : preferredArea));
+              score += diff * diff;
+            }
+          }
+
+          delete stack.h1000;
+          delete stack.mh1000;
+        }
+
+        delete row.w1000;
+
+        row.range.to = i;
+        row.range.len = row.range.to - row.range.from + 1;
+        return score / row.range.len;
+      }
+
+      //console.groupCollapsed('row #' + rows.length);
+      for (var i = from; i < count; i++) {
+        var data = this.dataSource && (this.dataSource.get ? this.dataSource.get(i) : this.dataSource[i]) || false;
+        var ratio;
+
+        if (this.getRatio) {
+          ratio = this.getRatio(data, i);
+        } else {
+          if (!data || !data.width || !data.height) {
+            // No size available
+            if (this.defaultSize) {
+              data = data || {};
+              data.width = this.defaultSize.width;
+              data.height = this.defaultSize.height;
+            } else {
+              // Stop
+              break;
+            }
+          }
+
+          ratio = data.width / data.height;
+        }
+
+        ratio = Math.max(Math.min(ratio, maxRatio), minRatio);
+
+        var h1000 = 1000 / ratio;
+        var sh1000 = stack.h1000 + h1000;
+        var mh1000 = Math.min(stack.mh1000, h1000);
+
+        var rowHeight = preferredArea ? minRowHeight + step * (maxRowHeight - minRowHeight) / (optimizeSteps - 1) : maxRowHeight;
+
+        if (stack.tiles.length > 0 && (noStacks || (1000 * rowHeight / sh1000 < minStackWidth) || (mh1000 * rowHeight / sh1000 < minTileHeight))) {
+          row.w1000 += 1000000 / stack.h1000;
+
+          stack.range.to = i - 1;
+          stack.range.len = stack.range.to - stack.range.from + 1;
+
+          row.stacks.push(stack);
+
+          row.height = Math.round(1000 * (rowWidth - (row.stacks.length - 1) * margin) / row.w1000);
+          if (row.height <= rowHeight) {
+            if (!preferredArea) {
+              compute(row, i);
+              rows.push(row);
+            } else {
+              var score = compute(row, i);
+              //console.log('count = ' + row.range.len + ', h = ' + rowHeight + ', stddev = ' + Math.sqrt(score));
+              if (!best || (score < bestScore)) {
+                best = row, bestScore = score;
+              }
+
+              step++;
+              if (step >= optimizeSteps) {
+                //console.groupEnd();
+                rows.push(best);
+                //console.groupCollapsed('row #' + rows.length);
+                i = best.range.to;
+
+                totalScore += score;
+
+                best = false, bestScore = 1000000;
+                step = 0;
+              } else {
+                i = row.range.from;
+              }
+            }
+
+            row = {
+              w1000: 0,
+              stacks: [],
+              range: { from: i }
+            }
+          }
+
+          stack = {
+            h1000: 0,
+            mh1000: 1000000,
+            tiles: [],
+            range: { from: i }
+          }
+        }
+
+        stack.h1000 += 1000 / ratio;
+        stack.mh1000 = Math.min(stack.mh1000, 1000 / ratio);
+        stack.tiles.push({
+          data: data,
+          index: i,
+        });
+      }
+      //console.groupEnd();
+
+      if (row.stacks.length > 0) {
+        row.height = Math.min(row.height, maxRowHeight);
+        totalScore += compute(row, count - 1);
+        rows.push(row);
+      }
+
+      //console.log('total score (stddev from ' + preferredArea + '): ' + Math.sqrt(totalScore / rows.length));
+
+      //console.timeEnd('build');
+      return this;
+    },
+    rebuild: function() {
+      return this.build(0);
+    }
+  }
+
+  layout.render = options.render || function(element) {
+      var e = element || document.createElement('div');
+
+      //console.time('render');
+
+      e.style.position = 'relative';
+
+      //console.time('check');
+      var node = e.firstChild;
+      while (node) {
+        node.paverDelete = true;
+        node = node.nextSibling;
+      }
+      //console.timeEnd('check');
+
+      var childs = [];
+
+      var rowTop = 0;
+      for (var i = 0; i < this.rows.length; i++) {
+        var row = this.rows[i];
+        var stackLeft = 0;
+        for (var j = 0; j < row.stacks.length; j++) {
+          var stack = row.stacks[j];
+          var tileTop = 0;
+          for (var k = 0; k < stack.tiles.length; k++) {
+            var tile = stack.tiles[k];
+            var child = tile.element || this.renderTile(tile, { row: i, stack: j, tile: k });
+
+            child.style.position = 'absolute';
+            child.style.top = (rowTop + tileTop) + 'px';
+            child.style.left = stackLeft + 'px';
+            child.style.width = tile.width + 'px';
+            child.style.height = tile.height + 'px';
+
+            if (child.parentNode != e) {
+              childs.push(child);
+            } else {
+              child.paverDelete = false;
+            }
+
+            tileTop += tile.height + this.margin;
+          }
+          stackLeft += stack.width + this.margin;
+        }
+        rowTop += row.height + this.margin;
+      }
+
+      //console.time('check');
+      var node = e.firstChild;
+      while (node) {
+        var next = node.nextSibling;
+        if (node.paverDelete) {
+          e.removeChild(node);
+        }
+        delete node.paverDelete;
+        node = next;
+      }
+      //console.timeEnd('check');
+
+      for (var i = 0; i < childs.length; i++) {
+        e.appendChild(childs[i]);
+      }
+
+      //console.timeEnd('render');
+
+      return e;
+    }
+  layout.renderTile = options.renderTile || function(tile, path) {
+      var e = tile.element = document.createElement('div');
+
+      e.style.width = tile.width + 'px';
+      e.style.height = tile.height + 'px';
+
+      e.style.backgroundImage = 'url(' + tile.data.src + ')';
+      e.style.backgroundSize = 'cover';
+      e.style.backgroundRepeat = 'no-repeat';
+      e.style.backgroundPosition = 'center center';
+
+      return e;
+    }
+  return layout.rebuild();
+}
+
+
+/***/ }),
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20578,7 +21248,7 @@ exports.BodyDOMSource = BodyDOMSource;
 //# sourceMappingURL=BodyDOMSource.js.map
 
 /***/ }),
-/* 36 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20618,7 +21288,7 @@ exports.DocumentDOMSource = DocumentDOMSource;
 //# sourceMappingURL=DocumentDOMSource.js.map
 
 /***/ }),
-/* 37 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20656,7 +21326,7 @@ exports.ElementFinder = ElementFinder;
 //# sourceMappingURL=ElementFinder.js.map
 
 /***/ }),
-/* 38 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20822,7 +21492,7 @@ exports.EventDelegator = EventDelegator;
 //# sourceMappingURL=EventDelegator.js.map
 
 /***/ }),
-/* 39 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20939,13 +21609,13 @@ exports.IsolateModule = IsolateModule;
 //# sourceMappingURL=IsolateModule.js.map
 
 /***/ }),
-/* 40 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var h_1 = __webpack_require__(7);
-var classNameFromVNode_1 = __webpack_require__(99);
+var classNameFromVNode_1 = __webpack_require__(105);
 var selectorParser_1 = __webpack_require__(28);
 var VNodeWrapper = (function () {
     function VNodeWrapper(rootElement) {
@@ -20982,7 +21652,7 @@ exports.VNodeWrapper = VNodeWrapper;
 //# sourceMappingURL=VNodeWrapper.js.map
 
 /***/ }),
-/* 41 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21066,12 +21736,12 @@ exports.default = exported;
 //# sourceMappingURL=hyperscript-helpers.js.map
 
 /***/ }),
-/* 42 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var thunk_1 = __webpack_require__(32);
+var thunk_1 = __webpack_require__(34);
 exports.thunk = thunk_1.thunk;
 var MainDOMSource_1 = __webpack_require__(19);
 exports.MainDOMSource = MainDOMSource_1.MainDOMSource;
@@ -21119,7 +21789,7 @@ exports.HTMLSource = HTMLSource_1.HTMLSource;
  * VNode as input, and outputs the DOMSource object.
  * @function makeDOMDriver
  */
-var makeDOMDriver_1 = __webpack_require__(44);
+var makeDOMDriver_1 = __webpack_require__(48);
 exports.makeDOMDriver = makeDOMDriver_1.makeDOMDriver;
 /**
  * A factory for the HTML driver function.
@@ -21167,7 +21837,7 @@ exports.makeDOMDriver = makeDOMDriver_1.makeDOMDriver;
  * VNode as input, and outputs the DOMSource object.
  * @function makeHTMLDriver
  */
-var makeHTMLDriver_1 = __webpack_require__(45);
+var makeHTMLDriver_1 = __webpack_require__(49);
 exports.makeHTMLDriver = makeHTMLDriver_1.makeHTMLDriver;
 /**
  * A factory function to create mocked DOMSource objects, for testing purposes.
@@ -21217,7 +21887,7 @@ exports.makeHTMLDriver = makeHTMLDriver_1.makeHTMLDriver;
  *
  * @function mockDOMSource
  */
-var mockDOMSource_1 = __webpack_require__(46);
+var mockDOMSource_1 = __webpack_require__(50);
 exports.mockDOMSource = mockDOMSource_1.mockDOMSource;
 exports.MockedDOMSource = mockDOMSource_1.MockedDOMSource;
 /**
@@ -21262,7 +21932,7 @@ exports.MockedDOMSource = mockDOMSource_1.MockedDOMSource;
  */
 var h_1 = __webpack_require__(7);
 exports.h = h_1.h;
-var hyperscript_helpers_1 = __webpack_require__(41);
+var hyperscript_helpers_1 = __webpack_require__(45);
 exports.svg = hyperscript_helpers_1.default.svg;
 exports.a = hyperscript_helpers_1.default.a;
 exports.abbr = hyperscript_helpers_1.default.abbr;
@@ -21367,7 +22037,7 @@ exports.video = hyperscript_helpers_1.default.video;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 43 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21403,19 +22073,19 @@ exports.isolateSink = isolateSink;
 //# sourceMappingURL=isolate.js.map
 
 /***/ }),
-/* 44 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var snabbdom_1 = __webpack_require__(111);
+var snabbdom_1 = __webpack_require__(115);
 var xstream_1 = __webpack_require__(1);
 var MainDOMSource_1 = __webpack_require__(19);
-var tovnode_1 = __webpack_require__(112);
-var VNodeWrapper_1 = __webpack_require__(40);
+var tovnode_1 = __webpack_require__(116);
+var VNodeWrapper_1 = __webpack_require__(44);
 var utils_1 = __webpack_require__(5);
-var modules_1 = __webpack_require__(47);
-var IsolateModule_1 = __webpack_require__(39);
+var modules_1 = __webpack_require__(51);
+var IsolateModule_1 = __webpack_require__(43);
 var MapPolyfill = __webpack_require__(27);
 function makeDOMDriverInputGuard(modules) {
     if (!Array.isArray(modules)) {
@@ -21483,14 +22153,14 @@ exports.makeDOMDriver = makeDOMDriver;
 //# sourceMappingURL=makeDOMDriver.js.map
 
 /***/ }),
-/* 45 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var HTMLSource_1 = __webpack_require__(18);
-var init = __webpack_require__(100);
-var modulesForHTML = __webpack_require__(103);
+var init = __webpack_require__(106);
+var modulesForHTML = __webpack_require__(109);
 var defaultModules = [
     modulesForHTML.attributes,
     modulesForHTML.props,
@@ -21520,7 +22190,7 @@ exports.makeHTMLDriver = makeHTMLDriver;
 //# sourceMappingURL=makeHTMLDriver.js.map
 
 /***/ }),
-/* 46 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21577,20 +22247,20 @@ exports.mockDOMSource = mockDOMSource;
 //# sourceMappingURL=mockDOMSource.js.map
 
 /***/ }),
-/* 47 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var class_1 = __webpack_require__(107);
+var class_1 = __webpack_require__(112);
 exports.ClassModule = class_1.default;
-var props_1 = __webpack_require__(109);
+var props_1 = __webpack_require__(33);
 exports.PropsModule = props_1.default;
-var attributes_1 = __webpack_require__(106);
+var attributes_1 = __webpack_require__(32);
 exports.AttrsModule = attributes_1.default;
-var style_1 = __webpack_require__(110);
+var style_1 = __webpack_require__(114);
 exports.StyleModule = style_1.default;
-var dataset_1 = __webpack_require__(108);
+var dataset_1 = __webpack_require__(113);
 exports.DatasetModule = dataset_1.default;
 var modules = [style_1.default, class_1.default, props_1.default, attributes_1.default, dataset_1.default];
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -21598,7 +22268,7 @@ exports.default = modules;
 //# sourceMappingURL=modules.js.map
 
 /***/ }),
-/* 48 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21789,7 +22459,7 @@ exports.default = run;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 49 */
+/* 53 */
 /***/ (function(module, exports) {
 
 /*!
@@ -21901,14 +22571,84 @@ module.exports = (function split(undef) {
 
 
 /***/ }),
-/* 50 */
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(55)();
+// imports
+
+
+// module
+exports.push([module.i, "body {\n    width: 795px;\n}\n\n.selector {\n    display: flex;\n}\n\n.albums {\n    flex-grow: 1;\n    display: flex;\n    flex-wrap: wrap;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function() {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		var result = [];
+		for(var i = 0; i < this.length; i++) {
+			var item = this[i];
+			if(item[2]) {
+				result.push("@media " + item[2] + "{" + item[1] + "}");
+			} else {
+				result.push(item[1]);
+			}
+		}
+		return result.join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+
+/***/ }),
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var copy       = __webpack_require__(62)
-  , map        = __webpack_require__(70)
+var copy       = __webpack_require__(68)
+  , map        = __webpack_require__(76)
   , callable   = __webpack_require__(3)
   , validValue = __webpack_require__(0)
 
@@ -21939,7 +22679,7 @@ module.exports = function (props/*, bindTo*/) {
 
 
 /***/ }),
-/* 51 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -21949,7 +22689,7 @@ module.exports = function (props/*, bindTo*/) {
  * Expose `debug()` as the module.
  */
 
-exports = module.exports = __webpack_require__(52);
+exports = module.exports = __webpack_require__(58);
 exports.log = log;
 exports.formatArgs = formatArgs;
 exports.save = save;
@@ -22113,7 +22853,7 @@ function localstorage(){
 
 
 /***/ }),
-/* 52 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -22129,7 +22869,7 @@ exports.coerce = coerce;
 exports.disable = disable;
 exports.enable = enable;
 exports.enabled = enabled;
-exports.humanize = __webpack_require__(95);
+exports.humanize = __webpack_require__(101);
 
 /**
  * The currently active debug mode names, and names to skip.
@@ -22316,13 +23056,13 @@ function coerce(val) {
 
 
 /***/ }),
-/* 53 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var toPosInt = __webpack_require__(58)
+var toPosInt = __webpack_require__(64)
   , value    = __webpack_require__(0)
 
   , indexOf = Array.prototype.indexOf
@@ -22352,19 +23092,19 @@ module.exports = function (searchElement/*, fromIndex*/) {
 
 
 /***/ }),
-/* 54 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(55)()
+module.exports = __webpack_require__(61)()
 	? Math.sign
-	: __webpack_require__(56);
+	: __webpack_require__(62);
 
 
 /***/ }),
-/* 55 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22378,7 +23118,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 56 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22392,13 +23132,13 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 57 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var sign = __webpack_require__(54)
+var sign = __webpack_require__(60)
 
   , abs = Math.abs, floor = Math.floor;
 
@@ -22411,13 +23151,13 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 58 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var toInteger = __webpack_require__(57)
+var toInteger = __webpack_require__(63)
 
   , max = Math.max;
 
@@ -22425,7 +23165,7 @@ module.exports = function (value) { return max(0, toInteger(value)); };
 
 
 /***/ }),
-/* 59 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22461,7 +23201,7 @@ module.exports = function (method, defVal) {
 
 
 /***/ }),
-/* 60 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22477,13 +23217,13 @@ module.exports = function () {
 
 
 /***/ }),
-/* 61 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var keys  = __webpack_require__(67)
+var keys  = __webpack_require__(73)
   , value = __webpack_require__(0)
 
   , max = Math.max;
@@ -22506,7 +23246,7 @@ module.exports = function (dest, src/*, …srcn*/) {
 
 
 /***/ }),
-/* 62 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22523,7 +23263,7 @@ module.exports = function (obj) {
 
 
 /***/ }),
-/* 63 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22566,17 +23306,17 @@ module.exports = (function () {
 
 
 /***/ }),
-/* 64 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(59)('forEach');
+module.exports = __webpack_require__(65)('forEach');
 
 
 /***/ }),
-/* 65 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22588,7 +23328,7 @@ module.exports = function (obj) { return typeof obj === 'function'; };
 
 
 /***/ }),
-/* 66 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22602,19 +23342,19 @@ module.exports = function (x) {
 
 
 /***/ }),
-/* 67 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(68)()
+module.exports = __webpack_require__(74)()
 	? Object.keys
-	: __webpack_require__(69);
+	: __webpack_require__(75);
 
 
 /***/ }),
-/* 68 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22629,7 +23369,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 69 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22643,14 +23383,14 @@ module.exports = function (object) {
 
 
 /***/ }),
-/* 70 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var callable = __webpack_require__(3)
-  , forEach  = __webpack_require__(64)
+  , forEach  = __webpack_require__(70)
 
   , call = Function.prototype.call;
 
@@ -22665,7 +23405,7 @@ module.exports = function (obj, cb/*, thisArg*/) {
 
 
 /***/ }),
-/* 71 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22689,7 +23429,7 @@ module.exports = function (options/*, …options*/) {
 
 
 /***/ }),
-/* 72 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22705,7 +23445,7 @@ module.exports = function (arg/*, …args*/) {
 
 
 /***/ }),
-/* 73 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22720,7 +23460,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 74 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22734,7 +23474,7 @@ module.exports = function (searchString/*, position*/) {
 
 
 /***/ }),
-/* 75 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22771,7 +23511,7 @@ ArrayIterator.prototype = Object.create(Iterator.prototype, {
 
 
 /***/ }),
-/* 76 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22780,7 +23520,7 @@ ArrayIterator.prototype = Object.create(Iterator.prototype, {
 var isArguments = __webpack_require__(12)
   , callable    = __webpack_require__(3)
   , isString    = __webpack_require__(14)
-  , get         = __webpack_require__(77)
+  , get         = __webpack_require__(83)
 
   , isArray = Array.isArray, call = Function.prototype.call
   , some = Array.prototype.some;
@@ -22824,7 +23564,7 @@ module.exports = function (iterable, cb/*, thisArg*/) {
 
 
 /***/ }),
-/* 77 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22832,8 +23572,8 @@ module.exports = function (iterable, cb/*, thisArg*/) {
 
 var isArguments    = __webpack_require__(12)
   , isString       = __webpack_require__(14)
-  , ArrayIterator  = __webpack_require__(75)
-  , StringIterator = __webpack_require__(79)
+  , ArrayIterator  = __webpack_require__(81)
+  , StringIterator = __webpack_require__(85)
   , iterable       = __webpack_require__(26)
   , iteratorSymbol = __webpack_require__(6).iterator;
 
@@ -22846,7 +23586,7 @@ module.exports = function (obj) {
 
 
 /***/ }),
-/* 78 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22868,7 +23608,7 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 79 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22912,7 +23652,7 @@ StringIterator.prototype = Object.create(Iterator.prototype, {
 
 
 /***/ }),
-/* 80 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22951,7 +23691,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 81 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22967,18 +23707,18 @@ module.exports = (function () {
 
 
 /***/ }),
-/* 82 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(72)('key',
+module.exports = __webpack_require__(78)('key',
 	'value', 'key+value');
 
 
 /***/ }),
-/* 83 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22988,7 +23728,7 @@ var setPrototypeOf    = __webpack_require__(9)
   , d                 = __webpack_require__(2)
   , Iterator          = __webpack_require__(15)
   , toStringTagSymbol = __webpack_require__(6).toStringTag
-  , kinds             = __webpack_require__(82)
+  , kinds             = __webpack_require__(88)
 
   , defineProperties = Object.defineProperties
   , unBind = Iterator.prototype._unBind
@@ -23023,24 +23763,24 @@ Object.defineProperty(MapIterator.prototype, toStringTagSymbol,
 
 
 /***/ }),
-/* 84 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var clear          = __webpack_require__(22)
-  , eIndexOf       = __webpack_require__(53)
+  , eIndexOf       = __webpack_require__(59)
   , setPrototypeOf = __webpack_require__(9)
   , callable       = __webpack_require__(3)
   , validValue     = __webpack_require__(0)
   , d              = __webpack_require__(2)
-  , ee             = __webpack_require__(89)
+  , ee             = __webpack_require__(95)
   , Symbol         = __webpack_require__(6)
   , iterator       = __webpack_require__(26)
-  , forOf          = __webpack_require__(76)
-  , Iterator       = __webpack_require__(83)
-  , isNative       = __webpack_require__(81)
+  , forOf          = __webpack_require__(82)
+  , Iterator       = __webpack_require__(89)
+  , isNative       = __webpack_require__(87)
 
   , call = Function.prototype.call
   , defineProperties = Object.defineProperties, getPrototypeOf = Object.getPrototypeOf
@@ -23134,7 +23874,7 @@ Object.defineProperty(MapPoly.prototype, Symbol.toStringTag, d('c', 'Map'));
 
 
 /***/ }),
-/* 85 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23158,7 +23898,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 86 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23174,7 +23914,7 @@ module.exports = function (x) {
 
 
 /***/ }),
-/* 87 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23183,7 +23923,7 @@ module.exports = function (x) {
 
 
 var d              = __webpack_require__(2)
-  , validateSymbol = __webpack_require__(88)
+  , validateSymbol = __webpack_require__(94)
 
   , create = Object.create, defineProperties = Object.defineProperties
   , defineProperty = Object.defineProperty, objPrototype = Object.prototype
@@ -23299,13 +24039,13 @@ defineProperty(HiddenSymbol.prototype, SymbolPolyfill.toPrimitive,
 
 
 /***/ }),
-/* 88 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isSymbol = __webpack_require__(86);
+var isSymbol = __webpack_require__(92);
 
 module.exports = function (value) {
 	if (!isSymbol(value)) throw new TypeError(value + " is not a symbol");
@@ -23314,7 +24054,7 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 89 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23453,14 +24193,14 @@ exports.methods = methods;
 
 
 /***/ }),
-/* 90 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
  * Module dependencies
  */
 
-var debug = __webpack_require__(51)('jsonp');
+var debug = __webpack_require__(57)('jsonp');
 
 /**
  * Module exports.
@@ -23556,7 +24296,7 @@ function jsonp(url, opts, fn){
 
 
 /***/ }),
-/* 91 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
@@ -57168,10 +57908,10 @@ Kotlin.isCharSequence = function(value) {
 })();
 
 }));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(98)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(104)))
 
 /***/ }),
-/* 92 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -57613,7 +58353,7 @@ module.exports = kebabCase;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
-/* 93 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -59957,10 +60697,10 @@ function property(path) {
 
 module.exports = remove;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(33)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(35)(module)))
 
 /***/ }),
-/* 94 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -60863,7 +61603,7 @@ module.exports = uniq;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
-/* 95 */
+/* 101 */
 /***/ (function(module, exports) {
 
 /**
@@ -60994,7 +61734,7 @@ function plural(ms, n, name) {
 
 
 /***/ }),
-/* 96 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61091,13 +61831,13 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 97 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 // https://github.com/Matt-Esch/virtual-dom/blob/master/virtual-hyperscript/parse-tag.js
 
-var split = __webpack_require__(49)
+var split = __webpack_require__(53)
 
 var classIdSplit = /([\.#]?[a-zA-Z0-9\u007F-\uFFFF_:-]+)/
 var notClassId = /^\.|#/
@@ -61143,7 +61883,7 @@ module.exports = function parseSelector (selector, upper) {
 
 
 /***/ }),
-/* 98 */
+/* 104 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -61329,7 +62069,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 99 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61355,11 +62095,11 @@ exports.classNameFromVNode = classNameFromVNode;
 //# sourceMappingURL=classNameFromVNode.js.map
 
 /***/ }),
-/* 100 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var parseSelector = __webpack_require__(97)
+var parseSelector = __webpack_require__(103)
 var VOID_ELEMENTS = __webpack_require__(29).VOID
 var CONTAINER_ELEMENTS = __webpack_require__(29).CONTAINER
 
@@ -61435,7 +62175,7 @@ module.exports = function init (modules) {
 
 
 /***/ }),
-/* 101 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -61454,13 +62194,13 @@ module.exports = function attrsModule (vnode, attributes) {
 
 
 /***/ }),
-/* 102 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 var forOwn = __webpack_require__(10)
-var remove = __webpack_require__(93)
-var uniq = __webpack_require__(94)
+var remove = __webpack_require__(99)
+var uniq = __webpack_require__(100)
 
 // data.class
 
@@ -61491,20 +62231,20 @@ module.exports = function classModule (vnode, attributes) {
 
 
 /***/ }),
-/* 103 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 module.exports = {
-  class: __webpack_require__(102),
-  props: __webpack_require__(104),
-  attributes: __webpack_require__(101),
-  style: __webpack_require__(105)
+  class: __webpack_require__(108),
+  props: __webpack_require__(110),
+  attributes: __webpack_require__(107),
+  style: __webpack_require__(111)
 }
 
 
 /***/ }),
-/* 104 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -61564,14 +62304,14 @@ module.exports = function propsModule (vnode, attributes) {
 
 
 /***/ }),
-/* 105 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var assign = __webpack_require__(96)
+var assign = __webpack_require__(102)
 var forOwn = __webpack_require__(10)
 var escape = __webpack_require__(16)
-var kebabCase = __webpack_require__(92)
+var kebabCase = __webpack_require__(98)
 
 // data.style
 
@@ -61598,64 +62338,7 @@ module.exports = function styleModule (vnode, attributes) {
 
 
 /***/ }),
-/* 106 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var NamespaceURIs = {
-    "xlink": "http://www.w3.org/1999/xlink"
-};
-var booleanAttrs = ["allowfullscreen", "async", "autofocus", "autoplay", "checked", "compact", "controls", "declare",
-    "default", "defaultchecked", "defaultmuted", "defaultselected", "defer", "disabled", "draggable",
-    "enabled", "formnovalidate", "hidden", "indeterminate", "inert", "ismap", "itemscope", "loop", "multiple",
-    "muted", "nohref", "noresize", "noshade", "novalidate", "nowrap", "open", "pauseonexit", "readonly",
-    "required", "reversed", "scoped", "seamless", "selected", "sortable", "spellcheck", "translate",
-    "truespeed", "typemustmatch", "visible"];
-var booleanAttrsDict = Object.create(null);
-for (var i = 0, len = booleanAttrs.length; i < len; i++) {
-    booleanAttrsDict[booleanAttrs[i]] = true;
-}
-function updateAttrs(oldVnode, vnode) {
-    var key, cur, old, elm = vnode.elm, oldAttrs = oldVnode.data.attrs, attrs = vnode.data.attrs, namespaceSplit;
-    if (!oldAttrs && !attrs)
-        return;
-    if (oldAttrs === attrs)
-        return;
-    oldAttrs = oldAttrs || {};
-    attrs = attrs || {};
-    // update modified attributes, add new attributes
-    for (key in attrs) {
-        cur = attrs[key];
-        old = oldAttrs[key];
-        if (old !== cur) {
-            if (!cur && booleanAttrsDict[key])
-                elm.removeAttribute(key);
-            else {
-                namespaceSplit = key.split(":");
-                if (namespaceSplit.length > 1 && NamespaceURIs.hasOwnProperty(namespaceSplit[0]))
-                    elm.setAttributeNS(NamespaceURIs[namespaceSplit[0]], key, cur);
-                else
-                    elm.setAttribute(key, cur);
-            }
-        }
-    }
-    //remove removed attributes
-    // use `in` operator since the previous `for` iteration uses it (.i.e. add even attributes with undefined value)
-    // the other option is to remove all attributes with value == undefined
-    for (key in oldAttrs) {
-        if (!(key in attrs)) {
-            elm.removeAttribute(key);
-        }
-    }
-}
-exports.attributesModule = { create: updateAttrs, update: updateAttrs };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = exports.attributesModule;
-//# sourceMappingURL=attributes.js.map
-
-/***/ }),
-/* 107 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61686,7 +62369,7 @@ exports.default = exports.classModule;
 //# sourceMappingURL=class.js.map
 
 /***/ }),
-/* 108 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61728,39 +62411,7 @@ exports.default = exports.datasetModule;
 //# sourceMappingURL=dataset.js.map
 
 /***/ }),
-/* 109 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-function updateProps(oldVnode, vnode) {
-    var key, cur, old, elm = vnode.elm, oldProps = oldVnode.data.props, props = vnode.data.props;
-    if (!oldProps && !props)
-        return;
-    if (oldProps === props)
-        return;
-    oldProps = oldProps || {};
-    props = props || {};
-    for (key in oldProps) {
-        if (!props[key]) {
-            delete elm[key];
-        }
-    }
-    for (key in props) {
-        cur = props[key];
-        old = oldProps[key];
-        if (old !== cur && (key !== 'value' || elm[key] !== cur)) {
-            elm[key] = cur;
-        }
-    }
-}
-exports.propsModule = { create: updateProps, update: updateProps };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = exports.propsModule;
-//# sourceMappingURL=props.js.map
-
-/***/ }),
-/* 110 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61852,7 +62503,7 @@ exports.default = exports.styleModule;
 //# sourceMappingURL=style.js.map
 
 /***/ }),
-/* 111 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61884,7 +62535,7 @@ function createKeyToOldIdx(children, beginIdx, endIdx) {
 var hooks = ['create', 'update', 'remove', 'destroy', 'pre', 'post'];
 var h_1 = __webpack_require__(7);
 exports.h = h_1.h;
-var thunk_1 = __webpack_require__(32);
+var thunk_1 = __webpack_require__(34);
 exports.thunk = thunk_1.thunk;
 function init(modules, domApi) {
     var i, j, cbs = {};
@@ -62164,7 +62815,7 @@ exports.init = init;
 //# sourceMappingURL=snabbdom.js.map
 
 /***/ }),
-/* 112 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62214,14 +62865,266 @@ exports.default = toVNode;
 //# sourceMappingURL=tovnode.js.map
 
 /***/ }),
-/* 113 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 117 */
+/***/ (function(module, exports) {
 
-module.exports = __webpack_require__(114);
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+var stylesInDom = {},
+	memoize = function(fn) {
+		var memo;
+		return function () {
+			if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+			return memo;
+		};
+	},
+	isOldIE = memoize(function() {
+		return /msie [6-9]\b/.test(self.navigator.userAgent.toLowerCase());
+	}),
+	getHeadElement = memoize(function () {
+		return document.head || document.getElementsByTagName("head")[0];
+	}),
+	singletonElement = null,
+	singletonCounter = 0,
+	styleElementsInsertedAtTop = [];
+
+module.exports = function(list, options) {
+	if(typeof DEBUG !== "undefined" && DEBUG) {
+		if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
+
+	options = options || {};
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+
+	// By default, add <style> tags to the bottom of <head>.
+	if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+
+	var styles = listToStyles(list);
+	addStylesToDom(styles, options);
+
+	return function update(newList) {
+		var mayRemove = [];
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
+		if(newList) {
+			var newStyles = listToStyles(newList);
+			addStylesToDom(newStyles, options);
+		}
+		for(var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
+			if(domStyle.refs === 0) {
+				for(var j = 0; j < domStyle.parts.length; j++)
+					domStyle.parts[j]();
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+}
+
+function addStylesToDom(styles, options) {
+	for(var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+		if(domStyle) {
+			domStyle.refs++;
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles(list) {
+	var styles = [];
+	var newStyles = {};
+	for(var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+		if(!newStyles[id])
+			styles.push(newStyles[id] = {id: id, parts: [part]});
+		else
+			newStyles[id].parts.push(part);
+	}
+	return styles;
+}
+
+function insertStyleElement(options, styleElement) {
+	var head = getHeadElement();
+	var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+	if (options.insertAt === "top") {
+		if(!lastStyleElementInsertedAtTop) {
+			head.insertBefore(styleElement, head.firstChild);
+		} else if(lastStyleElementInsertedAtTop.nextSibling) {
+			head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			head.appendChild(styleElement);
+		}
+		styleElementsInsertedAtTop.push(styleElement);
+	} else if (options.insertAt === "bottom") {
+		head.appendChild(styleElement);
+	} else {
+		throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+	}
+}
+
+function removeStyleElement(styleElement) {
+	styleElement.parentNode.removeChild(styleElement);
+	var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+	if(idx >= 0) {
+		styleElementsInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement(options) {
+	var styleElement = document.createElement("style");
+	styleElement.type = "text/css";
+	insertStyleElement(options, styleElement);
+	return styleElement;
+}
+
+function createLinkElement(options) {
+	var linkElement = document.createElement("link");
+	linkElement.rel = "stylesheet";
+	insertStyleElement(options, linkElement);
+	return linkElement;
+}
+
+function addStyle(obj, options) {
+	var styleElement, update, remove;
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+		styleElement = singletonElement || (singletonElement = createStyleElement(options));
+		update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+	} else if(obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function") {
+		styleElement = createLinkElement(options);
+		update = updateLink.bind(null, styleElement);
+		remove = function() {
+			removeStyleElement(styleElement);
+			if(styleElement.href)
+				URL.revokeObjectURL(styleElement.href);
+		};
+	} else {
+		styleElement = createStyleElement(options);
+		update = applyToTag.bind(null, styleElement);
+		remove = function() {
+			removeStyleElement(styleElement);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle(newObj) {
+		if(newObj) {
+			if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+				return;
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+		return textStore.filter(Boolean).join('\n');
+	};
+})();
+
+function applyToSingletonTag(styleElement, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (styleElement.styleSheet) {
+		styleElement.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = styleElement.childNodes;
+		if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+		if (childNodes.length) {
+			styleElement.insertBefore(cssNode, childNodes[index]);
+		} else {
+			styleElement.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag(styleElement, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		styleElement.setAttribute("media", media)
+	}
+
+	if(styleElement.styleSheet) {
+		styleElement.styleSheet.cssText = css;
+	} else {
+		while(styleElement.firstChild) {
+			styleElement.removeChild(styleElement.firstChild);
+		}
+		styleElement.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink(linkElement, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	if(sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = linkElement.href;
+
+	linkElement.href = URL.createObjectURL(blob);
+
+	if(oldSrc)
+		URL.revokeObjectURL(oldSrc);
+}
 
 
 /***/ }),
-/* 114 */
+/* 118 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(119);
+
+
+/***/ }),
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62231,7 +63134,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ponyfill = __webpack_require__(115);
+var _ponyfill = __webpack_require__(120);
 
 var _ponyfill2 = _interopRequireDefault(_ponyfill);
 
@@ -62254,10 +63157,10 @@ if (typeof self !== 'undefined') {
 
 var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(33)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(35)(module)))
 
 /***/ }),
-/* 115 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62286,10 +63189,12 @@ function symbolObservablePonyfill(root) {
 };
 
 /***/ }),
-/* 116 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(34);
+__webpack_require__(37);
+__webpack_require__(36);
+__webpack_require__(38);
 
 
 /***/ })

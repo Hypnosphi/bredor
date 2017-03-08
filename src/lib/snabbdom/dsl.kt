@@ -1,20 +1,19 @@
-package lib.cycle.dom
+package lib.snabbdom
 
+import app.*
 import kotlinx.html.*
-import lib.xstream.Stream
-import lib.xstream.combine
-import lib.xstream.flatMap
-import lib.xstream.of
+import lib.snabbdom.*
+import lib.xstream.*
 import org.w3c.dom.events.Event
 
 interface Child {
     fun appendTo(list: MutableList<VNode>)
 }
 
-class Node(val selector: String = "", var text: String? = null) : Child {
-    val data = object : VNodeData {
-        override var attrs = object {}
-        override var props = object {}
+class NodeBuilder(val selector: String = "", var text: String? = null) : Child {
+    val data : VNodeData = jsObject {
+        attrs = object {}
+        props = object {}
     }
 
     fun setAttr(name: String, value: String?) {
@@ -33,7 +32,7 @@ class Node(val selector: String = "", var text: String? = null) : Child {
     fun textToChildren() {
         val t = text
         if (t != null) {
-            children += Node("span", t)
+            children += NodeBuilder("span", t)
             text = null
         }
     }
@@ -54,9 +53,9 @@ class Node(val selector: String = "", var text: String? = null) : Child {
 
     fun create(): VNode =
         when {
-            children.isEmpty() -> h(selector, data, text)
+            children.isEmpty() -> lib.cycle.dom.h(selector, data, text)
             else -> {
-                h(selector, data, createChildren().toTypedArray())
+                lib.cycle.dom.h(selector, data, createChildren().toTypedArray())
             }
         }
 
@@ -73,17 +72,17 @@ private class ReactiveNode : Child {
     }
 }
 
-class HBuilder : TagConsumer<Node> {
-    val base = Node()
+class HBuilder : TagConsumer<NodeBuilder> {
+    val base = NodeBuilder()
     private val stack = mutableListOf(base)
-    private val current: Node
+    private val current: NodeBuilder
         get() = stack.last()
-    private lateinit var lastLeaved: Node
+    private lateinit var lastLeaved: NodeBuilder
 
     var changes = of(Unit)
 
     override fun onTagStart(tag: Tag) {
-        val node = Node(tag.tagName)
+        val node = NodeBuilder(tag.tagName)
         tag.attributes.forEach { (name, value) ->
             node.setAttr(name, value)
         }
@@ -123,7 +122,7 @@ class HBuilder : TagConsumer<Node> {
         current.data.props.innerHTML = sb
     }
 
-    override fun finalize(): Node = lastLeaved
+    override fun finalize(): NodeBuilder = lastLeaved
 
     operator fun <T> Stream<T>.invoke(handler: HBuilder.(T) -> Unit) {
         val node = ReactiveNode()
@@ -132,6 +131,10 @@ class HBuilder : TagConsumer<Node> {
         changes = combine(changes, stream) { _, vtree ->
             node.resolved = vtree
         }
+    }
+
+    fun paver(width: Int? = null) {
+        current.data.paver = PaverData(width)
     }
 }
 
