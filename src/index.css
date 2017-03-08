@@ -1,13 +1,75 @@
 body {
+    margin: 0;
+    background: #000;
+}
+
+h1, h2, h3, h4 {
+    margin: 0;
+    padding: 8px 16px 16px;
+    font-weight: 500;
+}
+
+.app {
     width: 795px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: #000;
+    color: #fff;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
 }
 
 .selector {
     display: flex;
 }
 
+.owners {
+    width: 50px;
+    flex-shrink: 0;
+}
+
+.owner {
+    cursor: pointer;
+    height: 50px;
+    display: flex;
+    position: relative;
+}
+
+.owner > * {
+    flex-shrink: 0;
+}
+
+.blackout {
+    background: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    z-index: 1;
+    width: 50px;
+    height: 50px;
+    left: 0;
+    top: 0;
+}
+
+.blackout:not(:hover) {
+    background: rgba(0, 0, 0, 0.6);
+    transition: background 0.15s ease-out;
+}
+
+.selected > .blackout {
+    background: transparent;
+}
+
+.ownerName {
+    padding: 0 8px;
+    line-height: 50px;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1;
+}
+
+.blackout:not(:hover) ~ .ownerName {
+    transition: opacity 0.15s ease-out;
+    opacity: 0;
+}
+
 .albums {
     flex-grow: 1;
-    display: flex;
-    flex-wrap: wrap;
 }

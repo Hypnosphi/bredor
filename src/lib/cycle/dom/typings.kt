@@ -10,7 +10,7 @@ external interface EventsFnOptions {
     var useCapture: Boolean?
 }
 external interface DOMSource {
-    fun <S : DOMSource> select(selector: String): S
+    fun select(selector: String): DOMSource
     fun elements(): MemoryStream<dynamic /* Document | Element | Array<Element> | String */>
     fun events(eventType: String, options: EventsFnOptions? = definedExternally /* null */): Stream<Event>
 }

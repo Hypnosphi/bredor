@@ -79,7 +79,7 @@ class HBuilder : TagConsumer<NodeBuilder> {
         get() = stack.last()
     private lateinit var lastLeaved: NodeBuilder
 
-    var changes = of(Unit)
+    var changes: Stream<Any?> = never().startWith(null)
 
     override fun onTagStart(tag: Tag) {
         val node = NodeBuilder(tag.tagName)
@@ -130,12 +130,19 @@ class HBuilder : TagConsumer<NodeBuilder> {
         val stream = h(this, handler)
         changes = combine(changes, stream) { _, vtree ->
             node.resolved = vtree
+            null
         }
     }
 
     fun paver(width: Int? = null) {
         current.data.paver = PaverData(width)
     }
+
+    var key: Int?
+        get() = current.data.key
+        set(value) {
+            current.data.key = value
+        }
 }
 
 fun h(handler: HBuilder.() -> Unit): Stream<List<VNode>> =
@@ -151,7 +158,7 @@ fun <T> h(stream: Stream<T>, handler: HBuilder.(T) -> Unit): Stream<List<VNode>>
         h { handler(it) }
     }
 
-fun appDiv(handler: HBuilder.() -> Unit) = h {
-    div { handler() }
+fun appDiv(className: String? = null, handler: HBuilder.() -> Unit) = h {
+    div(className) { handler() }
 }.map { it.first() }
 

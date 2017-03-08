@@ -1,8 +1,9 @@
 package lib.snabbdom
 
+import app.DefaultExport
 import org.w3c.dom.*
 
-interface VNode {
+external interface VNode {
     val sel: String?
     val data: VNodeData?
     val children: Array<dynamic /* VNode | String */>?
@@ -17,19 +18,33 @@ external interface VNodeData {
     var attrs: dynamic
     var props: dynamic
     var paver: PaverData?
+    var key: Int?
 }
 
-abstract class Module {
-    open fun pre() {}
-    open fun create(emptyVNode: VNode, vNode: VNode) {}
-    open fun update(oldVNode: VNode, vNode: VNode) {}
-    open fun destroy(vNode: VNode) {}
-    open fun remove(vNode: VNode, removeCallback: () -> Unit) {}
-    open fun post() {}
+external interface Module {
+    fun pre()
+    fun create(emptyVNode: VNode, vNode: VNode)
+    fun update(oldVNode: VNode, vNode: VNode)
+    fun destroy(vNode: VNode)
+    fun remove(vNode: VNode, removeCallback: () -> Unit)
+    fun post()
+}
+
+abstract class ModuleImpl : Module {
+    override fun pre() {}
+    override fun create(emptyVNode: VNode, vNode: VNode) {}
+    override fun update(oldVNode: VNode, vNode: VNode) {}
+    override fun destroy(vNode: VNode) {}
+    override fun remove(vNode: VNode, removeCallback: () -> Unit) {
+        removeCallback()
+    }
+    override fun post() {}
 }
 
 @JsModule("snabbdom/modules/props")
-external val PropsModule : Module
+external val PropsModuleExport : DefaultExport<Module>
+val PropsModule = PropsModuleExport.default
 
 @JsModule("snabbdom/modules/attributes")
-external val AttrsModule : Module
+external val AttrsModuleExport : DefaultExport<Module>
+val AttrsModule = AttrsModuleExport.default

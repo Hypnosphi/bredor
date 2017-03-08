@@ -62,6 +62,34 @@ sealed class VKReq<T>(val ns: String, val method: String) {
             var photo_sizes by params.Bool()
         }
     }
+
+    abstract class Groups<T>(method: String): VKReq<T>("groups", method) {
+        class Get: Groups<VKList<Group>>("get") {
+            companion object : Builder<Get>
+
+            var user_id by params.Integer()
+            var extended by params.Bool()
+            var filter by params.EnumStringList<GroupFilter>()
+            var fields by params.PropList<Group>()
+            var offset by params.Integer()
+            var count by params.Integer()
+        }
+    }
+}
+
+fun getAlbums(id: Int): Stream<List<AlbumVM>> {
+    return VKReq.Photos
+        .GetAlbums {
+            owner_id = id
+            need_covers = true
+            photo_sizes = true
+        }
+        .response()
+        .map {
+            it.items
+                .filter { it.size > 1 }
+                .map(::AlbumVM)
+        }
 }
 
 object VK {

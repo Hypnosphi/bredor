@@ -1,6 +1,7 @@
 package app
 
 import org.w3c.dom.url.URLSearchParams
+import kotlin.browser.window
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 import kotlin.reflect.KProperty1
@@ -71,6 +72,11 @@ class Params(source: String? = null, vararg initParams: Pair<String, String>) {
     inner class EnumString<T: Enum<T>> : Delegate<T>() {
         override fun serialize(value: T) = value.name
     }
+
+    inner class EnumStringList<T: Enum<T>> : Delegate<List<T>>() {
+        override fun serialize(value: List<T>) =
+            StringList().serialize(value.map(Enum<T>::name))
+    }
 }
 
 interface Builder<T>
@@ -93,3 +99,11 @@ fun js(handler: dynamic.() -> Unit) = jsObject(handler)
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun debugger() = js("debugger;")
+
+external interface DefaultExport<T> {
+    val default: T
+}
+
+fun setTimeout(timeout: Int = 0, handler: () -> Unit) {
+    window.setTimeout(handler, timeout)
+}

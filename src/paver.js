@@ -48,7 +48,7 @@ window.Paver = function(dataSource, width, options) {
 
       var maxRatio = this.maxRatio || 4;
       var minRatio = this.minRatio || 0.333;
-      var margin = this.margin || 2;
+      var margin = this.margin;
       var noStacks = this.noStacks;
 
       if (fromRow === undefined) {
@@ -123,6 +123,50 @@ window.Paver = function(dataSource, width, options) {
         return score / row.range.len;
       }
 
+      function closeStack(rowHeight) {
+        row.w1000 += 1000000 / stack.h1000;
+
+        stack.range.to = i - 1;
+        stack.range.len = stack.range.to - stack.range.from + 1;
+
+        row.stacks.push(stack);
+
+        row.height = Math.round(1000 * (rowWidth - (row.stacks.length - 1) * margin) / row.w1000);
+        if (row.height <= rowHeight) {
+          if (!preferredArea) {
+            compute(row, i);
+            rows.push(row);
+          } else {
+            var score = compute(row, i);
+            //console.log('count = ' + row.range.len + ', h = ' + rowHeight + ', stddev = ' + Math.sqrt(score));
+            if (!best || (score < bestScore)) {
+              best = row, bestScore = score;
+            }
+
+            step++;
+            if (step >= optimizeSteps) {
+              //console.groupEnd();
+              rows.push(best);
+              //console.groupCollapsed('row #' + rows.length);
+              i = best.range.to;
+
+              totalScore += score;
+
+              best = false, bestScore = 1000000;
+              step = 0;
+            } else {
+              i = row.range.from;
+            }
+          }
+
+          row = {
+            w1000: 0,
+            stacks: [],
+            range: { from: i }
+          }
+        }
+      }
+
       //console.groupCollapsed('row #' + rows.length);
       for (var i = from; i < count; i++) {
         var data = this.dataSource && (this.dataSource.get ? this.dataSource.get(i) : this.dataSource[i]) || false;
@@ -154,48 +198,8 @@ window.Paver = function(dataSource, width, options) {
 
         var rowHeight = preferredArea ? minRowHeight + step * (maxRowHeight - minRowHeight) / (optimizeSteps - 1) : maxRowHeight;
 
-        if (stack.tiles.length > 0 && (noStacks || (1000 * rowHeight / sh1000 < minStackWidth) || (mh1000 * rowHeight / sh1000 < minTileHeight))) {
-          row.w1000 += 1000000 / stack.h1000;
-
-          stack.range.to = i - 1;
-          stack.range.len = stack.range.to - stack.range.from + 1;
-
-          row.stacks.push(stack);
-
-          row.height = Math.round(1000 * (rowWidth - (row.stacks.length - 1) * margin) / row.w1000);
-          if (row.height <= rowHeight) {
-            if (!preferredArea) {
-              compute(row, i);
-              rows.push(row);
-            } else {
-              var score = compute(row, i);
-              //console.log('count = ' + row.range.len + ', h = ' + rowHeight + ', stddev = ' + Math.sqrt(score));
-              if (!best || (score < bestScore)) {
-                best = row, bestScore = score;
-              }
-
-              step++;
-              if (step >= optimizeSteps) {
-                //console.groupEnd();
-                rows.push(best);
-                //console.groupCollapsed('row #' + rows.length);
-                i = best.range.to;
-
-                totalScore += score;
-
-                best = false, bestScore = 1000000;
-                step = 0;
-              } else {
-                i = row.range.from;
-              }
-            }
-
-            row = {
-              w1000: 0,
-              stacks: [],
-              range: { from: i }
-            }
-          }
+        if (i === count - 1 || stack.tiles.length > 0 && (noStacks || (1000 * rowHeight / sh1000 < minStackWidth) || (mh1000 * rowHeight / sh1000 < minTileHeight))) {
+          closeStack(rowHeight)
 
           stack = {
             h1000: 0,
@@ -213,6 +217,11 @@ window.Paver = function(dataSource, width, options) {
         });
       }
       //console.groupEnd();
+
+      if (stack.tiles.length > 0) {
+        var rowHeight = preferredArea ? minRowHeight + step * (maxRowHeight - minRowHeight) / (optimizeSteps - 1) : maxRowHeight;
+        closeStack(rowHeight)
+      }
 
       if (row.stacks.length > 0) {
         row.height = Math.min(row.height, maxRowHeight);

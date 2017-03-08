@@ -3912,17 +3912,20 @@ if(false) {
 /* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
-(function (_, Kotlin, $module$xstream, $module$snabbdom_modules_props, $module$snabbdom_modules_attributes, $module$_cycle_dom, $module$_cycle_run, $module$jsonp) {
+(function (_, Kotlin, $module$xstream, $module$_cycle_dom, $module$_cycle_run, $module$snabbdom_modules_props, $module$snabbdom_modules_attributes, $module$jsonp) {
   'use strict';
-  var Error_0 = Kotlin.kotlin.Error;
+  var plus = Kotlin.kotlin.collections.plus_xfiyik$;
   var toInt = Kotlin.kotlin.text.toInt_pdl1vz$;
+  var listOf = Kotlin.kotlin.collections.listOf_mh5how$;
+  var plus_0 = Kotlin.kotlin.collections.plus_mydzjv$;
+  var first = Kotlin.kotlin.collections.first_2p1efm$;
+  var Error_0 = Kotlin.kotlin.Error;
   var joinToString = Kotlin.kotlin.collections.joinToString_fmv235$;
   var split = Kotlin.kotlin.text.split_ip8yn$;
   var last = Kotlin.kotlin.collections.last_2p1efm$;
   var IllegalStateException = Kotlin.kotlin.IllegalStateException;
   var get_lastIndex = Kotlin.kotlin.collections.get_lastIndex_55thoc$;
   var asList = Kotlin.org.w3c.dom.asList_kt9thq$;
-  var first = Kotlin.kotlin.collections.first_2p1efm$;
   var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_ww73n8$;
   var UnsupportedOperationException = Kotlin.kotlin.UnsupportedOperationException;
   var emptyList = Kotlin.kotlin.collections.emptyList_287e2$;
@@ -3936,7 +3939,6 @@ if(false) {
   var StringBuilder = Kotlin.kotlin.text.StringBuilder;
   var Annotation = Kotlin.kotlin.Annotation;
   var setOf = Kotlin.kotlin.collections.setOf_mh5how$;
-  var listOf = Kotlin.kotlin.collections.listOf_mh5how$;
   var Map$Entry = Kotlin.kotlin.collections.Map.Entry;
   var Map = Kotlin.kotlin.collections.Map;
   var toSet = Kotlin.kotlin.collections.toSet_7wnvza$;
@@ -3950,7 +3952,7 @@ if(false) {
   var mapOf = Kotlin.kotlin.collections.mapOf_qfcya0$;
   var CharRange = Kotlin.kotlin.ranges.CharRange;
   var contains = Kotlin.kotlin.text.contains_sgbm27$;
-  var plus = Kotlin.kotlin.plus_cmbeuq$;
+  var plus_1 = Kotlin.kotlin.plus_cmbeuq$;
   var toList = Kotlin.kotlin.collections.toList_7wnvza$;
   var mutableListOf_0 = Kotlin.kotlin.collections.mutableListOf_i5x0yv$;
   var Any = Object;
@@ -3970,6 +3972,8 @@ if(false) {
   Params$PropList.prototype.constructor = Params$PropList;
   Params$EnumString.prototype = Object.create(Params$Delegate.prototype);
   Params$EnumString.prototype.constructor = Params$EnumString;
+  Params$EnumStringList.prototype = Object.create(Params$Delegate.prototype);
+  Params$EnumStringList.prototype.constructor = Params$EnumStringList;
   StringAttribute.prototype = Object.create(Attribute.prototype);
   StringAttribute.prototype.constructor = StringAttribute;
   BooleanAttribute.prototype = Object.create(Attribute.prototype);
@@ -4232,7 +4236,7 @@ if(false) {
   VAR_.prototype.constructor = VAR_;
   VIDEO.prototype = Object.create(HTMLTag.prototype);
   VIDEO.prototype.constructor = VIDEO;
-  PaverModule.prototype = Object.create(Module.prototype);
+  PaverModule.prototype = Object.create(ModuleImpl.prototype);
   PaverModule.prototype.constructor = PaverModule;
   VKReq$Users.prototype = Object.create(VKReq.prototype);
   VKReq$Users.prototype.constructor = VKReq$Users;
@@ -4242,49 +4246,261 @@ if(false) {
   VKReq$Photos.prototype.constructor = VKReq$Photos;
   VKReq$Photos$GetAlbums.prototype = Object.create(VKReq$Photos.prototype);
   VKReq$Photos$GetAlbums.prototype.constructor = VKReq$Photos$GetAlbums;
+  VKReq$Groups.prototype = Object.create(VKReq.prototype);
+  VKReq$Groups.prototype.constructor = VKReq$Groups;
+  VKReq$Groups$Get.prototype = Object.create(VKReq$Groups.prototype);
+  VKReq$Groups$Get.prototype.constructor = VKReq$Groups$Get;
   Case.prototype = Object.create(Enum.prototype);
   Case.prototype.constructor = Case;
-  function app$lambda$lambda$lambda$lambda(closure$it) {
-    return function ($receiver_17) {
-      var $receiver_18 = closure$it.user;
-      img($receiver_17, get_fullName($receiver_18), $receiver_18.photo_50);
+  GroupFilter.prototype = Object.create(Enum.prototype);
+  GroupFilter.prototype.constructor = GroupFilter;
+  function AlbumOwner(uid, name, photo, albums) {
+    this.uid = uid;
+    this.name = name;
+    this.photo = photo;
+    this.albums = albums;
+  }
+  AlbumOwner.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'AlbumOwner',
+    interfaces: []
+  };
+  AlbumOwner.prototype.component1 = function () {
+    return this.uid;
+  };
+  AlbumOwner.prototype.component2 = function () {
+    return this.name;
+  };
+  AlbumOwner.prototype.component3 = function () {
+    return this.photo;
+  };
+  AlbumOwner.prototype.component4 = function () {
+    return this.albums;
+  };
+  AlbumOwner.prototype.copy_7l7vp$ = function (uid, name, photo, albums) {
+    return new AlbumOwner(uid === void 0 ? this.uid : uid, name === void 0 ? this.name : name, photo === void 0 ? this.photo : photo, albums === void 0 ? this.albums : albums);
+  };
+  AlbumOwner.prototype.toString = function () {
+    return 'AlbumOwner(uid=' + Kotlin.toString(this.uid) + (', name=' + Kotlin.toString(this.name)) + (', photo=' + Kotlin.toString(this.photo)) + (', albums=' + Kotlin.toString(this.albums)) + ')';
+  };
+  AlbumOwner.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.uid) | 0;
+    result = result * 31 + Kotlin.hashCode(this.name) | 0;
+    result = result * 31 + Kotlin.hashCode(this.photo) | 0;
+    result = result * 31 + Kotlin.hashCode(this.albums) | 0;
+    return result;
+  };
+  AlbumOwner.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.uid, other.uid) && Kotlin.equals(this.name, other.name) && Kotlin.equals(this.photo, other.photo) && Kotlin.equals(this.albums, other.albums)))));
+  };
+  function asAlbumOwner$lambda(this$asAlbumOwner) {
+    return function () {
+      return this$asAlbumOwner.albums;
     };
+  }
+  function asAlbumOwner($receiver_17) {
+    return new AlbumOwner($receiver_17.user.id, get_fullName($receiver_17.user), $receiver_17.user.photo_50, asAlbumOwner$lambda($receiver_17));
+  }
+  function asAlbumOwner$lambda_0(this$asAlbumOwner) {
+    return function () {
+      return this$asAlbumOwner.albums;
+    };
+  }
+  function asAlbumOwner_0($receiver_17) {
+    return new AlbumOwner(get_uid($receiver_17.group), $receiver_17.group.name, $receiver_17.group.photo_50, asAlbumOwner$lambda_0($receiver_17));
+  }
+  function owner$lambda$lambda$lambda($receiver_17) {
+    $receiver_17.height = '50';
+    $receiver_17.width = '50';
+  }
+  function owner$lambda$lambda$lambda_0(this$) {
+    return function ($receiver_17) {
+      $receiver_17.unaryPlus_pdl1vz$(this$.name);
+    };
+  }
+  function owner$lambda$lambda(this$, this$owner, closure$isSelected) {
+    return function ($receiver_17) {
+      this$owner.key = this$.uid;
+      set_id($receiver_17, this$.uid.toString());
+      if (closure$isSelected) {
+        set_classes($receiver_17, plus(get_classes($receiver_17), 'selected'));
+      }
+      img($receiver_17, this$.name, this$.photo, void 0, owner$lambda$lambda$lambda);
+      div($receiver_17, 'blackout');
+      div($receiver_17, 'ownerName', owner$lambda$lambda$lambda_0(this$));
+    };
+  }
+  function owner($receiver_17, owner_0, isSelected) {
+    if (isSelected === void 0)
+      isSelected = false;
+    div_0($receiver_17, 'owner', owner$lambda$lambda(owner_0, $receiver_17, isSelected));
+  }
+  function WithSelected(owners, selected) {
+    this.owners = owners;
+    this.selected = selected;
+  }
+  WithSelected.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'WithSelected',
+    interfaces: []
+  };
+  WithSelected.prototype.component1 = function () {
+    return this.owners;
+  };
+  WithSelected.prototype.component2 = function () {
+    return this.selected;
+  };
+  WithSelected.prototype.copy_tp11dv$ = function (owners, selected) {
+    return new WithSelected(owners === void 0 ? this.owners : owners, selected === void 0 ? this.selected : selected);
+  };
+  WithSelected.prototype.toString = function () {
+    return 'WithSelected(owners=' + Kotlin.toString(this.owners) + (', selected=' + Kotlin.toString(this.selected)) + ')';
+  };
+  WithSelected.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.owners) | 0;
+    result = result * 31 + Kotlin.hashCode(this.selected) | 0;
+    return result;
+  };
+  WithSelected.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.owners, other.owners) && Kotlin.equals(this.selected, other.selected)))));
+  };
+  function app$lambda(it) {
+    var tmp$_17;
+    var el = Kotlin.isType(tmp$_17 = it.currentTarget, Element) ? tmp$_17 : Kotlin.throwCCE();
+    return toInt(el.id);
+  }
+  function app$lambda$lambda(closure$me) {
+    return function (it) {
+      var tmp$_17 = closure$me;
+      var destination_17 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$(Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$(it, 10));
+      var tmp$_18;
+      tmp$_18 = it.iterator();
+      while (tmp$_18.hasNext()) {
+        var item = tmp$_18.next();
+        destination_17.add_11rb$(asAlbumOwner_0(item));
+      }
+      return plus_0(tmp$_17, destination_17);
+    };
+  }
+  function app$lambda_0(it) {
+    var me = listOf(asAlbumOwner(it));
+    return it.groups.map(app$lambda$lambda(me)).startWith(me);
+  }
+  function app$lambda_1(id, owners) {
+    var tmp$_17, tmp$_18;
+    if (id === 0)
+      tmp$_18 = first(owners);
+    else {
+      var firstOrNull_6jwkkr$result;
+      firstOrNull_6jwkkr$break: {
+        var tmp$_19;
+        tmp$_19 = owners.iterator();
+        while (tmp$_19.hasNext()) {
+          var element_17 = tmp$_19.next();
+          if (element_17.uid === id) {
+            firstOrNull_6jwkkr$result = element_17;
+            break firstOrNull_6jwkkr$break;
+          }
+        }
+        firstOrNull_6jwkkr$result = null;
+      }
+      tmp$_18 = (tmp$_17 = firstOrNull_6jwkkr$result) != null ? tmp$_17 : Kotlin.throwNPE();
+    }
+    var selected = tmp$_18;
+    return new WithSelected(owners, selected);
+  }
+  function app$lambda$lambda_0($receiver_17) {
+    $receiver_17.unaryPlus_pdl1vz$('\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0430\u043B\u044C\u0431\u043E\u043C, \u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u0445\u043E\u0442\u0438\u0442\u0435 \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C');
+  }
+  function app$lambda$lambda$lambda$lambda(closure$owners, closure$selected, this$) {
+    return function ($receiver_17) {
+      var $receiver_18 = closure$owners;
+      var tmp$_17;
+      tmp$_17 = $receiver_18.iterator();
+      while (tmp$_17.hasNext()) {
+        var element_17 = tmp$_17.next();
+        var closure$selected_0 = closure$selected;
+        owner(this$, element_17, element_17 != null ? element_17.equals(closure$selected_0) : null);
+      }
+    };
+  }
+  function app$lambda$lambda$lambda$lambda$lambda$lambda$lambda$lambda$size(size_0) {
+    var realSize = size_0 !== 0 ? size_0 : 600;
+    return realSize.toString();
+  }
+  function app$lambda$lambda$lambda$lambda$lambda$lambda$lambda$lambda(closure$thumb) {
+    return function ($receiver_17) {
+      var size = app$lambda$lambda$lambda$lambda$lambda$lambda$lambda$lambda$size;
+      $receiver_17.width = size(closure$thumb.width);
+      $receiver_17.height = size(closure$thumb.height);
+    };
+  }
+  function app$lambda$lambda$lambda$lambda$lambda$lambda($receiver_17) {
+    $receiver_17.unaryPlus_pdl1vz$('\u0417\u0434\u0435\u0441\u044C \u043F\u043E\u043A\u0430 \u043D\u0435\u0442 \u0430\u043B\u044C\u0431\u043E\u043C\u043E\u0432');
   }
   function app$lambda$lambda$lambda$lambda$lambda($receiver_17, it) {
-    var tmp$_17;
-    tmp$_17 = it.iterator();
-    while (tmp$_17.hasNext()) {
-      var element_17 = tmp$_17.next();
-      var receiver = element_17.album;
-      img_0($receiver_17, receiver.title, receiver.thumb_src);
+    if (!it.isEmpty()) {
+      var tmp$_17;
+      tmp$_17 = it.iterator();
+      while (tmp$_17.hasNext()) {
+        var element_17 = tmp$_17.next();
+        var receiver = element_17.album;
+        var tmp$_18;
+        var $receiver_18 = receiver.sizes;
+        var firstOrNull_sfx99b$result;
+        firstOrNull_sfx99b$break: {
+          var tmp$_19;
+          for (tmp$_19 = 0; tmp$_19 !== $receiver_18.length; ++tmp$_19) {
+            var element_18 = $receiver_18[tmp$_19];
+            if (Kotlin.equals(element_18.type, 'x')) {
+              firstOrNull_sfx99b$result = element_18;
+              break firstOrNull_sfx99b$break;
+            }
+          }
+          firstOrNull_sfx99b$result = null;
+        }
+        var thumb = (tmp$_18 = firstOrNull_sfx99b$result) != null ? tmp$_18 : Kotlin.throwNPE();
+        img_0($receiver_17, receiver.title, thumb.src, void 0, app$lambda$lambda$lambda$lambda$lambda$lambda$lambda$lambda(thumb));
+      }
     }
+     else
+      h3($receiver_17, void 0, app$lambda$lambda$lambda$lambda$lambda$lambda);
   }
-  function app$lambda$lambda$lambda$lambda_0(this$, closure$it) {
+  function app$lambda$lambda$lambda$lambda_0(closure$selected, this$) {
     return function ($receiver_17) {
+      this$.key = closure$selected.uid;
+      var albums = closure$selected.albums();
       this$.paver_s8ev37$();
-      this$.invoke_p3d1op$(closure$it.albums, app$lambda$lambda$lambda$lambda$lambda);
+      this$.invoke_p3d1op$(albums, app$lambda$lambda$lambda$lambda$lambda);
     };
   }
-  function app$lambda$lambda$lambda($receiver_17, it) {
-    div($receiver_17, 'owners', app$lambda$lambda$lambda$lambda(it));
-    div($receiver_17, 'albums', app$lambda$lambda$lambda$lambda_0($receiver_17, it));
+  function app$lambda$lambda$lambda($receiver_17, f) {
+    var owners = f.component1()
+    , selected = f.component2();
+    div_0($receiver_17, 'owners', app$lambda$lambda$lambda$lambda(owners, selected, $receiver_17));
+    div_0($receiver_17, 'albums', app$lambda$lambda$lambda$lambda_0(selected, $receiver_17));
   }
-  function app$lambda$lambda(closure$sources, this$) {
+  function app$lambda$lambda_1(closure$withSelected, this$) {
     return function ($receiver_17) {
-      this$.invoke_p3d1op$(closure$sources.VK.me, app$lambda$lambda$lambda);
+      this$.invoke_p3d1op$(closure$withSelected, app$lambda$lambda$lambda);
     };
   }
-  function app$lambda(closure$sources) {
+  function app$lambda_2(closure$withSelected) {
     return function ($receiver_17) {
-      $receiver_17.unaryPlus_pdl1vz$('\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0430\u043B\u044C\u0431\u043E\u043C, \u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u0445\u043E\u0442\u0438\u0442\u0435 \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C');
-      div($receiver_17, 'selector', app$lambda$lambda(closure$sources, $receiver_17));
+      h1($receiver_17, void 0, app$lambda$lambda_0);
+      div_0($receiver_17, 'selector', app$lambda$lambda_1(closure$withSelected, $receiver_17));
     };
   }
   function app_0(sources) {
-    return new AppSinks(appDiv(app$lambda(sources)).debug('vtree'), $module$xstream.default.of());
+    var selectOwner = sources.DOM.select('.owner').events('click').map(app$lambda).startWith(0).debug('select');
+    var albumOwners = flatMap(sources.VK.me, app$lambda_0).debug('owners');
+    var withSelected = combine_0(selectOwner, albumOwners, app$lambda_1).debug('selected');
+    return new AppSinks(appDiv('app', app$lambda_2(withSelected)).debug('vtree'), $module$xstream.default.of());
   }
   function AppDrivers(selector) {
-    this.DOM = $module$_cycle_dom.makeDOMDriver(selector, DOMDriverOptions_init([$module$snabbdom_modules_props, $module$snabbdom_modules_attributes, PaverModule_getInstance()]));
+    this.DOM = $module$_cycle_dom.makeDOMDriver(selector, DOMDriverOptions_init([PropsModule, AttrsModule, PaverModule_getInstance()]));
     this.VK = VKDriver;
   }
   AppDrivers.$metadata$ = {
@@ -4479,6 +4695,29 @@ if(false) {
     simpleName: 'EnumString',
     interfaces: [Params$Delegate]
   };
+  function Params$EnumStringList($outer) {
+    this.$outer = $outer;
+    Params$Delegate.call(this, this.$outer);
+  }
+  Params$EnumStringList.prototype.serialize_11rb$ = function (value) {
+    var tmp$_17 = new Params$StringList(this.$outer);
+    var transform = Kotlin.getPropertyCallableRef('name', 1, function ($receiver_17) {
+      return $receiver_17.name;
+    });
+    var destination_17 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$(Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$(value, 10));
+    var tmp$_18;
+    tmp$_18 = value.iterator();
+    while (tmp$_18.hasNext()) {
+      var item = tmp$_18.next();
+      destination_17.add_11rb$(transform(item));
+    }
+    return tmp$_17.serialize_11rb$(destination_17);
+  };
+  Params$EnumStringList.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'EnumStringList',
+    interfaces: [Params$Delegate]
+  };
   Params.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
     simpleName: 'Params',
@@ -4512,6 +4751,11 @@ if(false) {
   var debugger_0 = Kotlin.defineInlineFunction('_compiled-tmp.app.debugger', function () {
     debugger;
   });
+  function setTimeout(timeout, handler) {
+    if (timeout === void 0)
+      timeout = 0;
+    window.setTimeout(handler, timeout);
+  }
   function setEvent($receiver_17, name, callback) {
     $receiver_17[name] = callback;
   }
@@ -4959,7 +5203,7 @@ if(false) {
   }
   function div$lambda($receiver_17) {
   }
-  function div_0($receiver_17, classes, block) {
+  function div_1($receiver_17, classes, block) {
     if (classes === void 0)
       classes = null;
     if (block === void 0)
@@ -5059,7 +5303,7 @@ if(false) {
   }
   function h1$lambda($receiver_17) {
   }
-  function h1($receiver_17, classes, block) {
+  function h1_0($receiver_17, classes, block) {
     if (classes === void 0)
       classes = null;
     if (block === void 0)
@@ -5079,7 +5323,7 @@ if(false) {
   }
   function h3$lambda($receiver_17) {
   }
-  function h3($receiver_17, classes, block) {
+  function h3_0($receiver_17, classes, block) {
     if (classes === void 0)
       classes = null;
     if (block === void 0)
@@ -8060,7 +8304,7 @@ if(false) {
   }
   function div$lambda_0($receiver_17) {
   }
-  function div($receiver_17, classes, block) {
+  function div_0($receiver_17, classes, block) {
     if (classes === void 0)
       classes = null;
     if (block === void 0)
@@ -8156,7 +8400,7 @@ if(false) {
   }
   function h1$lambda_0($receiver_17) {
   }
-  function h1_0($receiver_17, classes, block) {
+  function h1($receiver_17, classes, block) {
     if (classes === void 0)
       classes = null;
     if (block === void 0)
@@ -8174,7 +8418,7 @@ if(false) {
   }
   function h3$lambda_0($receiver_17) {
   }
-  function h3_0($receiver_17, classes, block) {
+  function h3($receiver_17, classes, block) {
     if (classes === void 0)
       classes = null;
     if (block === void 0)
@@ -11514,7 +11758,7 @@ if(false) {
   }
   function div$lambda_1($receiver_17) {
   }
-  function div_1($receiver_17, classes, block) {
+  function div($receiver_17, classes, block) {
     if (classes === void 0)
       classes = null;
     if (block === void 0)
@@ -17745,7 +17989,10 @@ if(false) {
   Tile.prototype.equals = function (other) {
     return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.width, other.width) && Kotlin.equals(this.height, other.height) && Kotlin.equals(this.elm, other.elm)))));
   };
-  function PaverOptions(renderTile) {
+  function PaverOptions(margin, renderTile) {
+    if (margin === void 0)
+      margin = 2;
+    this.margin = margin;
     this.renderTile = renderTile;
   }
   PaverOptions.$metadata$ = {
@@ -17754,79 +18001,95 @@ if(false) {
     interfaces: []
   };
   PaverOptions.prototype.component1 = function () {
+    return this.margin;
+  };
+  PaverOptions.prototype.component2 = function () {
     return this.renderTile;
   };
-  PaverOptions.prototype.copy_jb9s1c$ = function (renderTile) {
-    return new PaverOptions(renderTile === void 0 ? this.renderTile : renderTile);
+  PaverOptions.prototype.copy_s2vxgk$ = function (margin, renderTile) {
+    return new PaverOptions(margin === void 0 ? this.margin : margin, renderTile === void 0 ? this.renderTile : renderTile);
   };
   PaverOptions.prototype.toString = function () {
-    return 'PaverOptions(renderTile=' + Kotlin.toString(this.renderTile) + ')';
+    return 'PaverOptions(margin=' + Kotlin.toString(this.margin) + (', renderTile=' + Kotlin.toString(this.renderTile)) + ')';
   };
   PaverOptions.prototype.hashCode = function () {
     var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.margin) | 0;
     result = result * 31 + Kotlin.hashCode(this.renderTile) | 0;
     return result;
   };
   PaverOptions.prototype.equals = function (other) {
-    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && Kotlin.equals(this.renderTile, other.renderTile))));
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.margin, other.margin) && Kotlin.equals(this.renderTile, other.renderTile)))));
   };
-  function PaverModule() {
-    PaverModule_instance = this;
-    Module.call(this);
+  function paver$lambda$lambda(it) {
+    return it.data.elm;
   }
-  PaverModule.prototype.paver_lljt3l$ = function (vNode) {
-    var tmp$_17, tmp$_18, tmp$_19;
-    var paver = (tmp$_17 = vNode.data) != null ? tmp$_17.paver : null;
-    if (paver == null)
-      return;
-    var width = (tmp$_19 = paver.width) != null ? tmp$_19 : (tmp$_18 = vNode.elm) != null ? tmp$_18.clientWidth : null;
-    if (width == null)
-      return;
+  function paver$lambda(closure$paver, closure$elm, closure$children) {
+    return function () {
+      var tmp$_17;
+      var width = (tmp$_17 = closure$paver.width) != null ? tmp$_17 : closure$elm.clientWidth;
+      var $receiver_17 = closure$children;
+      var destination_17 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$();
+      var tmp$_18;
+      for (tmp$_18 = 0; tmp$_18 !== $receiver_17.length; ++tmp$_18) {
+        var element_17 = $receiver_17[tmp$_18];
+        if (!(typeof element_17 === 'string')) {
+          destination_17.add_11rb$(element_17);
+        }
+      }
+      var vNodeChildren = destination_17;
+      var destination_18 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$();
+      var tmp$_19;
+      tmp$_19 = vNodeChildren.iterator();
+      while (tmp$_19.hasNext()) {
+        var element_18 = tmp$_19.next();
+        if (element_18.elm != null) {
+          destination_18.add_11rb$(element_18);
+        }
+      }
+      var destination_19 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$(Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$(destination_18, 10));
+      var tmp$_20;
+      tmp$_20 = destination_18.iterator();
+      while (tmp$_20.hasNext()) {
+        var item = tmp$_20.next();
+        var tmp$_21;
+        destination_19.add_11rb$(Tile_init((tmp$_21 = item.elm) != null ? tmp$_21 : Kotlin.throwNPE()));
+      }
+      var tiles = Kotlin.kotlin.collections.copyToArray(destination_19);
+      var options = new PaverOptions(0, paver$lambda$lambda);
+      var layout = Paver(tiles, width, options);
+      layout.render(closure$elm);
+      closure$elm.style.visibility = 'visible';
+    };
+  }
+  function paver(vNode) {
+    var tmp$_17;
+    var paver_0 = (tmp$_17 = vNode.data) != null ? tmp$_17.paver : null;
+    var elm = vNode.elm;
     var children = vNode.children;
+    if (paver_0 == null)
+      return;
+    if (elm == null)
+      return;
     if (children == null)
       return;
-    var destination_17 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$();
-    var tmp$_20;
-    for (tmp$_20 = 0; tmp$_20 !== children.length; ++tmp$_20) {
-      var element_17 = children[tmp$_20];
-      if (Kotlin.isType(element_17, VNode)) {
-        destination_17.add_11rb$(element_17);
-      }
-    }
-    var destination_18 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$();
-    var tmp$_21;
-    tmp$_21 = destination_17.iterator();
-    while (tmp$_21.hasNext()) {
-      var element_18 = tmp$_21.next();
-      if (element_18.elm != null) {
-        destination_18.add_11rb$(element_18);
-      }
-    }
-    var destination_19 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$(Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$(destination_18, 10));
-    var tmp$_22;
-    tmp$_22 = destination_18.iterator();
-    while (tmp$_22.hasNext()) {
-      var item = tmp$_22.next();
-      var tmp$_23;
-      destination_19.add_11rb$(Tile_init((tmp$_23 = item.elm) != null ? tmp$_23 : Kotlin.throwNPE()));
-    }
-    var tiles = Kotlin.kotlin.collections.copyToArray(destination_19);
-    var options = new PaverOptions(Kotlin.getPropertyCallableRef('elm', 1, function ($receiver_17) {
-      return $receiver_17.elm;
-    }));
-    var layout = Paver(tiles, width, options);
-    layout.render();
+    elm.style.visibility = 'hidden';
+    setTimeout(void 0, paver$lambda(paver_0, elm, children));
+  }
+  function PaverModule() {
+    PaverModule_instance = this;
+    ModuleImpl.call(this);
+  }
+  PaverModule.prototype.create = function (emptyVNode, vNode) {
+    paver(vNode);
   };
-  PaverModule.prototype.create_fx5w6s$ = function (emptyVNode, vNode) {
-    this.paver_lljt3l$(vNode);
-  };
-  PaverModule.prototype.update_fx5w6s$ = function (oldVNode, vNode) {
-    this.paver_lljt3l$(vNode);
+  PaverModule.prototype.update = function (oldVNode, vNode) {
+    paver(vNode);
   };
   PaverModule.$metadata$ = {
     kind: Kotlin.Kind.OBJECT,
     simpleName: 'PaverModule',
-    interfaces: [Module]
+    interfaces: [ModuleImpl]
   };
   var PaverModule_instance = null;
   function PaverModule_getInstance() {
@@ -17859,7 +18122,7 @@ if(false) {
     if (this.text == null)
       this.text = added;
     else
-      this.text = plus(this.text, added);
+      this.text = plus_1(this.text, added);
   };
   NodeBuilder.prototype.textToChildren = function () {
     var t = this.text;
@@ -17934,7 +18197,7 @@ if(false) {
     this.base = new NodeBuilder();
     this.stack_0 = mutableListOf_0([this.base]);
     this.lastLeaved_0 = void 0;
-    this.changes = $module$xstream.default.of(kotlin_0.Unit);
+    this.changes = $module$xstream.default.never().startWith(null);
   }
   Object.defineProperty(HBuilder.prototype, 'current_0', {
     get: function () {
@@ -17992,6 +18255,7 @@ if(false) {
   function HBuilder$invoke$lambda(closure$node) {
     return function (f, vtree) {
       closure$node.resolved = vtree;
+      return null;
     };
   }
   HBuilder.prototype.invoke_p3d1op$ = function ($receiver_17, handler) {
@@ -18005,6 +18269,14 @@ if(false) {
       width = null;
     this.current_0.data.paver = new PaverData(width);
   };
+  Object.defineProperty(HBuilder.prototype, 'key', {
+    get: function () {
+      return this.current_0.data.key;
+    },
+    set: function (value) {
+      this.current_0.data.key = value;
+    }
+  });
   HBuilder.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
     simpleName: 'HBuilder',
@@ -18031,31 +18303,26 @@ if(false) {
     };
   }
   function h_0(stream, handler) {
-    return flatMap_0(stream, h$lambda(handler));
+    return flatMap(stream, h$lambda(handler));
   }
   function appDiv$lambda$lambda(closure$handler, this$) {
     return function ($receiver_17) {
       closure$handler(this$);
     };
   }
-  function appDiv$lambda(closure$handler) {
+  function appDiv$lambda(closure$className, closure$handler) {
     return function ($receiver_17) {
-      div($receiver_17, void 0, appDiv$lambda$lambda(closure$handler, $receiver_17));
+      div_0($receiver_17, closure$className, appDiv$lambda$lambda(closure$handler, $receiver_17));
     };
   }
   function appDiv$lambda_0(it) {
     return first(it);
   }
-  function appDiv(handler) {
-    return h_1(appDiv$lambda(handler)).map(appDiv$lambda_0);
+  function appDiv(className, handler) {
+    if (className === void 0)
+      className = null;
+    return h_1(appDiv$lambda(className, handler)).map(appDiv$lambda_0);
   }
-  function VNode() {
-  }
-  VNode.$metadata$ = {
-    kind: Kotlin.Kind.INTERFACE,
-    simpleName: 'VNode',
-    interfaces: []
-  };
   function PaverData(width) {
     if (width === void 0)
       width = null;
@@ -18083,32 +18350,35 @@ if(false) {
   PaverData.prototype.equals = function (other) {
     return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && Kotlin.equals(this.width, other.width))));
   };
-  function Module() {
+  function ModuleImpl() {
   }
-  Module.prototype.pre = function () {
+  ModuleImpl.prototype.pre = function () {
   };
-  Module.prototype.create_fx5w6s$ = function (emptyVNode, vNode) {
+  ModuleImpl.prototype.create = function (emptyVNode, vNode) {
   };
-  Module.prototype.update_fx5w6s$ = function (oldVNode, vNode) {
+  ModuleImpl.prototype.update = function (oldVNode, vNode) {
   };
-  Module.prototype.destroy_lljt3l$ = function (vNode) {
+  ModuleImpl.prototype.destroy = function (vNode) {
   };
-  Module.prototype.remove_ttl0uc$ = function (vNode, removeCallback) {
+  ModuleImpl.prototype.remove = function (vNode, removeCallback) {
+    removeCallback();
   };
-  Module.prototype.post = function () {
+  ModuleImpl.prototype.post = function () {
   };
-  Module.$metadata$ = {
+  ModuleImpl.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
-    simpleName: 'Module',
+    simpleName: 'ModuleImpl',
     interfaces: []
   };
-  function flatMap_0($receiver_17, project) {
+  var PropsModule;
+  var AttrsModule;
+  function flatMap($receiver_17, project) {
     return $receiver_17.map(project).flatten();
   }
   function combine$lambda(closure$project) {
     return function (values) {
       var tmp$_17, tmp$_18;
-      return closure$project(Kotlin.isType(tmp$_17 = values[0], Any) ? tmp$_17 : Kotlin.throwCCE(), Kotlin.isType(tmp$_18 = values[1], Any) ? tmp$_18 : Kotlin.throwCCE());
+      return closure$project((tmp$_17 = values[0]) == null || Kotlin.isType(tmp$_17, Any) ? tmp$_17 : Kotlin.throwCCE(), (tmp$_18 = values[1]) == null || Kotlin.isType(tmp$_18, Any) ? tmp$_18 : Kotlin.throwCCE());
     };
   }
   function combine_0(s1, s2, project) {
@@ -18341,11 +18611,125 @@ if(false) {
     simpleName: 'Photos',
     interfaces: [VKReq]
   };
+  function VKReq$Groups(method) {
+    VKReq.call(this, 'groups', method);
+  }
+  function VKReq$Groups$Get() {
+    VKReq$Groups$Get$Companion_getInstance();
+    VKReq$Groups.call(this, 'get');
+    this.user_id$delegate = new Params$Integer(this.params);
+    this.extended$delegate = new Params$Bool(this.params);
+    this.filter$delegate = new Params$EnumStringList(this.params);
+    this.fields$delegate = new Params$PropList(this.params);
+    this.offset$delegate = new Params$Integer(this.params);
+    this.count$delegate = new Params$Integer(this.params);
+  }
+  function VKReq$Groups$Get$Companion() {
+    VKReq$Groups$Get$Companion_instance = this;
+  }
+  VKReq$Groups$Get$Companion.$metadata$ = {
+    kind: Kotlin.Kind.OBJECT,
+    simpleName: 'Companion',
+    interfaces: [Builder]
+  };
+  var VKReq$Groups$Get$Companion_instance = null;
+  function VKReq$Groups$Get$Companion_getInstance() {
+    if (VKReq$Groups$Get$Companion_instance === null) {
+      new VKReq$Groups$Get$Companion();
+    }
+    return VKReq$Groups$Get$Companion_instance;
+  }
+  Object.defineProperty(VKReq$Groups$Get.prototype, 'user_id', {
+    get: function () {
+      return this.user_id$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('user_id'));
+    },
+    set: function (user_id) {
+      this.user_id$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('user_id'), user_id);
+    }
+  });
+  Object.defineProperty(VKReq$Groups$Get.prototype, 'extended', {
+    get: function () {
+      return this.extended$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('extended'));
+    },
+    set: function (extended) {
+      this.extended$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('extended'), extended);
+    }
+  });
+  Object.defineProperty(VKReq$Groups$Get.prototype, 'filter', {
+    get: function () {
+      return this.filter$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('filter'));
+    },
+    set: function (filter_2) {
+      this.filter$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('filter'), filter_2);
+    }
+  });
+  Object.defineProperty(VKReq$Groups$Get.prototype, 'fields', {
+    get: function () {
+      return this.fields$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('fields'));
+    },
+    set: function (fields) {
+      this.fields$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('fields'), fields);
+    }
+  });
+  Object.defineProperty(VKReq$Groups$Get.prototype, 'offset', {
+    get: function () {
+      return this.offset$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('offset'));
+    },
+    set: function (offset) {
+      this.offset$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('offset'), offset);
+    }
+  });
+  Object.defineProperty(VKReq$Groups$Get.prototype, 'count', {
+    get: function () {
+      return this.count$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('count'));
+    },
+    set: function (count) {
+      this.count$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('count'), count);
+    }
+  });
+  VKReq$Groups$Get.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'Get',
+    interfaces: [VKReq$Groups]
+  };
+  VKReq$Groups.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'Groups',
+    interfaces: [VKReq]
+  };
   VKReq.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
     simpleName: 'VKReq',
     interfaces: []
   };
+  function getAlbums$lambda(it) {
+    var $receiver_17 = it.items;
+    var destination_17 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$();
+    var tmp$_17;
+    for (tmp$_17 = 0; tmp$_17 !== $receiver_17.length; ++tmp$_17) {
+      var element_17 = $receiver_17[tmp$_17];
+      if (element_17.size > 1) {
+        destination_17.add_11rb$(element_17);
+      }
+    }
+    var destination_18 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$(Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$(destination_17, 10));
+    var tmp$_18;
+    tmp$_18 = destination_17.iterator();
+    while (tmp$_18.hasNext()) {
+      var item = tmp$_18.next();
+      destination_18.add_11rb$(new AlbumVM(item));
+    }
+    return destination_18;
+  }
+  function getAlbums(id) {
+    VKReq$Photos$GetAlbums$Companion_getInstance();
+    var ctor = Kotlin.kotlin.js.get_js_1yb8b7$(Kotlin.getKClass(VKReq$Photos$GetAlbums));
+    var $receiver_17 = new ctor();
+    $receiver_17.owner_id = id;
+    $receiver_17.need_covers = true;
+    $receiver_17.photo_sizes = true;
+    return $receiver_17.response().map(getAlbums$lambda);
+  }
   function VK() {
     VK_instance = this;
     this.params_0 = new Params(window.location.search, []);
@@ -18445,7 +18829,7 @@ if(false) {
     return Kotlin.isType(tmp$_17 = it.stream, Object) ? tmp$_17 : Kotlin.throwCCE();
   }
   function select_2($receiver_17, category) {
-    return flatMap_0($receiver_17.responses.filter(select$lambda_2(category)), select$lambda_3);
+    return flatMap($receiver_17.responses.filter(select$lambda_2(category)), select$lambda_3);
   }
   function VKDriver$lambda$lambda(it) {
     var tmp$_17 = it.category;
@@ -18467,6 +18851,7 @@ if(false) {
   function UserVM(user) {
     this.user = user;
     this.albums$delegate = lazy(UserVM$albums$lambda(this));
+    this.groups$delegate = lazy(UserVM$groups$lambda(this));
   }
   Object.defineProperty(UserVM.prototype, 'albums', {
     get: function () {
@@ -18475,24 +18860,52 @@ if(false) {
       return $receiver_17.value;
     }
   });
-  function UserVM$albums$lambda$lambda(it) {
-    var $receiver_17 = it.items;
-    var destination_17 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$($receiver_17.length);
-    var tmp$_17;
-    for (tmp$_17 = 0; tmp$_17 !== $receiver_17.length; ++tmp$_17) {
-      var item = $receiver_17[tmp$_17];
-      destination_17.add_11rb$(new AlbumVM(item));
+  Object.defineProperty(UserVM.prototype, 'groups', {
+    get: function () {
+      var $receiver_17 = this.groups$delegate;
+      new Kotlin.PropertyMetadata('groups');
+      return $receiver_17.value;
     }
-    return destination_17;
-  }
+  });
   function UserVM$albums$lambda(this$UserVM) {
     return function () {
-      VKReq$Photos$GetAlbums$Companion_getInstance();
-      var ctor = Kotlin.kotlin.js.get_js_1yb8b7$(Kotlin.getKClass(VKReq$Photos$GetAlbums));
+      return getAlbums(this$UserVM.user.id).remember();
+    };
+  }
+  function UserVM$groups$lambda$lambda(it) {
+    var $receiver_17 = it.items;
+    var destination_17 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$();
+    var tmp$_17;
+    for (tmp$_17 = 0; tmp$_17 !== $receiver_17.length; ++tmp$_17) {
+      var element_17 = $receiver_17[tmp$_17];
+      if (element_17.main_album_id != null) {
+        destination_17.add_11rb$(element_17);
+      }
+    }
+    var destination_18 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$(Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$(destination_17, 10));
+    var tmp$_18;
+    tmp$_18 = destination_17.iterator();
+    while (tmp$_18.hasNext()) {
+      var item = tmp$_18.next();
+      destination_18.add_11rb$(new GroupVM(item));
+    }
+    return destination_18;
+  }
+  function UserVM$groups$lambda(this$UserVM) {
+    return function () {
+      VKReq$Groups$Get$Companion_getInstance();
+      var ctor = Kotlin.kotlin.js.get_js_1yb8b7$(Kotlin.getKClass(VKReq$Groups$Get));
       var $receiver_17 = new ctor();
-      $receiver_17.owner_id = this$UserVM.user.id;
-      $receiver_17.need_covers = true;
-      return $receiver_17.response().map(UserVM$albums$lambda$lambda);
+      $receiver_17.user_id = this$UserVM.user.id;
+      $receiver_17.extended = true;
+      $receiver_17.filter = listOf(GroupFilter$editor_getInstance());
+      $receiver_17.fields = listOf_0([Kotlin.getPropertyCallableRef('photo_50', 1, function ($receiver_17) {
+        return $receiver_17.photo_50;
+      }), Kotlin.getPropertyCallableRef('main_album_id', 1, function ($receiver_17) {
+        return $receiver_17.main_album_id;
+      })]);
+      $receiver_17.count = 1000;
+      return $receiver_17.response().map(UserVM$groups$lambda$lambda).remember();
     };
   }
   UserVM.$metadata$ = {
@@ -18600,6 +19013,114 @@ if(false) {
     simpleName: 'AlbumVM',
     interfaces: [VKStructVM]
   };
+  function get_uid($receiver_17) {
+    return -$receiver_17.id;
+  }
+  function GroupVM(group) {
+    this.group = group;
+    this.albums$delegate = lazy(GroupVM$albums$lambda(this));
+  }
+  Object.defineProperty(GroupVM.prototype, 'albums', {
+    get: function () {
+      var $receiver_17 = this.albums$delegate;
+      new Kotlin.PropertyMetadata('albums');
+      return $receiver_17.value;
+    }
+  });
+  function GroupVM$albums$lambda$lambda(it) {
+    var destination_17 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$();
+    var tmp$_17;
+    tmp$_17 = it.iterator();
+    while (tmp$_17.hasNext()) {
+      var element_17 = tmp$_17.next();
+      if (element_17.album.can_upload === 1) {
+        destination_17.add_11rb$(element_17);
+      }
+    }
+    return destination_17;
+  }
+  function GroupVM$albums$lambda(this$GroupVM) {
+    return function () {
+      return getAlbums(get_uid(this$GroupVM.group)).map(GroupVM$albums$lambda$lambda).remember();
+    };
+  }
+  GroupVM.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'GroupVM',
+    interfaces: [VKStructVM]
+  };
+  function GroupFilter(name, ordinal) {
+    Enum.call(this);
+    this.name$ = name;
+    this.ordinal$ = ordinal;
+  }
+  function GroupFilter_initFields() {
+    GroupFilter_initFields = function () {
+    };
+    GroupFilter$admin_instance = new GroupFilter('admin', 0);
+    GroupFilter$editor_instance = new GroupFilter('editor', 1);
+    GroupFilter$moder_instance = new GroupFilter('moder', 2);
+    GroupFilter$groups_instance = new GroupFilter('groups', 3);
+    GroupFilter$publics_instance = new GroupFilter('publics', 4);
+    GroupFilter$events_instance = new GroupFilter('events', 5);
+  }
+  var GroupFilter$admin_instance;
+  function GroupFilter$admin_getInstance() {
+    GroupFilter_initFields();
+    return GroupFilter$admin_instance;
+  }
+  var GroupFilter$editor_instance;
+  function GroupFilter$editor_getInstance() {
+    GroupFilter_initFields();
+    return GroupFilter$editor_instance;
+  }
+  var GroupFilter$moder_instance;
+  function GroupFilter$moder_getInstance() {
+    GroupFilter_initFields();
+    return GroupFilter$moder_instance;
+  }
+  var GroupFilter$groups_instance;
+  function GroupFilter$groups_getInstance() {
+    GroupFilter_initFields();
+    return GroupFilter$groups_instance;
+  }
+  var GroupFilter$publics_instance;
+  function GroupFilter$publics_getInstance() {
+    GroupFilter_initFields();
+    return GroupFilter$publics_instance;
+  }
+  var GroupFilter$events_instance;
+  function GroupFilter$events_getInstance() {
+    GroupFilter_initFields();
+    return GroupFilter$events_instance;
+  }
+  GroupFilter.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'GroupFilter',
+    interfaces: [Enum]
+  };
+  function GroupFilter$values() {
+    return [GroupFilter$admin_getInstance(), GroupFilter$editor_getInstance(), GroupFilter$moder_getInstance(), GroupFilter$groups_getInstance(), GroupFilter$publics_getInstance(), GroupFilter$events_getInstance()];
+  }
+  GroupFilter.values = GroupFilter$values;
+  function GroupFilter$valueOf(name) {
+    switch (name) {
+      case 'admin':
+        return GroupFilter$admin_getInstance();
+      case 'editor':
+        return GroupFilter$editor_getInstance();
+      case 'moder':
+        return GroupFilter$moder_getInstance();
+      case 'groups':
+        return GroupFilter$groups_getInstance();
+      case 'publics':
+        return GroupFilter$publics_getInstance();
+      case 'events':
+        return GroupFilter$events_getInstance();
+      default:Kotlin.throwISE('No enum constant vk.GroupFilter.' + name);
+    }
+  }
+  GroupFilter.valueOf_61zpoe$ = GroupFilter$valueOf;
   JSDOMBuilder.prototype.onTagError_cjwpn3$ = TagConsumer.prototype.onTagError_cjwpn3$;
   DefaultUnsafe.prototype.unaryPlus_lvwjq6$ = Unsafe.prototype.unaryPlus_lvwjq6$;
   SingletonStringMap.prototype.getOrDefault_xwzc9p$ = Map.prototype.getOrDefault_xwzc9p$;
@@ -18888,6 +19409,11 @@ if(false) {
   HBuilder$onTagContentUnsafe$ObjectLiteral.prototype.unaryPlus_lvwjq6$ = Unsafe.prototype.unaryPlus_lvwjq6$;
   HBuilder.prototype.onTagError_cjwpn3$ = TagConsumer.prototype.onTagError_cjwpn3$;
   var package$app = _.app || (_.app = {});
+  package$app.AlbumOwner = AlbumOwner;
+  package$app.asAlbumOwner_t15cx8$ = asAlbumOwner;
+  package$app.asAlbumOwner_yu5nbi$ = asAlbumOwner_0;
+  package$app.owner_6vov1f$ = owner;
+  package$app.WithSelected = WithSelected;
   package$app.app_lwy2ck$ = app_0;
   package$app.AppDrivers = AppDrivers;
   package$app.AppSources = AppSources;
@@ -18901,11 +19427,13 @@ if(false) {
   Params.IntList = Params$IntList;
   Params.PropList = Params$PropList;
   Params.EnumString = Params$EnumString;
+  Params.EnumStringList = Params$EnumStringList;
   package$app.Params = Params;
   package$app.Builder = Builder;
   package$app.jsObject_7qq44f$ = jsObject;
   package$app.js_5ij4lk$ = js_0;
   package$app.debugger = debugger_0;
+  package$app.setTimeout_n53o35$ = setTimeout;
   var package$kotlinx = _.kotlinx || (_.kotlinx = {});
   var package$html = package$kotlinx.html || (package$kotlinx.html = {});
   var package$dom = package$html.dom || (package$html.dom = {});
@@ -18944,7 +19472,7 @@ if(false) {
   package$js.details_v1c0ag$ = details;
   package$js.dfn_6e2jtu$ = dfn;
   package$js.dialog_o1mqye$ = dialog;
-  package$js.div_wkomt5$ = div_0;
+  package$js.div_wkomt5$ = div_1;
   package$js.dl_4s12uu$ = dl;
   package$js.dt_iewpf2$ = dt;
   package$js.em_bpkgve$ = em;
@@ -18954,9 +19482,9 @@ if(false) {
   package$js.figure_a9op5m$ = figure;
   package$js.footer_rkqwo3$ = footer;
   package$js.form_cxki7s$ = form;
-  package$js.h1_1esf85$ = h1;
+  package$js.h1_1esf85$ = h1_0;
   package$js.h2_nirn70$ = h2;
-  package$js.h3_mksccz$ = h3;
+  package$js.h3_mksccz$ = h3_0;
   package$js.h4_2crq26$ = h4;
   package$js.h5_rabshb$ = h5;
   package$js.h6_it872o$ = h6;
@@ -19411,7 +19939,7 @@ if(false) {
   package$html.details_lsny6o$ = details_0;
   package$html.dfn_qz8qfa$ = dfn_0;
   package$html.dialog_tmuuku$ = dialog_0;
-  package$html.div_59el9d$ = div;
+  package$html.div_59el9d$ = div_0;
   package$html.dl_jwau0i$ = dl_0;
   package$html.dt_t7lw6$ = dt_0;
   package$html.em_83d4cy$ = em_0;
@@ -19421,9 +19949,9 @@ if(false) {
   package$html.figure_fnm6ty$ = figure_0;
   package$html.footer_x2k50h$ = footer_0;
   package$html.form_3ereno$ = form_0;
-  package$html.h1_qzc46n$ = h1_0;
+  package$html.h1_qzc46n$ = h1;
   package$html.h2_wky4k0$ = h2_0;
-  package$html.h3_l44bbj$ = h3_0;
+  package$html.h3_l44bbj$ = h3;
   package$html.h4_9nai32$ = h4_0;
   package$html.h5_1tjb5f$ = h5_0;
   package$html.h6_dad4dw$ = h6_0;
@@ -20139,7 +20667,7 @@ if(false) {
   package$html.address_qlk71o$ = address_1;
   package$html.blockQuote_1wgk0f$ = blockQuote_1;
   package$html.dialog_3ow4zc$ = dialog_1;
-  package$html.div_ri36nr$ = div_1;
+  package$html.div_ri36nr$ = div;
   package$html.dl_rgoo3s$ = dl_1;
   package$html.fieldSet_27mjzc$ = fieldSet_1;
   package$html.figure_a31wtg$ = figure_1;
@@ -20621,6 +21149,7 @@ if(false) {
   package$paver.Tile_init_2rdptt$ = Tile_init;
   package$paver.Tile = Tile;
   package$paver.PaverOptions = PaverOptions;
+  package$paver.paver_lljt3l$ = paver;
   Object.defineProperty(package$paver, 'PaverModule', {
     get: PaverModule_getInstance
   });
@@ -20630,13 +21159,22 @@ if(false) {
   package$snabbdom.HBuilder = HBuilder;
   package$snabbdom.h_sot92j$ = h_1;
   package$snabbdom.h_eqlnrg$ = h_0;
-  package$snabbdom.appDiv_sot92j$ = appDiv;
-  package$snabbdom.VNode = VNode;
+  package$snabbdom.appDiv_c4y0ao$ = appDiv;
   package$snabbdom.PaverData = PaverData;
-  package$snabbdom.Module = Module;
+  package$snabbdom.ModuleImpl = ModuleImpl;
+  Object.defineProperty(package$snabbdom, 'PropsModule', {
+    get: function () {
+      return PropsModule;
+    }
+  });
+  Object.defineProperty(package$snabbdom, 'AttrsModule', {
+    get: function () {
+      return AttrsModule;
+    }
+  });
   var package$xstream = package$lib.xstream || (package$lib.xstream = {});
-  package$xstream.flatMap_im4ds3$ = flatMap_0;
-  package$xstream.combine_6klblv$ = combine_0;
+  package$xstream.flatMap_im4ds3$ = flatMap;
+  package$xstream.combine_onjrjx$ = combine_0;
   package$xstream.create_oe1f0k$ = create_1;
   package$xstream.jsonpStream_rzpbx2$ = jsonpStream;
   package$xstream.addListener_lki0o0$ = addListener;
@@ -20650,8 +21188,14 @@ if(false) {
   });
   VKReq$Photos.GetAlbums = VKReq$Photos$GetAlbums;
   VKReq.Photos = VKReq$Photos;
+  Object.defineProperty(VKReq$Groups$Get, 'Companion', {
+    get: VKReq$Groups$Get$Companion_getInstance
+  });
+  VKReq$Groups.Get = VKReq$Groups$Get;
+  VKReq.Groups = VKReq$Groups;
   var package$vk = _.vk || (_.vk = {});
   package$vk.VKReq = VKReq;
+  package$vk.getAlbums_za3lpa$ = getAlbums;
   Object.defineProperty(package$vk, 'VK', {
     get: VK_getInstance
   });
@@ -20686,6 +21230,27 @@ if(false) {
   package$vk.Case = Case;
   package$vk.get_fullName_ml56i3$ = get_fullName;
   package$vk.AlbumVM = AlbumVM;
+  package$vk.get_uid_gqnylz$ = get_uid;
+  package$vk.GroupVM = GroupVM;
+  Object.defineProperty(GroupFilter, 'admin', {
+    get: GroupFilter$admin_getInstance
+  });
+  Object.defineProperty(GroupFilter, 'editor', {
+    get: GroupFilter$editor_getInstance
+  });
+  Object.defineProperty(GroupFilter, 'moder', {
+    get: GroupFilter$moder_getInstance
+  });
+  Object.defineProperty(GroupFilter, 'groups', {
+    get: GroupFilter$groups_getInstance
+  });
+  Object.defineProperty(GroupFilter, 'publics', {
+    get: GroupFilter$publics_getInstance
+  });
+  Object.defineProperty(GroupFilter, 'events', {
+    get: GroupFilter$events_getInstance
+  });
+  package$vk.GroupFilter = GroupFilter;
   emptyMap = emptyMap_0();
   attributeStringString = new StringAttribute();
   attributeSetStringStringSet = new StringSetAttribute();
@@ -20876,13 +21441,15 @@ if(false) {
   letterRangeLowerCase = new CharRange(97, 122);
   letterRangeUpperCase = new CharRange(65, 90);
   digitRange = new CharRange(48, 57);
+  PropsModule = $module$snabbdom_modules_props.default;
+  AttrsModule = $module$snabbdom_modules_attributes.default;
   version = '5.62';
   root = 'https://api.vk.com/method';
   VKDriver = VKDriver$lambda;
   Kotlin.defineModule('_compiled-tmp', _);
   main([]);
   return _;
-}(module.exports, __webpack_require__(97), __webpack_require__(1), __webpack_require__(33), __webpack_require__(32), __webpack_require__(46), __webpack_require__(52), __webpack_require__(96)));
+}(module.exports, __webpack_require__(97), __webpack_require__(1), __webpack_require__(46), __webpack_require__(52), __webpack_require__(33), __webpack_require__(32), __webpack_require__(96)));
 
 //@ sourceMappingURL=_compiled-tmp.js.map
 
@@ -20941,7 +21508,7 @@ window.Paver = function(dataSource, width, options) {
 
       var maxRatio = this.maxRatio || 4;
       var minRatio = this.minRatio || 0.333;
-      var margin = this.margin || 2;
+      var margin = this.margin;
       var noStacks = this.noStacks;
 
       if (fromRow === undefined) {
@@ -21016,6 +21583,50 @@ window.Paver = function(dataSource, width, options) {
         return score / row.range.len;
       }
 
+      function closeStack(rowHeight) {
+        row.w1000 += 1000000 / stack.h1000;
+
+        stack.range.to = i - 1;
+        stack.range.len = stack.range.to - stack.range.from + 1;
+
+        row.stacks.push(stack);
+
+        row.height = Math.round(1000 * (rowWidth - (row.stacks.length - 1) * margin) / row.w1000);
+        if (row.height <= rowHeight) {
+          if (!preferredArea) {
+            compute(row, i);
+            rows.push(row);
+          } else {
+            var score = compute(row, i);
+            //console.log('count = ' + row.range.len + ', h = ' + rowHeight + ', stddev = ' + Math.sqrt(score));
+            if (!best || (score < bestScore)) {
+              best = row, bestScore = score;
+            }
+
+            step++;
+            if (step >= optimizeSteps) {
+              //console.groupEnd();
+              rows.push(best);
+              //console.groupCollapsed('row #' + rows.length);
+              i = best.range.to;
+
+              totalScore += score;
+
+              best = false, bestScore = 1000000;
+              step = 0;
+            } else {
+              i = row.range.from;
+            }
+          }
+
+          row = {
+            w1000: 0,
+            stacks: [],
+            range: { from: i }
+          }
+        }
+      }
+
       //console.groupCollapsed('row #' + rows.length);
       for (var i = from; i < count; i++) {
         var data = this.dataSource && (this.dataSource.get ? this.dataSource.get(i) : this.dataSource[i]) || false;
@@ -21047,48 +21658,8 @@ window.Paver = function(dataSource, width, options) {
 
         var rowHeight = preferredArea ? minRowHeight + step * (maxRowHeight - minRowHeight) / (optimizeSteps - 1) : maxRowHeight;
 
-        if (stack.tiles.length > 0 && (noStacks || (1000 * rowHeight / sh1000 < minStackWidth) || (mh1000 * rowHeight / sh1000 < minTileHeight))) {
-          row.w1000 += 1000000 / stack.h1000;
-
-          stack.range.to = i - 1;
-          stack.range.len = stack.range.to - stack.range.from + 1;
-
-          row.stacks.push(stack);
-
-          row.height = Math.round(1000 * (rowWidth - (row.stacks.length - 1) * margin) / row.w1000);
-          if (row.height <= rowHeight) {
-            if (!preferredArea) {
-              compute(row, i);
-              rows.push(row);
-            } else {
-              var score = compute(row, i);
-              //console.log('count = ' + row.range.len + ', h = ' + rowHeight + ', stddev = ' + Math.sqrt(score));
-              if (!best || (score < bestScore)) {
-                best = row, bestScore = score;
-              }
-
-              step++;
-              if (step >= optimizeSteps) {
-                //console.groupEnd();
-                rows.push(best);
-                //console.groupCollapsed('row #' + rows.length);
-                i = best.range.to;
-
-                totalScore += score;
-
-                best = false, bestScore = 1000000;
-                step = 0;
-              } else {
-                i = row.range.from;
-              }
-            }
-
-            row = {
-              w1000: 0,
-              stacks: [],
-              range: { from: i }
-            }
-          }
+        if (i === count - 1 || stack.tiles.length > 0 && (noStacks || (1000 * rowHeight / sh1000 < minStackWidth) || (mh1000 * rowHeight / sh1000 < minTileHeight))) {
+          closeStack(rowHeight)
 
           stack = {
             h1000: 0,
@@ -21106,6 +21677,11 @@ window.Paver = function(dataSource, width, options) {
         });
       }
       //console.groupEnd();
+
+      if (stack.tiles.length > 0) {
+        var rowHeight = preferredArea ? minRowHeight + step * (maxRowHeight - minRowHeight) / (optimizeSteps - 1) : maxRowHeight;
+        closeStack(rowHeight)
+      }
 
       if (row.stacks.length > 0) {
         row.height = Math.min(row.height, maxRowHeight);
@@ -22579,7 +23155,7 @@ exports = module.exports = __webpack_require__(55)();
 
 
 // module
-exports.push([module.i, "body {\n    width: 795px;\n}\n\n.selector {\n    display: flex;\n}\n\n.albums {\n    flex-grow: 1;\n    display: flex;\n    flex-wrap: wrap;\n}\n", ""]);
+exports.push([module.i, "body {\n    margin: 0;\n    background: #000;\n}\n\nh1, h2, h3, h4 {\n    margin: 0;\n    padding: 8px 16px 16px;\n    font-weight: 500;\n}\n\n.app {\n    width: 795px;\n    margin: 0 auto;\n    min-height: 100vh;\n    background: #000;\n    color: #fff;\n    font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n    font-weight: 300;\n}\n\n.selector {\n    display: flex;\n}\n\n.owners {\n    width: 50px;\n    flex-shrink: 0;\n}\n\n.owner {\n    cursor: pointer;\n    height: 50px;\n    display: flex;\n    position: relative;\n}\n\n.owner > * {\n    flex-shrink: 0;\n}\n\n.blackout {\n    background: rgba(0, 0, 0, 0.2);\n    position: absolute;\n    z-index: 1;\n    width: 50px;\n    height: 50px;\n    left: 0;\n    top: 0;\n}\n\n.blackout:not(:hover) {\n    background: rgba(0, 0, 0, 0.6);\n    transition: background 0.15s ease-out;\n}\n\n.selected > .blackout {\n    background: transparent;\n}\n\n.ownerName {\n    padding: 0 8px;\n    line-height: 50px;\n    background: rgba(0, 0, 0, 0.8);\n    z-index: 1;\n}\n\n.blackout:not(:hover) ~ .ownerName {\n    transition: opacity 0.15s ease-out;\n    opacity: 0;\n}\n\n.albums {\n    flex-grow: 1;\n}\n", ""]);
 
 // exports
 

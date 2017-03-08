@@ -22,6 +22,10 @@ external interface Stream<T> {
 
     fun debug(label: String? = definedExternally) : Stream<T>
     fun debug(spy: (T) -> Unit) : Stream<T>
+
+    fun startWith(value: T): MemoryStream<T>
+
+    fun remember(): MemoryStream<T>
 }
 
 external interface MetaStream<T> : Stream<Stream<T>> {
