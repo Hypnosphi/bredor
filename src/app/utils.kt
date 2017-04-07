@@ -2,6 +2,7 @@ package app
 
 import org.w3c.dom.url.URLSearchParams
 import kotlin.browser.window
+import kotlin.js.Math
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 import kotlin.reflect.KProperty1
@@ -106,4 +107,13 @@ external interface DefaultExport<T> {
 
 fun setTimeout(timeout: Int = 0, handler: () -> Unit) {
     window.setTimeout(handler, timeout)
+}
+
+fun random(size: Int) = Math.floor(Math.random() * size)
+
+fun randomPair(size: Int): Pair<Int, Int> {
+    val a = random(size)
+    var b = random(size - 1)
+    if (b >= a) b += 1
+    return a to b
 }

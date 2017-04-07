@@ -36,4 +36,4 @@ external interface MetaStream<T> : Stream<Stream<T>> {
 
 external interface MemoryStream<T> : Stream<T>
 
-
+typealias Operator<T, R> = (Stream<T>) -> Stream<R>

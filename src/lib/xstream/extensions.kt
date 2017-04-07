@@ -1,8 +1,8 @@
 package lib.xstream
 
-import app.debugger
 import app.jsObject
-import lib.jsonp.*
+import lib.jsonp.JsonpOptions
+import lib.jsonp.jsonp
 
 fun <T, U> Stream<T>.flatMap(project: (T) -> Stream<U>) =
     mapStream(project).flatten()
@@ -44,3 +44,15 @@ fun <T> Stream<T>.addListener(
 }
 
 fun <T, R> Stream<T>.fold(seed: R, accumulate: (acc: R, t: T) -> R) = fold(accumulate, seed)
+
+fun <T> Stream<T>.persist() = merge(this, never())
+
+@Suppress("UNCHECKED_CAST", "UNCHECKED_CAST_TO_NATIVE_INTERFACE")
+fun <T> Stream<*>.toType() = this as Stream<T>
+
+fun <T> Stream<T>.toNullable() = toType<T?>()
+
+fun <T> Stream<T>.throttle(period: Int) = lib.xstream.throttle<T>(period)(this)
+
+fun <T> Stream<T>.pairwise(): Stream<Pair<T, T>> =
+    lib.xstream.pairwise(this).map { it[0] to it[1] }

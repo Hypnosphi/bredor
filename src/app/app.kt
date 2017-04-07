@@ -2,16 +2,11 @@ package app
 
 import kotlinx.html.*
 import lib.cycle.dom.DOMSource
-import lib.paver.paver
 import lib.snabbdom.HBuilder
 import lib.snabbdom.appDiv
 import lib.xstream.*
 import org.w3c.dom.Element
-import org.w3c.dom.events.MouseEvent
 import vk.*
-import vk.VK.me
-import kotlin.coroutines.experimental.EmptyCoroutineContext.plus
-import kotlin.js.Math
 
 data class AlbumOwner(
     val uid: Int,
@@ -52,6 +47,8 @@ fun HBuilder.owner(owner: AlbumOwner, isSelected: Boolean = false) {
 fun HBuilder.album(album: AlbumVM) {
     with(album.album) {
         div("album") {
+            key = album.album.id
+            id = album.album.id.toString()
             val thumb = sizes.find { it.type == "x" }!!
             fun size(size: Int): String {
                 val realSize = if (size != 0) size else 600
@@ -80,6 +77,8 @@ fun DOMSource.scroll() : Stream<String> =
     events("wheel")
         .map { it.asDynamic().deltaY }
         .fold(0) { a: Int, b: Int -> if (a < b) a - b else 0 }
+        .throttle(20)
+        .startWith(0)
         .map { "top: ${it}px;" }
 
 fun app(sources: AppSources) : AppSinks {
@@ -90,7 +89,6 @@ fun app(sources: AppSources) : AppSinks {
             val el = it.currentTarget as Element
             el.id.toInt()
         }
-        .startWith(0)
         .debug("select")
 
     val scrollOwners: Stream<String> = sources.DOM
@@ -110,56 +108,121 @@ fun app(sources: AppSources) : AppSinks {
                 }
                 .startWith(me)
         }
+        .remember()
         .debug("owners")
 
-    val withSelected: Stream<WithSelected> =
-        combine(selectOwner, albumOwners) { id, owners ->
-            val selected = when(id){
-                0 -> owners.first()
-                else -> owners.find { it.uid == id }!!
-            }
-            WithSelected(owners, selected)
+    val selectedOwner: Stream<AlbumOwner> = albumOwners
+        .flatMap { owners ->
+            selectOwner
+                .map { id ->
+                    owners.find { it.uid == id }!!
+                }
+                .startWith(owners.first())
         }
+        .remember()
         .debug("selected")
+
+    val currentAlbumId: Stream<Int> = sources.DOM
+        .select(".album")
+        .events("click")
+        .map {
+            val el = it.currentTarget as Element
+            el.id.toInt()
+        }
+
+    val currentAlbum: Stream<AlbumVM> = selectedOwner
+        .flatMap {
+            it.albums()
+        }
+        .flatMap { albums ->
+            currentAlbumId
+                .map { id ->
+                    albums.find { it.album.id == id }!!
+                }
+        }
+        .debug("album")
+
+    val currentPair: Stream<Pair<Photo, Photo>?> = sources.VK.responses
+        .debug("resp")
+        .filter { it.category == "pair" }
+        .map { it.stream }
+        .toType<Stream<VKList<Photo>>>()
+        .pairwise()
+        .debug("pairwise")
+        .flatMap {
+            combine(it.first, it.second) { fst, snd ->
+                fst.first() to snd.first()
+            }
+        }
+        .debug("photopair")
+        .toNullable()
+        .startWith(null)
 
     return AppSinks(
         DOM = appDiv("app") {
+            currentPair {
+                if (it == null) {
+                    h1 {
+                        +"Выберите альбом, который хотите сортировать"
+                    }
 
-            h1 {
-                +"Выберите альбом, который хотите сортировать"
-            }
-
-            div("selector") {
-                withSelected { (owners, selected) ->
-                    scrollOwners {
-                        div("owners") {
-                            div {
-                                style = it
-                                owners.forEach {
-                                    owner(it, it == selected)
+                    div("selector") {
+                        selectedOwner { selected ->
+                            albumOwners { owners ->
+                                scrollOwners {
+                                    div("owners") {
+                                        div {
+                                            style = it
+                                            owners.forEach {
+                                                owner(it, it == selected)
+                                            }
+                                        }
+                                    }
                                 }
                             }
-                        }
-                    }
-                    scrollAlbums {
-                        div("albums") {
-                            div {
-                                style = it
-                                key = selected.uid
-                                val albums = selected.albums()
-                                paver()
-                                albums {
-                                    when {
-                                        it.isNotEmpty() -> it.forEach { album(it) }
-                                        else -> h3 { +"Здесь пока нет альбомов" }
+                            scrollAlbums {
+                                div("albums") {
+                                    div {
+                                        style = it
+                                        key = selected.uid
+                                        val albums = selected.albums()
+                                        paver()
+                                        albums {
+                                            when {
+                                                it.isNotEmpty() -> it.forEach { album(it) }
+                                                else -> h3 { +"Здесь пока нет альбомов" }
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
                     }
+                } else {
+                    div {
+                        it.toList().forEach {
+                            img(it.text, it.photo_604)
+                        }
+                    }
                 }
             }
         }.debug("vtree"),
-        VK = of()
+        VK = currentAlbum
+            .flatMap { (album) ->
+                val (a, b) = randomPair(album.size)
+
+                of(a, b)
+                    .map {
+                        VKReq.Photos.Get {
+                            owner_id = album.owner_id
+                            album_id = album.id
+                            offset = it
+                            count = 1
+                            category = "pair"
+                        }
+                    }
+                    .debug("req")
+                    .toType<VKReq<*>>()
+            }
     )
 }

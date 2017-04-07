@@ -1,7 +1,7 @@
 package vk
 
+import app.invoke
 import lib.xstream.Stream
-import app.*
 
 external interface VKStruct
 interface VKStructVM<T: VKStruct>
@@ -10,6 +10,9 @@ external interface VKList<T : VKStruct> {
     val count: Int
     val items: Array<T>
 }
+
+fun <T : VKStruct> VKList<T>.toList() = items.toList()
+fun <T : VKStruct> VKList<T>.first() = items.first()
 
 external interface User : VKStruct {
     val id: Int
@@ -70,7 +73,24 @@ external interface Album : VKStruct {
     val thumb_src: String
     val sizes: Array<Thumb>
 }
-class AlbumVM(val album: Album) : VKStructVM<Album>
+data class AlbumVM(val album: Album) : VKStructVM<Album>
+
+external interface Photo : VKStruct {
+    val id: Int
+    val album_id: Int
+    val owner_id: Int
+    val user_id: Int
+    val text: String
+    val date: Int
+    val photo_75: String
+    val photo_130: String
+    val photo_604: String
+    val photo_807: String
+    val photo_1280: String
+    val photo_2560: String
+    val width: Int
+    val height: Int
+}
 
 external interface Group : VKStruct {
     val id: Int
@@ -104,4 +124,8 @@ class GroupVM(val group: Group) : VKStructVM<Group> {
 
 enum class GroupFilter {
     admin, editor, moder, groups, publics, events
+}
+
+enum class FeedType {
+    post, photo, photo_tag, wall_photo, friend, note, audio, video
 }

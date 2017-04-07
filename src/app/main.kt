@@ -1,13 +1,20 @@
 package app
 
-import lib.cycle.*
-import lib.cycle.dom.*
+import lib.cycle.DriversDefinition
+import lib.cycle.Sinks
+import lib.cycle.Sources
+import lib.cycle.dom.DOMDriverOptions
+import lib.cycle.dom.DOMSource
+import lib.cycle.dom.makeDOMDriver
+import lib.cycle.run
 import lib.paver.PaverModule
 import lib.snabbdom.AttrsModule
 import lib.snabbdom.PropsModule
 import lib.snabbdom.VNode
-import lib.xstream.*
-import vk.*
+import lib.xstream.Stream
+import vk.VKDriver
+import vk.VKReq
+import vk.VKSource
 
 class AppDrivers(selector: String) : DriversDefinition {
     val DOM = makeDOMDriver(selector, DOMDriverOptions(PropsModule, AttrsModule, PaverModule))

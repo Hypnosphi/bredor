@@ -25,7 +25,7 @@ class NodeBuilder(val selector: String = "", var text: String? = null) : Child {
     fun addText(added: String) {
         when (text) {
             null -> text = added
-            else -> text += added
+            else -> text = "$text$added"
         }
     }
 
@@ -79,7 +79,7 @@ class HBuilder : TagConsumer<NodeBuilder> {
         get() = stack.last()
     private lateinit var lastLeaved: NodeBuilder
 
-    var changes: Stream<Any?> = never().startWith(null)
+    var changes = of(null).persist()
 
     override fun onTagStart(tag: Tag) {
         val node = NodeBuilder(tag.tagName)

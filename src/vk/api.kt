@@ -1,8 +1,12 @@
 package vk
 
-import lib.xstream.*
+import app.Builder
+import app.Params
+import app.invoke
+import lib.xstream.Stream
+import lib.xstream.jsonpStream
+import lib.xstream.of
 import kotlin.browser.window
-import app.*
 
 external interface VKError {
     val error_msg: String
@@ -60,6 +64,21 @@ sealed class VKReq<T>(val ns: String, val method: String) {
             var need_system by params.Bool()
             var need_covers by params.Bool()
             var photo_sizes by params.Bool()
+        }
+
+        class Get: Photos<VKList<Photo>>("get") {
+            companion object : Builder<Get>
+
+            var owner_id by params.Integer()
+            var album_id by params.Integer()
+            var photo_ids by params.IntList()
+            var rev by params.Bool()
+            var extended by params.Bool()
+            var feed_type by params.EnumString<FeedType>()
+            var feed by params.Integer()
+            var photo_sizes by params.Bool()
+            var offset by params.Integer()
+            var count by params.Integer()
         }
     }
 
