@@ -1,8 +1,7 @@
 package lib.snabbdom
 
-import app.*
+import app.jsObject
 import kotlinx.html.*
-import lib.snabbdom.*
 import lib.xstream.*
 import org.w3c.dom.events.Event
 
@@ -14,6 +13,7 @@ class NodeBuilder(val selector: String = "", var text: String? = null) : Child {
     val data : VNodeData = jsObject {
         attrs = object {}
         props = object {}
+        style = object {}
     }
 
     fun setAttr(name: String, value: String?) {
@@ -143,6 +143,10 @@ class HBuilder : TagConsumer<NodeBuilder> {
         set(value) {
             current.data.key = value
         }
+
+    fun css(block: dynamic.() -> Unit) {
+        block(current.data.style)
+    }
 }
 
 fun h(handler: HBuilder.() -> Unit): Stream<List<VNode>> =

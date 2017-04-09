@@ -42,10 +42,6 @@ h1 {
     flex-shrink: 0;
 }
 
-.owners > div {
-    position: relative;
-}
-
 .owner {
     height: 50px;
     display: flex;
@@ -99,10 +95,6 @@ a.ownerName:hover {
 
 .albums {
     flex-grow: 1;
-}
-
-.albums > div {
-    position: relative;
 }
 
 .album {

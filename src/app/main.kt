@@ -10,6 +10,7 @@ import lib.cycle.run
 import lib.paver.PaverModule
 import lib.snabbdom.AttrsModule
 import lib.snabbdom.PropsModule
+import lib.snabbdom.StyleModule
 import lib.snabbdom.VNode
 import lib.xstream.Stream
 import vk.VKDriver
@@ -17,7 +18,7 @@ import vk.VKReq
 import vk.VKSource
 
 class AppDrivers(selector: String) : DriversDefinition {
-    val DOM = makeDOMDriver(selector, DOMDriverOptions(PropsModule, AttrsModule, PaverModule))
+    val DOM = makeDOMDriver(selector, DOMDriverOptions(PropsModule, AttrsModule, StyleModule, PaverModule))
     val VK = VKDriver
 }
 

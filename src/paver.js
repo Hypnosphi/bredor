@@ -286,6 +286,8 @@ window.Paver = function(dataSource, width, options) {
         rowTop += row.height + this.margin;
       }
 
+      e.style.height = rowTop + 'px';
+
       //console.time('check');
       var node = e.firstChild;
       while (node) {

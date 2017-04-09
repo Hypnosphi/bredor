@@ -1,7 +1,7 @@
 package lib.snabbdom
 
 import app.DefaultExport
-import org.w3c.dom.*
+import org.w3c.dom.Element
 
 external interface VNode {
     val sel: String?
@@ -17,6 +17,7 @@ data class PaverData(val width: Int? = null)
 external interface VNodeData {
     var attrs: dynamic
     var props: dynamic
+    var style: dynamic
     var paver: PaverData?
     var key: Int?
 }
@@ -48,3 +49,7 @@ val PropsModule = PropsModuleExport.default
 @JsModule("snabbdom/modules/attributes")
 external val AttrsModuleExport : DefaultExport<Module>
 val AttrsModule = AttrsModuleExport.default
+
+@JsModule("snabbdom/modules/style")
+external val StyleModuleExport : DefaultExport<Module>
+val StyleModule = StyleModuleExport.default

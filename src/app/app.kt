@@ -6,6 +6,7 @@ import lib.snabbdom.HBuilder
 import lib.snabbdom.appDiv
 import lib.xstream.*
 import org.w3c.dom.Element
+import org.w3c.dom.events.Event
 import vk.*
 
 data class AlbumOwner(
@@ -73,13 +74,44 @@ data class WithSelected(
     val selected: AlbumOwner
 )
 
-fun DOMSource.scroll() : Stream<String> =
+fun DOMSource.scroll() : Stream<Int> =
     events("wheel")
-        .map { it.asDynamic().deltaY }
-        .fold(0) { a: Int, b: Int -> if (a < b) a - b else 0 }
+        .fold(0) { y: Int, e: Event ->
+            val dy: Int = e.asDynamic().deltaY
+            val y1 = y + dy
+            val el = e.currentTarget as Element
+            val child = el.firstChild as Element
+            val ymax = child.clientHeight - el.clientHeight
+            when {
+                ymax < 0 -> 0
+                y1 < 0 -> 0
+                y1 > ymax -> ymax
+                else -> {
+                    e.preventDefault()
+                    y1
+                }
+            }
+        }
+        .debug("scroll")
         .throttle(20)
         .startWith(0)
-        .map { "top: ${it}px;" }
+
+fun DOMSource.makeScroll(): HBuilder.(String, HBuilder.() -> Unit) -> Unit = { className, block ->
+    this@makeScroll.select(".$className")
+        .scroll()
+        .invoke {
+            div(className) {
+                div {
+                    css {
+                        position = "relative"
+                        top = "${-it}px"
+                    }
+                    block()
+                }
+            }
+        }
+}
+
 
 fun app(sources: AppSources) : AppSinks {
     val selectOwner: Stream<Int> = sources.DOM
@@ -91,13 +123,7 @@ fun app(sources: AppSources) : AppSinks {
         }
         .debug("select")
 
-    val scrollOwners: Stream<String> = sources.DOM
-        .select(".owners")
-        .scroll()
-
-    val scrollAlbums: Stream<String> = sources.DOM
-        .select(".albums")
-        .scroll()
+    val scroll = sources.DOM.makeScroll()
 
     val albumOwners: Stream<List<AlbumOwner>> = sources.VK.me
         .flatMap {
@@ -169,30 +195,20 @@ fun app(sources: AppSources) : AppSinks {
                     div("selector") {
                         selectedOwner { selected ->
                             albumOwners { owners ->
-                                scrollOwners {
-                                    div("owners") {
-                                        div {
-                                            style = it
-                                            owners.forEach {
-                                                owner(it, it == selected)
-                                            }
-                                        }
+                                scroll("owners") {
+                                    owners.forEach {
+                                        owner(it, it == selected)
                                     }
                                 }
                             }
-                            scrollAlbums {
-                                div("albums") {
-                                    div {
-                                        style = it
-                                        key = selected.uid
-                                        val albums = selected.albums()
-                                        paver()
-                                        albums {
-                                            when {
-                                                it.isNotEmpty() -> it.forEach { album(it) }
-                                                else -> h3 { +"Здесь пока нет альбомов" }
-                                            }
-                                        }
+                            scroll("albums") {
+                                key = selected.uid
+                                val albums = selected.albums()
+                                paver()
+                                albums {
+                                    when {
+                                        it.isNotEmpty() -> it.forEach { album(it) }
+                                        else -> h3 { +"Здесь пока нет альбомов" }
                                     }
                                 }
                             }
