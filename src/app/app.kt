@@ -56,10 +56,12 @@ fun HBuilder.album(album: AlbumVM) {
                 return "${realSize}px"
             }
 
-            val width = size(thumb.width)
-            val height = size(thumb.height)
+            css {
+                width = size(thumb.width)
+                height = size(thumb.height)
+            }
 
-            style = "width: $width; height: $height; background-image:url(${thumb.src});"
+            img(this@with.title, thumb.src, "albumImg")
 
             div("description") {
                 div("name") { +this@with.title }
@@ -215,9 +217,10 @@ fun app(sources: AppSources) : AppSinks {
                         }
                     }
                 } else {
-                    div {
-                        it.toList().forEach {
-                            img(it.text, it.photo_604)
+                    it.toList().forEach {
+                        div("half") {
+                            img(it.text, it.photo_75, "photoBg")
+                            img(it.text, it.photo_604, "photo")
                         }
                     }
                 }
