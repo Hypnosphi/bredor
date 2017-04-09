@@ -63,24 +63,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 121);
+/******/ 	return __webpack_require__(__webpack_require__.s = 123);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function (value) {
-	if (value == null) throw new TypeError("Cannot use null or undefined");
-	return value;
-};
-
-
-/***/ }),
-/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1941,6 +1928,19 @@ exports.default = Stream;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function (value) {
+	if (value == null) throw new TypeError("Cannot use null or undefined");
+	return value;
+};
+
+
+/***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1948,8 +1948,8 @@ exports.default = Stream;
 
 
 var assign        = __webpack_require__(13)
-  , normalizeOpts = __webpack_require__(77)
-  , isCallable    = __webpack_require__(71)
+  , normalizeOpts = __webpack_require__(78)
+  , isCallable    = __webpack_require__(72)
   , contains      = __webpack_require__(25)
 
   , d;
@@ -2095,7 +2095,7 @@ exports.getSelectors = getSelectors;
 "use strict";
 
 
-module.exports = __webpack_require__(91)() ? Symbol : __webpack_require__(93);
+module.exports = __webpack_require__(92)() ? Symbol : __webpack_require__(94);
 
 
 /***/ }),
@@ -2716,7 +2716,7 @@ module.exports = forOwn;
 
 "use strict";
 
-var xstream_1 = __webpack_require__(1);
+var xstream_1 = __webpack_require__(0);
 function fromEvent(element, eventName, useCapture) {
     if (useCapture === void 0) { useCapture = false; }
     return xstream_1.Stream.create({
@@ -2755,9 +2755,9 @@ module.exports = function (x) { return (toString.call(x) === id); };
 "use strict";
 
 
-module.exports = __webpack_require__(66)()
+module.exports = __webpack_require__(67)()
 	? Object.assign
-	: __webpack_require__(67);
+	: __webpack_require__(68);
 
 
 /***/ }),
@@ -2787,9 +2787,9 @@ module.exports = function (x) {
 var clear    = __webpack_require__(22)
   , assign   = __webpack_require__(13)
   , callable = __webpack_require__(3)
-  , value    = __webpack_require__(0)
+  , value    = __webpack_require__(1)
   , d        = __webpack_require__(2)
-  , autoBind = __webpack_require__(56)
+  , autoBind = __webpack_require__(57)
   , Symbol   = __webpack_require__(6)
 
   , defineProperty = Object.defineProperty
@@ -3117,7 +3117,7 @@ exports.default = vnode;
 
 "use strict";
 
-var xstream_1 = __webpack_require__(1);
+var xstream_1 = __webpack_require__(0);
 var adapt_1 = __webpack_require__(4);
 var HTMLSource = (function () {
     function HTMLSource(html$, _name) {
@@ -3150,12 +3150,12 @@ exports.HTMLSource = HTMLSource;
 "use strict";
 
 var adapt_1 = __webpack_require__(4);
-var DocumentDOMSource_1 = __webpack_require__(40);
-var BodyDOMSource_1 = __webpack_require__(39);
-var ElementFinder_1 = __webpack_require__(41);
+var DocumentDOMSource_1 = __webpack_require__(41);
+var BodyDOMSource_1 = __webpack_require__(40);
+var ElementFinder_1 = __webpack_require__(42);
 var fromEvent_1 = __webpack_require__(11);
-var isolate_1 = __webpack_require__(47);
-var EventDelegator_1 = __webpack_require__(42);
+var isolate_1 = __webpack_require__(48);
+var EventDelegator_1 = __webpack_require__(43);
 var utils_1 = __webpack_require__(5);
 var eventTypesThatDontBubble = [
     "blur",
@@ -3411,7 +3411,7 @@ exports.matchesSelector = createMatchesSelector();
 
 
 
-var value = __webpack_require__(0);
+var value = __webpack_require__(1);
 
 module.exports = function () {
 	value(this).length = 0;
@@ -3447,8 +3447,8 @@ module.exports = function (/*customCreate*/) {
 
 
 
-var isObject      = __webpack_require__(72)
-  , value         = __webpack_require__(0)
+var isObject      = __webpack_require__(73)
+  , value         = __webpack_require__(1)
 
   , isPrototypeOf = Object.prototype.isPrototypeOf
   , defineProperty = Object.defineProperty
@@ -3514,7 +3514,7 @@ module.exports = (function (status) {
 	return false;
 }())));
 
-__webpack_require__(69);
+__webpack_require__(70);
 
 
 /***/ }),
@@ -3524,9 +3524,9 @@ __webpack_require__(69);
 "use strict";
 
 
-module.exports = __webpack_require__(79)()
+module.exports = __webpack_require__(80)()
 	? String.prototype.contains
-	: __webpack_require__(80);
+	: __webpack_require__(81);
 
 
 /***/ }),
@@ -3536,7 +3536,7 @@ module.exports = __webpack_require__(79)()
 "use strict";
 
 
-var isIterable = __webpack_require__(84);
+var isIterable = __webpack_require__(85);
 
 module.exports = function (value) {
 	if (!isIterable(value)) throw new TypeError(value + " is not iterable");
@@ -3551,7 +3551,7 @@ module.exports = function (value) {
 "use strict";
 
 
-module.exports = __webpack_require__(86)() ? Map : __webpack_require__(90);
+module.exports = __webpack_require__(87)() ? Map : __webpack_require__(91);
 
 
 /***/ }),
@@ -3808,6 +3808,98 @@ exports.default = exports.propsModule;
 
 "use strict";
 
+var raf = (typeof window !== 'undefined' && window.requestAnimationFrame) || setTimeout;
+var nextFrame = function (fn) { raf(function () { raf(fn); }); };
+function setNextFrame(obj, prop, val) {
+    nextFrame(function () { obj[prop] = val; });
+}
+function updateStyle(oldVnode, vnode) {
+    var cur, name, elm = vnode.elm, oldStyle = oldVnode.data.style, style = vnode.data.style;
+    if (!oldStyle && !style)
+        return;
+    if (oldStyle === style)
+        return;
+    oldStyle = oldStyle || {};
+    style = style || {};
+    var oldHasDel = 'delayed' in oldStyle;
+    for (name in oldStyle) {
+        if (!style[name]) {
+            if (name[0] === '-' && name[1] === '-') {
+                elm.style.removeProperty(name);
+            }
+            else {
+                elm.style[name] = '';
+            }
+        }
+    }
+    for (name in style) {
+        cur = style[name];
+        if (name === 'delayed') {
+            for (name in style.delayed) {
+                cur = style.delayed[name];
+                if (!oldHasDel || cur !== oldStyle.delayed[name]) {
+                    setNextFrame(elm.style, name, cur);
+                }
+            }
+        }
+        else if (name !== 'remove' && cur !== oldStyle[name]) {
+            if (name[0] === '-' && name[1] === '-') {
+                elm.style.setProperty(name, cur);
+            }
+            else {
+                elm.style[name] = cur;
+            }
+        }
+    }
+}
+function applyDestroyStyle(vnode) {
+    var style, name, elm = vnode.elm, s = vnode.data.style;
+    if (!s || !(style = s.destroy))
+        return;
+    for (name in style) {
+        elm.style[name] = style[name];
+    }
+}
+function applyRemoveStyle(vnode, rm) {
+    var s = vnode.data.style;
+    if (!s || !s.remove) {
+        rm();
+        return;
+    }
+    var name, elm = vnode.elm, i = 0, compStyle, style = s.remove, amount = 0, applied = [];
+    for (name in style) {
+        applied.push(name);
+        elm.style[name] = style[name];
+    }
+    compStyle = getComputedStyle(elm);
+    var props = compStyle['transition-property'].split(', ');
+    for (; i < props.length; ++i) {
+        if (applied.indexOf(props[i]) !== -1)
+            amount++;
+    }
+    elm.addEventListener('transitionend', function (ev) {
+        if (ev.target === elm)
+            --amount;
+        if (amount === 0)
+            rm();
+    });
+}
+exports.styleModule = {
+    create: updateStyle,
+    update: updateStyle,
+    destroy: applyDestroyStyle,
+    remove: applyRemoveStyle
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = exports.styleModule;
+//# sourceMappingURL=style.js.map
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 var h_1 = __webpack_require__(7);
 function copyToThunk(vnode, thunk) {
     thunk.elm = vnode.elm;
@@ -3855,7 +3947,7 @@ exports.default = exports.thunk;
 //# sourceMappingURL=thunk.js.map
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -3883,13 +3975,13 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(54);
+var content = __webpack_require__(55);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(117)(content, {});
@@ -3909,16 +4001,18 @@ if(false) {
 }
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-(function (_, Kotlin, $module$xstream, $module$_cycle_dom, $module$_cycle_run, $module$snabbdom_modules_props, $module$snabbdom_modules_attributes, $module$jsonp) {
+(function (_, Kotlin, $module$xstream, $module$_cycle_dom, $module$_cycle_run, $module$snabbdom_modules_props, $module$snabbdom_modules_attributes, $module$snabbdom_modules_style, $module$jsonp, $module$xstream_extra_throttle, $module$xstream_extra_pairwise) {
   'use strict';
   var plus = Kotlin.kotlin.collections.plus_xfiyik$;
   var toInt = Kotlin.kotlin.text.toInt_pdl1vz$;
   var listOf = Kotlin.kotlin.collections.listOf_mh5how$;
   var plus_0 = Kotlin.kotlin.collections.plus_mydzjv$;
   var first = Kotlin.kotlin.collections.first_2p1efm$;
+  var to = Kotlin.kotlin.to_ujzrz7$;
+  var toList = Kotlin.kotlin.toList_tt9upe$;
   var Error_0 = Kotlin.kotlin.Error;
   var joinToString = Kotlin.kotlin.collections.joinToString_fmv235$;
   var split = Kotlin.kotlin.text.split_ip8yn$;
@@ -3929,7 +4023,6 @@ if(false) {
   var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_ww73n8$;
   var UnsupportedOperationException = Kotlin.kotlin.UnsupportedOperationException;
   var emptyList = Kotlin.kotlin.collections.emptyList_287e2$;
-  var to = Kotlin.kotlin.to_ujzrz7$;
   var kotlin_0 = Kotlin.kotlin;
   var Throwable = Error;
   var IllegalArgumentException = Kotlin.kotlin.IllegalArgumentException;
@@ -3952,11 +4045,11 @@ if(false) {
   var mapOf = Kotlin.kotlin.collections.mapOf_qfcya0$;
   var CharRange = Kotlin.kotlin.ranges.CharRange;
   var contains = Kotlin.kotlin.text.contains_sgbm27$;
-  var plus_1 = Kotlin.kotlin.plus_cmbeuq$;
-  var toList = Kotlin.kotlin.collections.toList_7wnvza$;
+  var toList_0 = Kotlin.kotlin.collections.toList_7wnvza$;
   var mutableListOf_0 = Kotlin.kotlin.collections.mutableListOf_i5x0yv$;
   var Any = Object;
-  var first_0 = Kotlin.kotlin.collections.first_us0mfu$;
+  var first_1 = Kotlin.kotlin.collections.first_us0mfu$;
+  var toList_2 = Kotlin.kotlin.collections.toList_us0mfu$;
   var lazy = Kotlin.kotlin.lazy_klfg04$;
   Params$Json.prototype = Object.create(Params$Delegate.prototype);
   Params$Json.prototype.constructor = Params$Json;
@@ -4246,6 +4339,8 @@ if(false) {
   VKReq$Photos.prototype.constructor = VKReq$Photos;
   VKReq$Photos$GetAlbums.prototype = Object.create(VKReq$Photos.prototype);
   VKReq$Photos$GetAlbums.prototype.constructor = VKReq$Photos$GetAlbums;
+  VKReq$Photos$Get.prototype = Object.create(VKReq$Photos.prototype);
+  VKReq$Photos$Get.prototype.constructor = VKReq$Photos$Get;
   VKReq$Groups.prototype = Object.create(VKReq.prototype);
   VKReq$Groups.prototype.constructor = VKReq$Groups;
   VKReq$Groups$Get.prototype = Object.create(VKReq$Groups.prototype);
@@ -4254,6 +4349,8 @@ if(false) {
   Case.prototype.constructor = Case;
   GroupFilter.prototype = Object.create(Enum.prototype);
   GroupFilter.prototype.constructor = GroupFilter;
+  FeedType.prototype = Object.create(Enum.prototype);
+  FeedType.prototype.constructor = FeedType;
   function AlbumOwner(uid, name, photo, albums) {
     this.uid = uid;
     this.name = name;
@@ -4348,6 +4445,12 @@ if(false) {
     var realSize = size_0 !== 0 ? size_0 : 600;
     return realSize.toString() + 'px';
   }
+  function album$lambda$lambda$lambda(closure$thumb, closure$size) {
+    return function ($receiver_17) {
+      $receiver_17.width = closure$size(closure$thumb.width);
+      $receiver_17.height = closure$size(closure$thumb.height);
+    };
+  }
   function album$lambda$lambda$lambda$lambda(this$) {
     return function ($receiver_17) {
       $receiver_17.unaryPlus_pdl1vz$(this$.title);
@@ -4358,15 +4461,17 @@ if(false) {
       $receiver_17.unaryPlus_pdl1vz$(this$.size.toString() + ' \u0444\u043E\u0442\u043E');
     };
   }
-  function album$lambda$lambda$lambda(this$) {
+  function album$lambda$lambda$lambda_0(this$) {
     return function ($receiver_17) {
       div($receiver_17, 'name', album$lambda$lambda$lambda$lambda(this$));
       div($receiver_17, 'count', album$lambda$lambda$lambda$lambda_0(this$));
     };
   }
-  function album$lambda$lambda(this$) {
+  function album$lambda$lambda(closure$album, this$album, this$) {
     return function ($receiver_17) {
       var tmp$_17;
+      this$album.key = closure$album.album.id;
+      set_id($receiver_17, closure$album.album.id.toString());
       var $receiver_18 = this$.sizes;
       var firstOrNull_sfx99b$result;
       firstOrNull_sfx99b$break: {
@@ -4382,14 +4487,13 @@ if(false) {
       }
       var thumb = (tmp$_17 = firstOrNull_sfx99b$result) != null ? tmp$_17 : Kotlin.throwNPE();
       var size = album$lambda$lambda$size;
-      var width = size(thumb.width);
-      var height = size(thumb.height);
-      set_style($receiver_17, 'width: ' + width + '; height: ' + height + '; background-image:url(' + thumb.src + ');');
-      div($receiver_17, 'description', album$lambda$lambda$lambda(this$));
+      this$album.css_5ij4lk$(album$lambda$lambda$lambda(thumb, size));
+      img($receiver_17, this$.title, thumb.src, 'albumImg');
+      div($receiver_17, 'description', album$lambda$lambda$lambda_0(this$));
     };
   }
   function album($receiver_17, album_0) {
-    div_0($receiver_17, 'album', album$lambda$lambda(album_0.album));
+    div_0($receiver_17, 'album', album$lambda$lambda(album_0, $receiver_17, album_0.album));
   }
   function WithSelected(owners, selected) {
     this.owners = owners;
@@ -4421,17 +4525,56 @@ if(false) {
   WithSelected.prototype.equals = function (other) {
     return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.owners, other.owners) && Kotlin.equals(this.selected, other.selected)))));
   };
-  function scroll$lambda(it) {
-    return it.deltaY;
-  }
-  function scroll$lambda_0(a_2, b_2) {
-    return a_2 < b_2 ? a_2 - b_2 | 0 : 0;
-  }
-  function scroll$lambda_1(it) {
-    return 'top: ' + it + 'px;';
+  function scroll$lambda(y, e) {
+    var tmp$_17, tmp$_18;
+    var dy = e.deltaY;
+    var y1 = y + dy | 0;
+    var el = Kotlin.isType(tmp$_17 = e.currentTarget, Element) ? tmp$_17 : Kotlin.throwCCE();
+    var child = Kotlin.isType(tmp$_18 = el.firstChild, Element) ? tmp$_18 : Kotlin.throwCCE();
+    var ymax = child.clientHeight - el.clientHeight | 0;
+    if (ymax < 0)
+      return 0;
+    else if (y1 < 0)
+      return 0;
+    else if (y1 > ymax)
+      return ymax;
+    else {
+      e.preventDefault();
+      return y1;
+    }
   }
   function scroll($receiver_17) {
-    return fold($receiver_17.events('wheel').map(scroll$lambda), 0, scroll$lambda_0).map(scroll$lambda_1);
+    return throttle(fold($receiver_17.events('wheel'), 0, scroll$lambda).debug('scroll'), 20).startWith(0);
+  }
+  function makeScroll$lambda$lambda$lambda$lambda$lambda(closure$it) {
+    return function ($receiver_17) {
+      $receiver_17.position = 'relative';
+      $receiver_17.top = (-closure$it).toString() + 'px';
+    };
+  }
+  function makeScroll$lambda$lambda$lambda$lambda(closure$it, this$, closure$block) {
+    return function ($receiver_17) {
+      this$.css_5ij4lk$(makeScroll$lambda$lambda$lambda$lambda$lambda(closure$it));
+      closure$block(this$);
+    };
+  }
+  function makeScroll$lambda$lambda$lambda(closure$it, this$, closure$block) {
+    return function ($receiver_17) {
+      div($receiver_17, void 0, makeScroll$lambda$lambda$lambda$lambda(closure$it, this$, closure$block));
+    };
+  }
+  function makeScroll$lambda$lambda(closure$className, closure$block) {
+    return function ($receiver_17, it) {
+      div_0($receiver_17, closure$className, makeScroll$lambda$lambda$lambda(it, $receiver_17, closure$block));
+    };
+  }
+  function makeScroll$lambda(this$makeScroll) {
+    return function ($receiver_17, className, block) {
+      $receiver_17.invoke_p3d1op$(scroll(this$makeScroll.select('.' + className)), makeScroll$lambda$lambda(className, block));
+    };
+  }
+  function makeScroll($receiver_17) {
+    return makeScroll$lambda($receiver_17);
   }
   function app$lambda(it) {
     var tmp$_17;
@@ -4455,17 +4598,16 @@ if(false) {
     var me = listOf(asAlbumOwner(it));
     return it.groups.map(app$lambda$lambda(me)).startWith(me);
   }
-  function app$lambda_1(id, owners) {
-    var tmp$_17, tmp$_18;
-    if (id === 0)
-      tmp$_18 = first(owners);
-    else {
+  function app$lambda$lambda_0(closure$owners) {
+    return function (id) {
+      var tmp$_17;
+      var $receiver_17 = closure$owners;
       var firstOrNull_6jwkkr$result;
       firstOrNull_6jwkkr$break: {
-        var tmp$_19;
-        tmp$_19 = owners.iterator();
-        while (tmp$_19.hasNext()) {
-          var element_17 = tmp$_19.next();
+        var tmp$_18;
+        tmp$_18 = $receiver_17.iterator();
+        while (tmp$_18.hasNext()) {
+          var element_17 = tmp$_18.next();
           if (element_17.uid === id) {
             firstOrNull_6jwkkr$result = element_17;
             break firstOrNull_6jwkkr$break;
@@ -4473,41 +4615,83 @@ if(false) {
         }
         firstOrNull_6jwkkr$result = null;
       }
-      tmp$_18 = (tmp$_17 = firstOrNull_6jwkkr$result) != null ? tmp$_17 : Kotlin.throwNPE();
-    }
-    var selected = tmp$_18;
-    return new WithSelected(owners, selected);
+      return (tmp$_17 = firstOrNull_6jwkkr$result) != null ? tmp$_17 : Kotlin.throwNPE();
+    };
   }
-  function app$lambda$lambda_0($receiver_17) {
+  function app$lambda_1(closure$selectOwner) {
+    return function (owners) {
+      return closure$selectOwner.map(app$lambda$lambda_0(owners)).startWith(first(owners));
+    };
+  }
+  function app$lambda_2(it) {
+    var tmp$_17;
+    var el = Kotlin.isType(tmp$_17 = it.currentTarget, Element) ? tmp$_17 : Kotlin.throwCCE();
+    return toInt(el.id);
+  }
+  function app$lambda_3(it) {
+    return it.albums();
+  }
+  function app$lambda$lambda_1(closure$albums) {
+    return function (id) {
+      var tmp$_17;
+      var $receiver_17 = closure$albums;
+      var firstOrNull_6jwkkr$result;
+      firstOrNull_6jwkkr$break: {
+        var tmp$_18;
+        tmp$_18 = $receiver_17.iterator();
+        while (tmp$_18.hasNext()) {
+          var element_17 = tmp$_18.next();
+          if (element_17.album.id === id) {
+            firstOrNull_6jwkkr$result = element_17;
+            break firstOrNull_6jwkkr$break;
+          }
+        }
+        firstOrNull_6jwkkr$result = null;
+      }
+      return (tmp$_17 = firstOrNull_6jwkkr$result) != null ? tmp$_17 : Kotlin.throwNPE();
+    };
+  }
+  function app$lambda_4(closure$currentAlbumId) {
+    return function (albums) {
+      return closure$currentAlbumId.map(app$lambda$lambda_1(albums));
+    };
+  }
+  function app$lambda_5(it) {
+    return Kotlin.equals(it.category, 'pair');
+  }
+  function app$lambda_6(it) {
+    return it.stream;
+  }
+  function app$lambda$lambda_2(fst, snd) {
+    return to(first_0(fst), first_0(snd));
+  }
+  function app$lambda_7(it) {
+    return combine_0(it.first, it.second, app$lambda$lambda_2);
+  }
+  function app$lambda$lambda$lambda($receiver_17) {
     $receiver_17.unaryPlus_pdl1vz$('\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0430\u043B\u044C\u0431\u043E\u043C, \u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u0445\u043E\u0442\u0438\u0442\u0435 \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C');
   }
-  function app$lambda$lambda$lambda$lambda$lambda$lambda(closure$it, closure$owners, closure$selected, this$) {
+  function app$lambda$lambda$lambda$lambda$lambda$lambda(closure$owners, closure$selected) {
     return function ($receiver_17) {
-      set_style($receiver_17, closure$it);
       var $receiver_18 = closure$owners;
       var tmp$_17;
       tmp$_17 = $receiver_18.iterator();
       while (tmp$_17.hasNext()) {
         var element_17 = tmp$_17.next();
         var closure$selected_0 = closure$selected;
-        owner(this$, element_17, element_17 != null ? element_17.equals(closure$selected_0) : null);
+        owner($receiver_17, element_17, element_17 != null ? element_17.equals(closure$selected_0) : null);
       }
     };
   }
-  function app$lambda$lambda$lambda$lambda$lambda(closure$it, closure$owners, closure$selected, this$) {
-    return function ($receiver_17) {
-      div($receiver_17, void 0, app$lambda$lambda$lambda$lambda$lambda$lambda(closure$it, closure$owners, closure$selected, this$));
+  function app$lambda$lambda$lambda$lambda$lambda(closure$scroll, closure$selected) {
+    return function ($receiver_17, owners) {
+      closure$scroll($receiver_17, 'owners', app$lambda$lambda$lambda$lambda$lambda$lambda(owners, closure$selected));
     };
   }
-  function app$lambda$lambda$lambda$lambda(closure$owners, closure$selected) {
-    return function ($receiver_17, it) {
-      div_0($receiver_17, 'owners', app$lambda$lambda$lambda$lambda$lambda(it, closure$owners, closure$selected, $receiver_17));
-    };
-  }
-  function app$lambda$lambda$lambda$lambda$lambda$lambda$lambda$lambda($receiver_17) {
+  function app$lambda$lambda$lambda$lambda$lambda$lambda$lambda($receiver_17) {
     $receiver_17.unaryPlus_pdl1vz$('\u0417\u0434\u0435\u0441\u044C \u043F\u043E\u043A\u0430 \u043D\u0435\u0442 \u0430\u043B\u044C\u0431\u043E\u043C\u043E\u0432');
   }
-  function app$lambda$lambda$lambda$lambda$lambda$lambda$lambda($receiver_17, it) {
+  function app$lambda$lambda$lambda$lambda$lambda$lambda_0($receiver_17, it) {
     if (!it.isEmpty()) {
       var tmp$_17;
       tmp$_17 = it.iterator();
@@ -4517,56 +4701,87 @@ if(false) {
       }
     }
      else
-      h3($receiver_17, void 0, app$lambda$lambda$lambda$lambda$lambda$lambda$lambda$lambda);
+      h3($receiver_17, void 0, app$lambda$lambda$lambda$lambda$lambda$lambda$lambda);
   }
-  function app$lambda$lambda$lambda$lambda$lambda$lambda_0(closure$it, closure$selected, this$) {
+  function app$lambda$lambda$lambda$lambda$lambda_0(closure$selected) {
     return function ($receiver_17) {
-      set_style($receiver_17, closure$it);
-      this$.key = closure$selected.uid;
+      $receiver_17.key = closure$selected.uid;
       var albums = closure$selected.albums();
-      this$.paver_s8ev37$();
-      this$.invoke_p3d1op$(albums, app$lambda$lambda$lambda$lambda$lambda$lambda$lambda);
+      $receiver_17.paver_s8ev37$();
+      $receiver_17.invoke_p3d1op$(albums, app$lambda$lambda$lambda$lambda$lambda$lambda_0);
     };
   }
-  function app$lambda$lambda$lambda$lambda$lambda_0(closure$it, closure$selected, this$) {
+  function app$lambda$lambda$lambda$lambda(closure$albumOwners, closure$scroll) {
+    return function ($receiver_17, selected) {
+      $receiver_17.invoke_p3d1op$(closure$albumOwners, app$lambda$lambda$lambda$lambda$lambda(closure$scroll, selected));
+      closure$scroll($receiver_17, 'albums', app$lambda$lambda$lambda$lambda$lambda_0(selected));
+    };
+  }
+  function app$lambda$lambda$lambda_0(closure$selectedOwner, closure$albumOwners, closure$scroll, this$) {
     return function ($receiver_17) {
-      div($receiver_17, void 0, app$lambda$lambda$lambda$lambda$lambda$lambda_0(closure$it, closure$selected, this$));
+      this$.invoke_p3d1op$(closure$selectedOwner, app$lambda$lambda$lambda$lambda(closure$albumOwners, closure$scroll));
     };
   }
-  function app$lambda$lambda$lambda$lambda_0(closure$selected) {
+  function app$lambda$lambda$lambda$lambda_0(closure$it) {
+    return function ($receiver_17) {
+      img($receiver_17, closure$it.text, closure$it.photo_75, 'photoBg');
+      img($receiver_17, closure$it.text, closure$it.photo_604, 'photo');
+    };
+  }
+  function app$lambda$lambda_3(closure$selectedOwner, closure$albumOwners, closure$scroll) {
     return function ($receiver_17, it) {
-      div_0($receiver_17, 'albums', app$lambda$lambda$lambda$lambda$lambda_0(it, closure$selected, $receiver_17));
+      if (it == null) {
+        h1($receiver_17, void 0, app$lambda$lambda$lambda);
+        div_0($receiver_17, 'selector', app$lambda$lambda$lambda_0(closure$selectedOwner, closure$albumOwners, closure$scroll, $receiver_17));
+      }
+       else {
+        var tmp$_17;
+        tmp$_17 = toList(it).iterator();
+        while (tmp$_17.hasNext()) {
+          var element_17 = tmp$_17.next();
+          div_0($receiver_17, 'half', app$lambda$lambda$lambda$lambda_0(element_17));
+        }
+      }
     };
   }
-  function app$lambda$lambda$lambda(closure$scrollOwners, closure$scrollAlbums) {
-    return function ($receiver_17, f) {
-      var owners = f.component1()
-      , selected = f.component2();
-      $receiver_17.invoke_p3d1op$(closure$scrollOwners, app$lambda$lambda$lambda$lambda(owners, selected));
-      $receiver_17.invoke_p3d1op$(closure$scrollAlbums, app$lambda$lambda$lambda$lambda_0(selected));
-    };
-  }
-  function app$lambda$lambda_1(closure$withSelected, closure$scrollOwners, closure$scrollAlbums, this$) {
+  function app$lambda_8(closure$currentPair, closure$selectedOwner, closure$albumOwners, closure$scroll) {
     return function ($receiver_17) {
-      this$.invoke_p3d1op$(closure$withSelected, app$lambda$lambda$lambda(closure$scrollOwners, closure$scrollAlbums));
+      $receiver_17.invoke_p3d1op$(closure$currentPair, app$lambda$lambda_3(closure$selectedOwner, closure$albumOwners, closure$scroll));
     };
   }
-  function app$lambda_2(closure$withSelected, closure$scrollOwners, closure$scrollAlbums) {
-    return function ($receiver_17) {
-      h1($receiver_17, void 0, app$lambda$lambda_0);
-      div_0($receiver_17, 'selector', app$lambda$lambda_1(closure$withSelected, closure$scrollOwners, closure$scrollAlbums, $receiver_17));
+  function app$lambda$lambda_4(closure$album) {
+    return function (it) {
+      VKReq$Photos$Get$Companion_getInstance();
+      var ctor = Kotlin.kotlin.js.get_js_1yb8b7$(Kotlin.getKClass(VKReq$Photos$Get));
+      var $receiver_17 = new ctor();
+      var closure$album_0 = closure$album;
+      $receiver_17.owner_id = closure$album_0.owner_id;
+      $receiver_17.album_id = closure$album_0.id;
+      $receiver_17.offset = it;
+      $receiver_17.count = 1;
+      $receiver_17.category = 'pair';
+      return $receiver_17;
     };
+  }
+  function app$lambda_9(f) {
+    var album_0 = f.component1();
+    var tmp$_17 = randomPair(album_0.size)
+    , a_2 = tmp$_17.component1()
+    , b_2 = tmp$_17.component2();
+    return toType($module$xstream.default.of(a_2, b_2).map(app$lambda$lambda_4(album_0)).debug('req'));
   }
   function app_0(sources) {
-    var selectOwner = sources.DOM.select('.owner').events('click').map(app$lambda).startWith(0).debug('select');
-    var scrollOwners = scroll(sources.DOM.select('.owners'));
-    var scrollAlbums = scroll(sources.DOM.select('.albums'));
-    var albumOwners = flatMap(sources.VK.me, app$lambda_0).debug('owners');
-    var withSelected = combine_0(selectOwner, albumOwners, app$lambda_1).debug('selected');
-    return new AppSinks(appDiv('app', app$lambda_2(withSelected, scrollOwners, scrollAlbums)).debug('vtree'), $module$xstream.default.of());
+    var selectOwner = sources.DOM.select('.owner').events('click').map(app$lambda).debug('select');
+    var scroll_0 = makeScroll(sources.DOM);
+    var albumOwners = flatMap(sources.VK.me, app$lambda_0).remember().debug('owners');
+    var selectedOwner = flatMap(albumOwners, app$lambda_1(selectOwner)).remember().debug('selected');
+    var currentAlbumId = sources.DOM.select('.album').events('click').map(app$lambda_2);
+    var currentAlbum = flatMap(flatMap(selectedOwner, app$lambda_3), app$lambda_4(currentAlbumId)).debug('album');
+    var currentPair = toNullable(flatMap(pairwise(toType(sources.VK.responses.debug('resp').filter(app$lambda_5).map(app$lambda_6))).debug('pairwise'), app$lambda_7).debug('photopair')).startWith(null);
+    return new AppSinks(appDiv('app', app$lambda_8(currentPair, selectedOwner, albumOwners, scroll_0)).debug('vtree'), flatMap(currentAlbum, app$lambda_9));
   }
   function AppDrivers(selector) {
-    this.DOM = $module$_cycle_dom.makeDOMDriver(selector, DOMDriverOptions_init([PropsModule, AttrsModule, PaverModule_getInstance()]));
+    this.DOM = $module$_cycle_dom.makeDOMDriver(selector, DOMDriverOptions_init([PropsModule, AttrsModule, StyleModule, PaverModule_getInstance()]));
     this.VK = VKDriver;
   }
   AppDrivers.$metadata$ = {
@@ -4821,6 +5036,16 @@ if(false) {
     if (timeout === void 0)
       timeout = 0;
     window.setTimeout(handler, timeout);
+  }
+  function random(size_0) {
+    return Math.floor(Math.random() * size_0);
+  }
+  function randomPair(size_0) {
+    var a_2 = random(size_0);
+    var b_2 = random(size_0 - 1 | 0);
+    if (b_2 >= a_2)
+      b_2 = b_2 + 1 | 0;
+    return to(a_2, b_2);
   }
   function setEvent($receiver_17, name, callback) {
     $receiver_17[name] = callback;
@@ -18187,7 +18412,7 @@ if(false) {
     if (this.text == null)
       this.text = added;
     else
-      this.text = plus_1(this.text, added);
+      this.text = Kotlin.toString(this.text) + added;
   };
   NodeBuilder.prototype.textToChildren = function () {
     var t = this.text;
@@ -18211,7 +18436,7 @@ if(false) {
       var element_17 = tmp$_17.next();
       element_17.appendTo_7cwi9d$(childNodes);
     }
-    return toList(childNodes);
+    return toList_0(childNodes);
   };
   NodeBuilder.prototype.create = function () {
     if (this.children.isEmpty())
@@ -18238,9 +18463,16 @@ if(false) {
     kind: Kotlin.Kind.CLASS,
     interfaces: []
   };
+  function NodeBuilder$data$lambda$ObjectLiteral_1() {
+  }
+  NodeBuilder$data$lambda$ObjectLiteral_1.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    interfaces: []
+  };
   function NodeBuilder$data$lambda($receiver_17) {
     $receiver_17.attrs = new NodeBuilder$data$lambda$ObjectLiteral();
     $receiver_17.props = new NodeBuilder$data$lambda$ObjectLiteral_0();
+    $receiver_17.style = new NodeBuilder$data$lambda$ObjectLiteral_1();
   }
   NodeBuilder.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
@@ -18262,7 +18494,7 @@ if(false) {
     this.base = new NodeBuilder();
     this.stack_0 = mutableListOf_0([this.base]);
     this.lastLeaved_0 = void 0;
-    this.changes = $module$xstream.default.never().startWith(null);
+    this.changes = persist($module$xstream.default.of(null));
   }
   Object.defineProperty(HBuilder.prototype, 'current_0', {
     get: function () {
@@ -18342,6 +18574,9 @@ if(false) {
       this.current_0.data.key = value;
     }
   });
+  HBuilder.prototype.css_5ij4lk$ = function (block) {
+    block(this.current_0.data.style);
+  };
   HBuilder.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
     simpleName: 'HBuilder',
@@ -18437,6 +18672,7 @@ if(false) {
   };
   var PropsModule;
   var AttrsModule;
+  var StyleModule;
   function flatMap($receiver_17, project) {
     return $receiver_17.map(project).flatten();
   }
@@ -18502,6 +18738,25 @@ if(false) {
   }
   function fold($receiver_17, seed, accumulate) {
     return $receiver_17.fold(accumulate, seed);
+  }
+  function persist($receiver_17) {
+    return $module$xstream.default.merge($receiver_17, $module$xstream.default.never());
+  }
+  function toType($receiver_17) {
+    var tmp$_17;
+    return Kotlin.isType(tmp$_17 = $receiver_17, Object) ? tmp$_17 : Kotlin.throwCCE();
+  }
+  function toNullable($receiver_17) {
+    return toType($receiver_17);
+  }
+  function throttle($receiver_17, period) {
+    return $module$xstream_extra_throttle.default(period)($receiver_17);
+  }
+  function pairwise$lambda(it) {
+    return to(it[0], it[1]);
+  }
+  function pairwise($receiver_17) {
+    return $module$xstream_extra_pairwise.default($receiver_17).map(pairwise$lambda);
   }
   var version;
   var root;
@@ -18674,6 +18929,120 @@ if(false) {
     simpleName: 'GetAlbums',
     interfaces: [VKReq$Photos]
   };
+  function VKReq$Photos$Get() {
+    VKReq$Photos$Get$Companion_getInstance();
+    VKReq$Photos.call(this, 'get');
+    this.owner_id$delegate = new Params$Integer(this.params);
+    this.album_id$delegate = new Params$Integer(this.params);
+    this.photo_ids$delegate = new Params$IntList(this.params);
+    this.rev$delegate = new Params$Bool(this.params);
+    this.extended$delegate = new Params$Bool(this.params);
+    this.feed_type$delegate = new Params$EnumString(this.params);
+    this.feed$delegate = new Params$Integer(this.params);
+    this.photo_sizes$delegate = new Params$Bool(this.params);
+    this.offset$delegate = new Params$Integer(this.params);
+    this.count$delegate = new Params$Integer(this.params);
+  }
+  function VKReq$Photos$Get$Companion() {
+    VKReq$Photos$Get$Companion_instance = this;
+  }
+  VKReq$Photos$Get$Companion.$metadata$ = {
+    kind: Kotlin.Kind.OBJECT,
+    simpleName: 'Companion',
+    interfaces: [Builder]
+  };
+  var VKReq$Photos$Get$Companion_instance = null;
+  function VKReq$Photos$Get$Companion_getInstance() {
+    if (VKReq$Photos$Get$Companion_instance === null) {
+      new VKReq$Photos$Get$Companion();
+    }
+    return VKReq$Photos$Get$Companion_instance;
+  }
+  Object.defineProperty(VKReq$Photos$Get.prototype, 'owner_id', {
+    get: function () {
+      return this.owner_id$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('owner_id'));
+    },
+    set: function (owner_id) {
+      this.owner_id$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('owner_id'), owner_id);
+    }
+  });
+  Object.defineProperty(VKReq$Photos$Get.prototype, 'album_id', {
+    get: function () {
+      return this.album_id$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('album_id'));
+    },
+    set: function (album_id) {
+      this.album_id$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('album_id'), album_id);
+    }
+  });
+  Object.defineProperty(VKReq$Photos$Get.prototype, 'photo_ids', {
+    get: function () {
+      return this.photo_ids$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('photo_ids'));
+    },
+    set: function (photo_ids) {
+      this.photo_ids$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('photo_ids'), photo_ids);
+    }
+  });
+  Object.defineProperty(VKReq$Photos$Get.prototype, 'rev', {
+    get: function () {
+      return this.rev$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('rev'));
+    },
+    set: function (rev) {
+      this.rev$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('rev'), rev);
+    }
+  });
+  Object.defineProperty(VKReq$Photos$Get.prototype, 'extended', {
+    get: function () {
+      return this.extended$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('extended'));
+    },
+    set: function (extended) {
+      this.extended$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('extended'), extended);
+    }
+  });
+  Object.defineProperty(VKReq$Photos$Get.prototype, 'feed_type', {
+    get: function () {
+      return this.feed_type$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('feed_type'));
+    },
+    set: function (feed_type) {
+      this.feed_type$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('feed_type'), feed_type);
+    }
+  });
+  Object.defineProperty(VKReq$Photos$Get.prototype, 'feed', {
+    get: function () {
+      return this.feed$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('feed'));
+    },
+    set: function (feed) {
+      this.feed$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('feed'), feed);
+    }
+  });
+  Object.defineProperty(VKReq$Photos$Get.prototype, 'photo_sizes', {
+    get: function () {
+      return this.photo_sizes$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('photo_sizes'));
+    },
+    set: function (photo_sizes) {
+      this.photo_sizes$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('photo_sizes'), photo_sizes);
+    }
+  });
+  Object.defineProperty(VKReq$Photos$Get.prototype, 'offset', {
+    get: function () {
+      return this.offset$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('offset'));
+    },
+    set: function (offset) {
+      this.offset$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('offset'), offset);
+    }
+  });
+  Object.defineProperty(VKReq$Photos$Get.prototype, 'count', {
+    get: function () {
+      return this.count$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('count'));
+    },
+    set: function (count) {
+      this.count$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('count'), count);
+    }
+  });
+  VKReq$Photos$Get.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'Get',
+    interfaces: [VKReq$Photos]
+  };
   VKReq$Photos.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
     simpleName: 'Photos',
@@ -18803,7 +19172,7 @@ if(false) {
     this.params_0 = new Params(window.location.search, []);
     this.access_token$delegate = this.params_0;
     this.api_result$delegate = new Params$Json(this.params_0);
-    this.me = $module$xstream.default.of(new UserVM(first_0(this.api_result.response)));
+    this.me = $module$xstream.default.of(new UserVM(first_1(this.api_result.response)));
   }
   Object.defineProperty(VK.prototype, 'access_token', {
     get: function () {
@@ -18893,8 +19262,7 @@ if(false) {
     };
   }
   function select$lambda_3(it) {
-    var tmp$_17;
-    return Kotlin.isType(tmp$_17 = it.stream, Object) ? tmp$_17 : Kotlin.throwCCE();
+    return toType(it.stream);
   }
   function select_2($receiver_17, category) {
     return flatMap($receiver_17.responses.filter(select$lambda_2(category)), select$lambda_3);
@@ -18906,7 +19274,9 @@ if(false) {
     return new ResponseStream(tmp$_17, $receiver_17);
   }
   function VKDriver$lambda(sink, name) {
-    return new VKSource(sink.map(VKDriver$lambda$lambda), VK_getInstance().me);
+    var responses = sink.map(VKDriver$lambda$lambda);
+    addListener(responses);
+    return new VKSource(responses, VK_getInstance().me);
   }
   var VKDriver;
   function VKStructVM() {
@@ -18916,6 +19286,12 @@ if(false) {
     simpleName: 'VKStructVM',
     interfaces: []
   };
+  function toList_1($receiver_17) {
+    return toList_2($receiver_17.items);
+  }
+  function first_0($receiver_17) {
+    return first_1($receiver_17.items);
+  }
   function UserVM(user) {
     this.user = user;
     this.albums$delegate = lazy(UserVM$albums$lambda(this));
@@ -19081,6 +19457,23 @@ if(false) {
     simpleName: 'AlbumVM',
     interfaces: [VKStructVM]
   };
+  AlbumVM.prototype.component1 = function () {
+    return this.album;
+  };
+  AlbumVM.prototype.copy_ma0rme$ = function (album_0) {
+    return new AlbumVM(album_0 === void 0 ? this.album : album_0);
+  };
+  AlbumVM.prototype.toString = function () {
+    return 'AlbumVM(album=' + Kotlin.toString(this.album) + ')';
+  };
+  AlbumVM.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.album) | 0;
+    return result;
+  };
+  AlbumVM.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && Kotlin.equals(this.album, other.album))));
+  };
   function get_uid($receiver_17) {
     return -$receiver_17.id;
   }
@@ -19189,6 +19582,94 @@ if(false) {
     }
   }
   GroupFilter.valueOf_61zpoe$ = GroupFilter$valueOf;
+  function FeedType(name, ordinal) {
+    Enum.call(this);
+    this.name$ = name;
+    this.ordinal$ = ordinal;
+  }
+  function FeedType_initFields() {
+    FeedType_initFields = function () {
+    };
+    FeedType$post_instance = new FeedType('post', 0);
+    FeedType$photo_instance = new FeedType('photo', 1);
+    FeedType$photo_tag_instance = new FeedType('photo_tag', 2);
+    FeedType$wall_photo_instance = new FeedType('wall_photo', 3);
+    FeedType$friend_instance = new FeedType('friend', 4);
+    FeedType$note_instance = new FeedType('note', 5);
+    FeedType$audio_instance = new FeedType('audio', 6);
+    FeedType$video_instance = new FeedType('video', 7);
+  }
+  var FeedType$post_instance;
+  function FeedType$post_getInstance() {
+    FeedType_initFields();
+    return FeedType$post_instance;
+  }
+  var FeedType$photo_instance;
+  function FeedType$photo_getInstance() {
+    FeedType_initFields();
+    return FeedType$photo_instance;
+  }
+  var FeedType$photo_tag_instance;
+  function FeedType$photo_tag_getInstance() {
+    FeedType_initFields();
+    return FeedType$photo_tag_instance;
+  }
+  var FeedType$wall_photo_instance;
+  function FeedType$wall_photo_getInstance() {
+    FeedType_initFields();
+    return FeedType$wall_photo_instance;
+  }
+  var FeedType$friend_instance;
+  function FeedType$friend_getInstance() {
+    FeedType_initFields();
+    return FeedType$friend_instance;
+  }
+  var FeedType$note_instance;
+  function FeedType$note_getInstance() {
+    FeedType_initFields();
+    return FeedType$note_instance;
+  }
+  var FeedType$audio_instance;
+  function FeedType$audio_getInstance() {
+    FeedType_initFields();
+    return FeedType$audio_instance;
+  }
+  var FeedType$video_instance;
+  function FeedType$video_getInstance() {
+    FeedType_initFields();
+    return FeedType$video_instance;
+  }
+  FeedType.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'FeedType',
+    interfaces: [Enum]
+  };
+  function FeedType$values() {
+    return [FeedType$post_getInstance(), FeedType$photo_getInstance(), FeedType$photo_tag_getInstance(), FeedType$wall_photo_getInstance(), FeedType$friend_getInstance(), FeedType$note_getInstance(), FeedType$audio_getInstance(), FeedType$video_getInstance()];
+  }
+  FeedType.values = FeedType$values;
+  function FeedType$valueOf(name) {
+    switch (name) {
+      case 'post':
+        return FeedType$post_getInstance();
+      case 'photo':
+        return FeedType$photo_getInstance();
+      case 'photo_tag':
+        return FeedType$photo_tag_getInstance();
+      case 'wall_photo':
+        return FeedType$wall_photo_getInstance();
+      case 'friend':
+        return FeedType$friend_getInstance();
+      case 'note':
+        return FeedType$note_getInstance();
+      case 'audio':
+        return FeedType$audio_getInstance();
+      case 'video':
+        return FeedType$video_getInstance();
+      default:Kotlin.throwISE('No enum constant vk.FeedType.' + name);
+    }
+  }
+  FeedType.valueOf_61zpoe$ = FeedType$valueOf;
   JSDOMBuilder.prototype.onTagError_cjwpn3$ = TagConsumer.prototype.onTagError_cjwpn3$;
   DefaultUnsafe.prototype.unaryPlus_lvwjq6$ = Unsafe.prototype.unaryPlus_lvwjq6$;
   SingletonStringMap.prototype.getOrDefault_xwzc9p$ = Map.prototype.getOrDefault_xwzc9p$;
@@ -19484,6 +19965,7 @@ if(false) {
   package$app.album_6kxq3k$ = album;
   package$app.WithSelected = WithSelected;
   package$app.scroll_2qyqs1$ = scroll;
+  package$app.makeScroll_2qyqs1$ = makeScroll;
   package$app.app_lwy2ck$ = app_0;
   package$app.AppDrivers = AppDrivers;
   package$app.AppSources = AppSources;
@@ -19504,6 +19986,8 @@ if(false) {
   package$app.js_5ij4lk$ = js_0;
   package$app.debugger = debugger_0;
   package$app.setTimeout_n53o35$ = setTimeout;
+  package$app.random_za3lpa$ = random;
+  package$app.randomPair_za3lpa$ = randomPair;
   var package$kotlinx = _.kotlinx || (_.kotlinx = {});
   var package$html = package$kotlinx.html || (package$kotlinx.html = {});
   var package$dom = package$html.dom || (package$html.dom = {});
@@ -21242,6 +21726,11 @@ if(false) {
       return AttrsModule;
     }
   });
+  Object.defineProperty(package$snabbdom, 'StyleModule', {
+    get: function () {
+      return StyleModule;
+    }
+  });
   var package$xstream = package$lib.xstream || (package$lib.xstream = {});
   package$xstream.flatMap_im4ds3$ = flatMap;
   package$xstream.combine_onjrjx$ = combine_0;
@@ -21249,6 +21738,11 @@ if(false) {
   package$xstream.jsonpStream_rzpbx2$ = jsonpStream;
   package$xstream.addListener_lki0o0$ = addListener;
   package$xstream.fold_h36eba$ = fold;
+  package$xstream.persist_9hvxng$ = persist;
+  package$xstream.toType_15ziqg$ = toType;
+  package$xstream.toNullable_9hvxng$ = toNullable;
+  package$xstream.throttle_v924oq$ = throttle;
+  package$xstream.pairwise_9hvxng$ = pairwise;
   Object.defineProperty(VKReq$Users$Get, 'Companion', {
     get: VKReq$Users$Get$Companion_getInstance
   });
@@ -21258,6 +21752,10 @@ if(false) {
     get: VKReq$Photos$GetAlbums$Companion_getInstance
   });
   VKReq$Photos.GetAlbums = VKReq$Photos$GetAlbums;
+  Object.defineProperty(VKReq$Photos$Get, 'Companion', {
+    get: VKReq$Photos$Get$Companion_getInstance
+  });
+  VKReq$Photos.Get = VKReq$Photos$Get;
   VKReq.Photos = VKReq$Photos;
   Object.defineProperty(VKReq$Groups$Get, 'Companion', {
     get: VKReq$Groups$Get$Companion_getInstance
@@ -21279,6 +21777,8 @@ if(false) {
     }
   });
   package$vk.VKStructVM = VKStructVM;
+  package$vk.toList_jlac7o$ = toList_1;
+  package$vk.first_jlac7o$ = first_0;
   package$vk.UserVM = UserVM;
   Object.defineProperty(Case, 'nom', {
     get: Case$nom_getInstance
@@ -21322,6 +21822,31 @@ if(false) {
     get: GroupFilter$events_getInstance
   });
   package$vk.GroupFilter = GroupFilter;
+  Object.defineProperty(FeedType, 'post', {
+    get: FeedType$post_getInstance
+  });
+  Object.defineProperty(FeedType, 'photo', {
+    get: FeedType$photo_getInstance
+  });
+  Object.defineProperty(FeedType, 'photo_tag', {
+    get: FeedType$photo_tag_getInstance
+  });
+  Object.defineProperty(FeedType, 'wall_photo', {
+    get: FeedType$wall_photo_getInstance
+  });
+  Object.defineProperty(FeedType, 'friend', {
+    get: FeedType$friend_getInstance
+  });
+  Object.defineProperty(FeedType, 'note', {
+    get: FeedType$note_getInstance
+  });
+  Object.defineProperty(FeedType, 'audio', {
+    get: FeedType$audio_getInstance
+  });
+  Object.defineProperty(FeedType, 'video', {
+    get: FeedType$video_getInstance
+  });
+  package$vk.FeedType = FeedType;
   emptyMap = emptyMap_0();
   attributeStringString = new StringAttribute();
   attributeSetStringStringSet = new StringSetAttribute();
@@ -21514,19 +22039,20 @@ if(false) {
   digitRange = new CharRange(48, 57);
   PropsModule = $module$snabbdom_modules_props.default;
   AttrsModule = $module$snabbdom_modules_attributes.default;
+  StyleModule = $module$snabbdom_modules_style.default;
   version = '5.62';
   root = 'https://api.vk.com/method';
   VKDriver = VKDriver$lambda;
   Kotlin.defineModule('_compiled-tmp', _);
   main([]);
   return _;
-}(module.exports, __webpack_require__(97), __webpack_require__(1), __webpack_require__(46), __webpack_require__(52), __webpack_require__(33), __webpack_require__(32), __webpack_require__(96)));
+}(module.exports, __webpack_require__(98), __webpack_require__(0), __webpack_require__(47), __webpack_require__(53), __webpack_require__(33), __webpack_require__(32), __webpack_require__(34), __webpack_require__(97), __webpack_require__(122), __webpack_require__(121)));
 
 //@ sourceMappingURL=_compiled-tmp.js.map
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports) {
 
 window.Paver = function(dataSource, width, options) {
@@ -21817,6 +22343,8 @@ window.Paver = function(dataSource, width, options) {
         rowTop += row.height + this.margin;
       }
 
+      e.style.height = rowTop + 'px';
+
       //console.time('check');
       var node = e.firstChild;
       while (node) {
@@ -21855,12 +22383,12 @@ window.Paver = function(dataSource, width, options) {
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var xstream_1 = __webpack_require__(1);
+var xstream_1 = __webpack_require__(0);
 var adapt_1 = __webpack_require__(4);
 var fromEvent_1 = __webpack_require__(11);
 var BodyDOMSource = (function () {
@@ -21895,12 +22423,12 @@ exports.BodyDOMSource = BodyDOMSource;
 //# sourceMappingURL=BodyDOMSource.js.map
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var xstream_1 = __webpack_require__(1);
+var xstream_1 = __webpack_require__(0);
 var adapt_1 = __webpack_require__(4);
 var fromEvent_1 = __webpack_require__(11);
 var DocumentDOMSource = (function () {
@@ -21935,7 +22463,7 @@ exports.DocumentDOMSource = DocumentDOMSource;
 //# sourceMappingURL=DocumentDOMSource.js.map
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21973,12 +22501,12 @@ exports.ElementFinder = ElementFinder;
 //# sourceMappingURL=ElementFinder.js.map
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var xstream_1 = __webpack_require__(1);
+var xstream_1 = __webpack_require__(0);
 var ScopeChecker_1 = __webpack_require__(20);
 var utils_1 = __webpack_require__(5);
 var matchesSelector_1 = __webpack_require__(21);
@@ -22139,7 +22667,7 @@ exports.EventDelegator = EventDelegator;
 //# sourceMappingURL=EventDelegator.js.map
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22256,13 +22784,13 @@ exports.IsolateModule = IsolateModule;
 //# sourceMappingURL=IsolateModule.js.map
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var h_1 = __webpack_require__(7);
-var classNameFromVNode_1 = __webpack_require__(105);
+var classNameFromVNode_1 = __webpack_require__(106);
 var selectorParser_1 = __webpack_require__(28);
 var VNodeWrapper = (function () {
     function VNodeWrapper(rootElement) {
@@ -22299,7 +22827,7 @@ exports.VNodeWrapper = VNodeWrapper;
 //# sourceMappingURL=VNodeWrapper.js.map
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22383,12 +22911,12 @@ exports.default = exported;
 //# sourceMappingURL=hyperscript-helpers.js.map
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var thunk_1 = __webpack_require__(34);
+var thunk_1 = __webpack_require__(35);
 exports.thunk = thunk_1.thunk;
 var MainDOMSource_1 = __webpack_require__(19);
 exports.MainDOMSource = MainDOMSource_1.MainDOMSource;
@@ -22436,7 +22964,7 @@ exports.HTMLSource = HTMLSource_1.HTMLSource;
  * VNode as input, and outputs the DOMSource object.
  * @function makeDOMDriver
  */
-var makeDOMDriver_1 = __webpack_require__(48);
+var makeDOMDriver_1 = __webpack_require__(49);
 exports.makeDOMDriver = makeDOMDriver_1.makeDOMDriver;
 /**
  * A factory for the HTML driver function.
@@ -22484,7 +23012,7 @@ exports.makeDOMDriver = makeDOMDriver_1.makeDOMDriver;
  * VNode as input, and outputs the DOMSource object.
  * @function makeHTMLDriver
  */
-var makeHTMLDriver_1 = __webpack_require__(49);
+var makeHTMLDriver_1 = __webpack_require__(50);
 exports.makeHTMLDriver = makeHTMLDriver_1.makeHTMLDriver;
 /**
  * A factory function to create mocked DOMSource objects, for testing purposes.
@@ -22534,7 +23062,7 @@ exports.makeHTMLDriver = makeHTMLDriver_1.makeHTMLDriver;
  *
  * @function mockDOMSource
  */
-var mockDOMSource_1 = __webpack_require__(50);
+var mockDOMSource_1 = __webpack_require__(51);
 exports.mockDOMSource = mockDOMSource_1.mockDOMSource;
 exports.MockedDOMSource = mockDOMSource_1.MockedDOMSource;
 /**
@@ -22579,7 +23107,7 @@ exports.MockedDOMSource = mockDOMSource_1.MockedDOMSource;
  */
 var h_1 = __webpack_require__(7);
 exports.h = h_1.h;
-var hyperscript_helpers_1 = __webpack_require__(45);
+var hyperscript_helpers_1 = __webpack_require__(46);
 exports.svg = hyperscript_helpers_1.default.svg;
 exports.a = hyperscript_helpers_1.default.a;
 exports.abbr = hyperscript_helpers_1.default.abbr;
@@ -22684,7 +23212,7 @@ exports.video = hyperscript_helpers_1.default.video;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22720,19 +23248,19 @@ exports.isolateSink = isolateSink;
 //# sourceMappingURL=isolate.js.map
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var snabbdom_1 = __webpack_require__(115);
-var xstream_1 = __webpack_require__(1);
+var xstream_1 = __webpack_require__(0);
 var MainDOMSource_1 = __webpack_require__(19);
 var tovnode_1 = __webpack_require__(116);
-var VNodeWrapper_1 = __webpack_require__(44);
+var VNodeWrapper_1 = __webpack_require__(45);
 var utils_1 = __webpack_require__(5);
-var modules_1 = __webpack_require__(51);
-var IsolateModule_1 = __webpack_require__(43);
+var modules_1 = __webpack_require__(52);
+var IsolateModule_1 = __webpack_require__(44);
 var MapPolyfill = __webpack_require__(27);
 function makeDOMDriverInputGuard(modules) {
     if (!Array.isArray(modules)) {
@@ -22800,14 +23328,14 @@ exports.makeDOMDriver = makeDOMDriver;
 //# sourceMappingURL=makeDOMDriver.js.map
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var HTMLSource_1 = __webpack_require__(18);
-var init = __webpack_require__(106);
-var modulesForHTML = __webpack_require__(109);
+var init = __webpack_require__(107);
+var modulesForHTML = __webpack_require__(110);
 var defaultModules = [
     modulesForHTML.attributes,
     modulesForHTML.props,
@@ -22837,12 +23365,12 @@ exports.makeHTMLDriver = makeHTMLDriver;
 //# sourceMappingURL=makeHTMLDriver.js.map
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var xstream_1 = __webpack_require__(1);
+var xstream_1 = __webpack_require__(0);
 var adapt_1 = __webpack_require__(4);
 var SCOPE_PREFIX = '___';
 var MockedDOMSource = (function () {
@@ -22894,20 +23422,20 @@ exports.mockDOMSource = mockDOMSource;
 //# sourceMappingURL=mockDOMSource.js.map
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var class_1 = __webpack_require__(112);
+var class_1 = __webpack_require__(113);
 exports.ClassModule = class_1.default;
 var props_1 = __webpack_require__(33);
 exports.PropsModule = props_1.default;
 var attributes_1 = __webpack_require__(32);
 exports.AttrsModule = attributes_1.default;
-var style_1 = __webpack_require__(114);
+var style_1 = __webpack_require__(34);
 exports.StyleModule = style_1.default;
-var dataset_1 = __webpack_require__(113);
+var dataset_1 = __webpack_require__(114);
 exports.DatasetModule = dataset_1.default;
 var modules = [style_1.default, class_1.default, props_1.default, attributes_1.default, dataset_1.default];
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -22915,12 +23443,12 @@ exports.default = modules;
 //# sourceMappingURL=modules.js.map
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var xstream_1 = __webpack_require__(1);
+var xstream_1 = __webpack_require__(0);
 var adapt_1 = __webpack_require__(4);
 function logToConsoleError(err) {
     var target = err.stack || err;
@@ -23106,7 +23634,7 @@ exports.default = run;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports) {
 
 /*!
@@ -23218,21 +23746,21 @@ module.exports = (function split(undef) {
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(55)();
+exports = module.exports = __webpack_require__(56)();
 // imports
 
 
 // module
-exports.push([module.i, "body {\n    margin: 0;\n    background: #000;\n}\n\nh1, h2, h3, h4 {\n    margin: 0;\n    padding: 8px 16px 16px;\n    font-weight: 500;\n}\n\nh1 {\n    color: #222;\n    background: #fff;\n}\n\n.app {\n    width: 795px;\n    margin: 0 auto;\n    height: 100vh;\n    background: #000;\n    color: #fff;\n    font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n    font-weight: 300;\n    display: flex;\n    flex-direction: column;\n    overflow: hidden;\n}\n\n.app ~ * {\n    flex-shrink: 0;\n}\n\n.selector {\n    display: flex;\n    flex-grow: 1;\n    overflow: hidden;\n}\n\n.owners {\n    width: 50px;\n    flex-shrink: 0;\n}\n\n.owners > div {\n    position: relative;\n}\n\n.owner {\n    height: 50px;\n    display: flex;\n    position: relative;\n}\n\n.owner > * {\n    flex-shrink: 0;\n}\n\n.blackout {\n    cursor: pointer;\n    background: rgba(0, 0, 0, 0.2);\n    position: absolute;\n    z-index: 1;\n    width: 50px;\n    height: 50px;\n    left: 0;\n    top: 0;\n}\n\n.blackout:not(:hover) {\n    background: rgba(0, 0, 0, 0.6);\n    transition: background 0.15s ease-out;\n}\n\n.selected > .blackout {\n    background: transparent;\n}\n\n.ownerName {\n    padding: 14px 8px;\n    background: rgba(0, 0, 0, 0.8);\n    z-index: 1;\n    color: #fff;\n    transition: color .15s ease-out;\n}\n\na.ownerName {\n    cursor: pointer;\n}\n\na.ownerName:hover {\n    color: #f88;\n    transition: none;\n}\n\n.owner:not(:hover) > .ownerName {\n    display: none;\n}\n\n.albums {\n    flex-grow: 1;\n}\n\n.albums > div {\n    position: relative;\n}\n\n.album {\n    background-size: cover;\n    cursor: pointer;\n    position: relative;\n}\n\n.description {\n    position: absolute;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    background: rgba(0, 0, 0, 0.6);\n    padding: 8px;\n    line-height: 1.5;\n}\n\n.name {\n    text-overflow: ellipsis;\n    overflow: hidden;\n    white-space: nowrap;\n    font-size: 13px;\n}\n\n.count {\n    font-size: 11px;\n}\n\n.album:not(:hover) .description {\n    background: transparent;\n    color: transparent;\n    transition: background .15s ease-out, color .15s ease-out;\n}\n", ""]);
+exports.push([module.i, "body {\n    margin: 0;\n    background: #000;\n}\n\nh1, h2, h3, h4 {\n    margin: 0;\n    padding: 8px 16px 16px;\n    font-weight: 500;\n}\n\nh1 {\n    color: #222;\n    background: #fff;\n}\n\n.app {\n    width: 795px;\n    margin: 0 auto;\n    height: 100vh;\n    background: #000;\n    color: #fff;\n    font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n    font-weight: 300;\n    display: flex;\n    flex-direction: column;\n    overflow: hidden;\n}\n\n.app ~ * {\n    flex-shrink: 0;\n}\n\n.selector {\n    display: flex;\n    flex-grow: 1;\n    overflow: hidden;\n}\n\n.owners {\n    width: 50px;\n    flex-shrink: 0;\n}\n\n.owner {\n    height: 50px;\n    display: flex;\n    position: relative;\n}\n\n.owner > * {\n    flex-shrink: 0;\n}\n\n.blackout {\n    cursor: pointer;\n    background: rgba(0, 0, 0, 0.2);\n    position: absolute;\n    z-index: 1;\n    width: 50px;\n    height: 50px;\n    left: 0;\n    top: 0;\n}\n\n.blackout:not(:hover) {\n    background: rgba(0, 0, 0, 0.6);\n    transition: background 0.15s ease-out;\n}\n\n.selected > .blackout {\n    background: transparent;\n}\n\n.ownerName {\n    padding: 14px 8px;\n    background: rgba(0, 0, 0, 0.8);\n    z-index: 1;\n    color: #fff;\n    transition: color .15s ease-out;\n}\n\na.ownerName {\n    cursor: pointer;\n}\n\na.ownerName:hover {\n    color: #f88;\n    transition: none;\n}\n\n.owner:not(:hover) > .ownerName {\n    display: none;\n}\n\n.albums {\n    flex-grow: 1;\n}\n\n.album {\n    cursor: pointer;\n    position: relative;\n}\n\n.albumImg {\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n}\n\n.description {\n    position: absolute;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    background: rgba(0, 0, 0, 0.6);\n    padding: 8px;\n    line-height: 1.5;\n}\n\n.name {\n    text-overflow: ellipsis;\n    overflow: hidden;\n    white-space: nowrap;\n    font-size: 13px;\n}\n\n.count {\n    font-size: 11px;\n}\n\n.album:not(:hover) .description {\n    background: transparent;\n    color: transparent;\n    transition: background .15s ease-out, color .15s ease-out;\n}\n\n.half {\n    flex: 1 0 0;\n    min-height: 0;\n    min-width: 0;\n    position: relative;\n}\n\n.half > img {\n    position: absolute;\n    height: 100%;\n    width: 100%;\n}\n\n.photoBg {\n    object-fit: cover;\n    filter: opacity(0.5) blur(10px);\n}\n\n.photo {\n    object-fit: contain;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports) {
 
 /*
@@ -23288,16 +23816,16 @@ module.exports = function() {
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var copy       = __webpack_require__(68)
-  , map        = __webpack_require__(76)
+var copy       = __webpack_require__(69)
+  , map        = __webpack_require__(77)
   , callable   = __webpack_require__(3)
-  , validValue = __webpack_require__(0)
+  , validValue = __webpack_require__(1)
 
   , bind = Function.prototype.bind, defineProperty = Object.defineProperty
   , hasOwnProperty = Object.prototype.hasOwnProperty
@@ -23326,7 +23854,7 @@ module.exports = function (props/*, bindTo*/) {
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -23336,7 +23864,7 @@ module.exports = function (props/*, bindTo*/) {
  * Expose `debug()` as the module.
  */
 
-exports = module.exports = __webpack_require__(58);
+exports = module.exports = __webpack_require__(59);
 exports.log = log;
 exports.formatArgs = formatArgs;
 exports.save = save;
@@ -23500,7 +24028,7 @@ function localstorage(){
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -23516,7 +24044,7 @@ exports.coerce = coerce;
 exports.disable = disable;
 exports.enable = enable;
 exports.enabled = enabled;
-exports.humanize = __webpack_require__(101);
+exports.humanize = __webpack_require__(102);
 
 /**
  * The currently active debug mode names, and names to skip.
@@ -23703,14 +24231,14 @@ function coerce(val) {
 
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var toPosInt = __webpack_require__(64)
-  , value    = __webpack_require__(0)
+var toPosInt = __webpack_require__(65)
+  , value    = __webpack_require__(1)
 
   , indexOf = Array.prototype.indexOf
   , hasOwnProperty = Object.prototype.hasOwnProperty
@@ -23739,19 +24267,19 @@ module.exports = function (searchElement/*, fromIndex*/) {
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(61)()
+module.exports = __webpack_require__(62)()
 	? Math.sign
-	: __webpack_require__(62);
+	: __webpack_require__(63);
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23765,7 +24293,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23779,13 +24307,13 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var sign = __webpack_require__(60)
+var sign = __webpack_require__(61)
 
   , abs = Math.abs, floor = Math.floor;
 
@@ -23798,13 +24326,13 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var toInteger = __webpack_require__(63)
+var toInteger = __webpack_require__(64)
 
   , max = Math.max;
 
@@ -23812,7 +24340,7 @@ module.exports = function (value) { return max(0, toInteger(value)); };
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23823,7 +24351,7 @@ module.exports = function (value) { return max(0, toInteger(value)); };
 
 
 var callable = __webpack_require__(3)
-  , value    = __webpack_require__(0)
+  , value    = __webpack_require__(1)
 
   , bind = Function.prototype.bind, call = Function.prototype.call, keys = Object.keys
   , propertyIsEnumerable = Object.prototype.propertyIsEnumerable;
@@ -23848,7 +24376,7 @@ module.exports = function (method, defVal) {
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23864,14 +24392,14 @@ module.exports = function () {
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var keys  = __webpack_require__(73)
-  , value = __webpack_require__(0)
+var keys  = __webpack_require__(74)
+  , value = __webpack_require__(1)
 
   , max = Math.max;
 
@@ -23893,14 +24421,14 @@ module.exports = function (dest, src/*, …srcn*/) {
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var assign = __webpack_require__(13)
-  , value  = __webpack_require__(0);
+  , value  = __webpack_require__(1);
 
 module.exports = function (obj) {
 	var copy = Object(value(obj));
@@ -23910,7 +24438,7 @@ module.exports = function (obj) {
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23953,17 +24481,17 @@ module.exports = (function () {
 
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(65)('forEach');
+module.exports = __webpack_require__(66)('forEach');
 
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23975,7 +24503,7 @@ module.exports = function (obj) { return typeof obj === 'function'; };
 
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23989,19 +24517,19 @@ module.exports = function (x) {
 
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(74)()
+module.exports = __webpack_require__(75)()
 	? Object.keys
-	: __webpack_require__(75);
+	: __webpack_require__(76);
 
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24016,7 +24544,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24030,14 +24558,14 @@ module.exports = function (object) {
 
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var callable = __webpack_require__(3)
-  , forEach  = __webpack_require__(70)
+  , forEach  = __webpack_require__(71)
 
   , call = Function.prototype.call;
 
@@ -24052,7 +24580,7 @@ module.exports = function (obj, cb/*, thisArg*/) {
 
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24076,7 +24604,7 @@ module.exports = function (options/*, …options*/) {
 
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24092,7 +24620,7 @@ module.exports = function (arg/*, …args*/) {
 
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24107,7 +24635,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24121,7 +24649,7 @@ module.exports = function (searchString/*, position*/) {
 
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24158,7 +24686,7 @@ ArrayIterator.prototype = Object.create(Iterator.prototype, {
 
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24167,7 +24695,7 @@ ArrayIterator.prototype = Object.create(Iterator.prototype, {
 var isArguments = __webpack_require__(12)
   , callable    = __webpack_require__(3)
   , isString    = __webpack_require__(14)
-  , get         = __webpack_require__(83)
+  , get         = __webpack_require__(84)
 
   , isArray = Array.isArray, call = Function.prototype.call
   , some = Array.prototype.some;
@@ -24211,7 +24739,7 @@ module.exports = function (iterable, cb/*, thisArg*/) {
 
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24219,8 +24747,8 @@ module.exports = function (iterable, cb/*, thisArg*/) {
 
 var isArguments    = __webpack_require__(12)
   , isString       = __webpack_require__(14)
-  , ArrayIterator  = __webpack_require__(81)
-  , StringIterator = __webpack_require__(85)
+  , ArrayIterator  = __webpack_require__(82)
+  , StringIterator = __webpack_require__(86)
   , iterable       = __webpack_require__(26)
   , iteratorSymbol = __webpack_require__(6).iterator;
 
@@ -24233,7 +24761,7 @@ module.exports = function (obj) {
 
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24255,7 +24783,7 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24299,7 +24827,7 @@ StringIterator.prototype = Object.create(Iterator.prototype, {
 
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24338,7 +24866,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24354,18 +24882,18 @@ module.exports = (function () {
 
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(78)('key',
+module.exports = __webpack_require__(79)('key',
 	'value', 'key+value');
 
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24375,7 +24903,7 @@ var setPrototypeOf    = __webpack_require__(9)
   , d                 = __webpack_require__(2)
   , Iterator          = __webpack_require__(15)
   , toStringTagSymbol = __webpack_require__(6).toStringTag
-  , kinds             = __webpack_require__(88)
+  , kinds             = __webpack_require__(89)
 
   , defineProperties = Object.defineProperties
   , unBind = Iterator.prototype._unBind
@@ -24410,24 +24938,24 @@ Object.defineProperty(MapIterator.prototype, toStringTagSymbol,
 
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var clear          = __webpack_require__(22)
-  , eIndexOf       = __webpack_require__(59)
+  , eIndexOf       = __webpack_require__(60)
   , setPrototypeOf = __webpack_require__(9)
   , callable       = __webpack_require__(3)
-  , validValue     = __webpack_require__(0)
+  , validValue     = __webpack_require__(1)
   , d              = __webpack_require__(2)
-  , ee             = __webpack_require__(95)
+  , ee             = __webpack_require__(96)
   , Symbol         = __webpack_require__(6)
   , iterator       = __webpack_require__(26)
-  , forOf          = __webpack_require__(82)
-  , Iterator       = __webpack_require__(89)
-  , isNative       = __webpack_require__(87)
+  , forOf          = __webpack_require__(83)
+  , Iterator       = __webpack_require__(90)
+  , isNative       = __webpack_require__(88)
 
   , call = Function.prototype.call
   , defineProperties = Object.defineProperties, getPrototypeOf = Object.getPrototypeOf
@@ -24521,7 +25049,7 @@ Object.defineProperty(MapPoly.prototype, Symbol.toStringTag, d('c', 'Map'));
 
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24545,7 +25073,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24561,7 +25089,7 @@ module.exports = function (x) {
 
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24570,7 +25098,7 @@ module.exports = function (x) {
 
 
 var d              = __webpack_require__(2)
-  , validateSymbol = __webpack_require__(94)
+  , validateSymbol = __webpack_require__(95)
 
   , create = Object.create, defineProperties = Object.defineProperties
   , defineProperty = Object.defineProperty, objPrototype = Object.prototype
@@ -24686,13 +25214,13 @@ defineProperty(HiddenSymbol.prototype, SymbolPolyfill.toPrimitive,
 
 
 /***/ }),
-/* 94 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isSymbol = __webpack_require__(92);
+var isSymbol = __webpack_require__(93);
 
 module.exports = function (value) {
 	if (!isSymbol(value)) throw new TypeError(value + " is not a symbol");
@@ -24701,7 +25229,7 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 95 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24840,14 +25368,14 @@ exports.methods = methods;
 
 
 /***/ }),
-/* 96 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
  * Module dependencies
  */
 
-var debug = __webpack_require__(57)('jsonp');
+var debug = __webpack_require__(58)('jsonp');
 
 /**
  * Module exports.
@@ -24943,7 +25471,7 @@ function jsonp(url, opts, fn){
 
 
 /***/ }),
-/* 97 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
@@ -58555,10 +59083,10 @@ Kotlin.isCharSequence = function(value) {
 })();
 
 }));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(104)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(105)))
 
 /***/ }),
-/* 98 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -59000,7 +59528,7 @@ module.exports = kebabCase;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
-/* 99 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -61344,10 +61872,10 @@ function property(path) {
 
 module.exports = remove;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(35)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(36)(module)))
 
 /***/ }),
-/* 100 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -62250,7 +62778,7 @@ module.exports = uniq;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
-/* 101 */
+/* 102 */
 /***/ (function(module, exports) {
 
 /**
@@ -62381,7 +62909,7 @@ function plural(ms, n, name) {
 
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62478,13 +63006,13 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 103 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 // https://github.com/Matt-Esch/virtual-dom/blob/master/virtual-hyperscript/parse-tag.js
 
-var split = __webpack_require__(53)
+var split = __webpack_require__(54)
 
 var classIdSplit = /([\.#]?[a-zA-Z0-9\u007F-\uFFFF_:-]+)/
 var notClassId = /^\.|#/
@@ -62530,7 +63058,7 @@ module.exports = function parseSelector (selector, upper) {
 
 
 /***/ }),
-/* 104 */
+/* 105 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -62716,7 +63244,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 105 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62742,11 +63270,11 @@ exports.classNameFromVNode = classNameFromVNode;
 //# sourceMappingURL=classNameFromVNode.js.map
 
 /***/ }),
-/* 106 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var parseSelector = __webpack_require__(103)
+var parseSelector = __webpack_require__(104)
 var VOID_ELEMENTS = __webpack_require__(29).VOID
 var CONTAINER_ELEMENTS = __webpack_require__(29).CONTAINER
 
@@ -62822,7 +63350,7 @@ module.exports = function init (modules) {
 
 
 /***/ }),
-/* 107 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -62841,13 +63369,13 @@ module.exports = function attrsModule (vnode, attributes) {
 
 
 /***/ }),
-/* 108 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 var forOwn = __webpack_require__(10)
-var remove = __webpack_require__(99)
-var uniq = __webpack_require__(100)
+var remove = __webpack_require__(100)
+var uniq = __webpack_require__(101)
 
 // data.class
 
@@ -62878,20 +63406,20 @@ module.exports = function classModule (vnode, attributes) {
 
 
 /***/ }),
-/* 109 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 module.exports = {
-  class: __webpack_require__(108),
-  props: __webpack_require__(110),
-  attributes: __webpack_require__(107),
-  style: __webpack_require__(111)
+  class: __webpack_require__(109),
+  props: __webpack_require__(111),
+  attributes: __webpack_require__(108),
+  style: __webpack_require__(112)
 }
 
 
 /***/ }),
-/* 110 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -62951,14 +63479,14 @@ module.exports = function propsModule (vnode, attributes) {
 
 
 /***/ }),
-/* 111 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var assign = __webpack_require__(102)
+var assign = __webpack_require__(103)
 var forOwn = __webpack_require__(10)
 var escape = __webpack_require__(16)
-var kebabCase = __webpack_require__(98)
+var kebabCase = __webpack_require__(99)
 
 // data.style
 
@@ -62985,7 +63513,7 @@ module.exports = function styleModule (vnode, attributes) {
 
 
 /***/ }),
-/* 112 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63016,7 +63544,7 @@ exports.default = exports.classModule;
 //# sourceMappingURL=class.js.map
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63058,98 +63586,6 @@ exports.default = exports.datasetModule;
 //# sourceMappingURL=dataset.js.map
 
 /***/ }),
-/* 114 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var raf = (typeof window !== 'undefined' && window.requestAnimationFrame) || setTimeout;
-var nextFrame = function (fn) { raf(function () { raf(fn); }); };
-function setNextFrame(obj, prop, val) {
-    nextFrame(function () { obj[prop] = val; });
-}
-function updateStyle(oldVnode, vnode) {
-    var cur, name, elm = vnode.elm, oldStyle = oldVnode.data.style, style = vnode.data.style;
-    if (!oldStyle && !style)
-        return;
-    if (oldStyle === style)
-        return;
-    oldStyle = oldStyle || {};
-    style = style || {};
-    var oldHasDel = 'delayed' in oldStyle;
-    for (name in oldStyle) {
-        if (!style[name]) {
-            if (name[0] === '-' && name[1] === '-') {
-                elm.style.removeProperty(name);
-            }
-            else {
-                elm.style[name] = '';
-            }
-        }
-    }
-    for (name in style) {
-        cur = style[name];
-        if (name === 'delayed') {
-            for (name in style.delayed) {
-                cur = style.delayed[name];
-                if (!oldHasDel || cur !== oldStyle.delayed[name]) {
-                    setNextFrame(elm.style, name, cur);
-                }
-            }
-        }
-        else if (name !== 'remove' && cur !== oldStyle[name]) {
-            if (name[0] === '-' && name[1] === '-') {
-                elm.style.setProperty(name, cur);
-            }
-            else {
-                elm.style[name] = cur;
-            }
-        }
-    }
-}
-function applyDestroyStyle(vnode) {
-    var style, name, elm = vnode.elm, s = vnode.data.style;
-    if (!s || !(style = s.destroy))
-        return;
-    for (name in style) {
-        elm.style[name] = style[name];
-    }
-}
-function applyRemoveStyle(vnode, rm) {
-    var s = vnode.data.style;
-    if (!s || !s.remove) {
-        rm();
-        return;
-    }
-    var name, elm = vnode.elm, i = 0, compStyle, style = s.remove, amount = 0, applied = [];
-    for (name in style) {
-        applied.push(name);
-        elm.style[name] = style[name];
-    }
-    compStyle = getComputedStyle(elm);
-    var props = compStyle['transition-property'].split(', ');
-    for (; i < props.length; ++i) {
-        if (applied.indexOf(props[i]) !== -1)
-            amount++;
-    }
-    elm.addEventListener('transitionend', function (ev) {
-        if (ev.target === elm)
-            --amount;
-        if (amount === 0)
-            rm();
-    });
-}
-exports.styleModule = {
-    create: updateStyle,
-    update: updateStyle,
-    destroy: applyDestroyStyle,
-    remove: applyRemoveStyle
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = exports.styleModule;
-//# sourceMappingURL=style.js.map
-
-/***/ }),
 /* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -63182,7 +63618,7 @@ function createKeyToOldIdx(children, beginIdx, endIdx) {
 var hooks = ['create', 'update', 'remove', 'destroy', 'pre', 'post'];
 var h_1 = __webpack_require__(7);
 exports.h = h_1.h;
-var thunk_1 = __webpack_require__(34);
+var thunk_1 = __webpack_require__(35);
 exports.thunk = thunk_1.thunk;
 function init(modules, domApi) {
     var i, j, cbs = {};
@@ -63804,7 +64240,7 @@ if (typeof self !== 'undefined') {
 
 var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(35)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(36)(module)))
 
 /***/ }),
 /* 120 */
@@ -63839,9 +64275,210 @@ function symbolObservablePonyfill(root) {
 /* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(37);
-__webpack_require__(36);
+"use strict";
+
+var index_1 = __webpack_require__(0);
+var PairwiseOperator = (function () {
+    function PairwiseOperator(ins) {
+        this.ins = ins;
+        this.type = 'pairwise';
+        this.val = null;
+        this.has = false;
+        this.out = null;
+    }
+    PairwiseOperator.prototype._start = function (out) {
+        this.out = out;
+        this.ins._add(this);
+    };
+    PairwiseOperator.prototype._stop = function () {
+        this.ins._remove(this);
+        this.has = false;
+        this.out = null;
+        this.val = null;
+    };
+    PairwiseOperator.prototype._n = function (t) {
+        var u = this.out;
+        if (!u)
+            return;
+        if (this.has) {
+            var prev = this.val;
+            this.val = t;
+            u._n([prev, t]);
+        }
+        else {
+            this.val = t;
+            this.has = true;
+        }
+    };
+    PairwiseOperator.prototype._e = function (err) {
+        var u = this.out;
+        if (!u)
+            return;
+        u._e(err);
+    };
+    PairwiseOperator.prototype._c = function () {
+        var u = this.out;
+        if (!u)
+            return;
+        u._c();
+    };
+    return PairwiseOperator;
+}());
+/**
+ * Group consecutive pairs of events as arrays. Each array has two items.
+ *
+ * Marble diagram:
+ *
+ * ```text
+ * ---1---2-----3-----4-----5--------|
+ *       pairwise
+ * -------[1,2]-[2,3]-[3,4]-[4,5]----|
+ * ```
+ *
+ * Example:
+ *
+ * ```js
+ * import pairwise from 'xstream/extra/pairwise'
+ *
+ * const stream = xs.of(1, 2, 3, 4, 5, 6).compose(pairwise)
+ *
+ * stream.addListener({
+ *   next: i => console.log(i),
+ *   error: err => console.error(err),
+ *   complete: () => console.log('completed')
+ * })
+ * ```
+ *
+ * ```text
+ * > [1,2]
+ * > [2,3]
+ * > [3,4]
+ * > [4,5]
+ * > [5,6]
+ * > completed
+ * ```
+ *
+ * @return {Stream}
+ */
+function pairwise(ins) {
+    return new index_1.Stream(new PairwiseOperator(ins));
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = pairwise;
+//# sourceMappingURL=pairwise.js.map
+
+/***/ }),
+/* 122 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var index_1 = __webpack_require__(0);
+var ThrottleOperator = (function () {
+    function ThrottleOperator(dt, ins) {
+        this.dt = dt;
+        this.ins = ins;
+        this.type = 'throttle';
+        this.out = null;
+        this.id = null;
+    }
+    ThrottleOperator.prototype._start = function (out) {
+        this.out = out;
+        this.ins._add(this);
+    };
+    ThrottleOperator.prototype._stop = function () {
+        this.ins._remove(this);
+        this.out = null;
+        this.id = null;
+    };
+    ThrottleOperator.prototype.clearInterval = function () {
+        var id = this.id;
+        if (id !== null) {
+            clearInterval(id);
+        }
+        this.id = null;
+    };
+    ThrottleOperator.prototype._n = function (t) {
+        var _this = this;
+        var u = this.out;
+        if (!u)
+            return;
+        if (this.id)
+            return;
+        u._n(t);
+        this.id = setInterval(function () {
+            _this.clearInterval();
+        }, this.dt);
+    };
+    ThrottleOperator.prototype._e = function (err) {
+        var u = this.out;
+        if (!u)
+            return;
+        this.clearInterval();
+        u._e(err);
+    };
+    ThrottleOperator.prototype._c = function () {
+        var u = this.out;
+        if (!u)
+            return;
+        this.clearInterval();
+        u._c();
+    };
+    return ThrottleOperator;
+}());
+/**
+ * Emits event and drops subsequent events until a certain amount of silence has passed.
+ *
+ * Marble diagram:
+ *
+ * ```text
+ * --1-2-----3--4----5|
+ *     throttle(60)
+ * --1-------3-------5-|
+ * ```
+ *
+ * Example:
+ *
+ * ```js
+ * import fromDiagram from 'xstream/extra/fromDiagram'
+ * import throttle from 'xstream/extra/throttle'
+ *
+ * const stream = fromDiagram('--1-2-----3--4----5|')
+ *  .compose(throttle(60))
+ *
+ * stream.addListener({
+ *   next: i => console.log(i),
+ *   error: err => console.error(err),
+ *   complete: () => console.log('completed')
+ * })
+ * ```
+ *
+ * ```text
+ * > 1
+ * > 3
+ * > 5
+ * > completed
+ * ```
+ *
+ * @param {number} period The amount of silence required in milliseconds.
+ * @return {Stream}
+ */
+function throttle(period) {
+    return function throttleOperator(ins) {
+        return new index_1.Stream(new ThrottleOperator(period, ins));
+    };
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = throttle;
+//# sourceMappingURL=throttle.js.map
+
+/***/ }),
+/* 123 */
+/***/ (function(module, exports, __webpack_require__) {
+
 __webpack_require__(38);
+__webpack_require__(37);
+__webpack_require__(39);
 
 
 /***/ })
