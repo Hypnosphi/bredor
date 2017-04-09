@@ -4013,6 +4013,7 @@ if(false) {
   var first = Kotlin.kotlin.collections.first_2p1efm$;
   var to = Kotlin.kotlin.to_ujzrz7$;
   var toList = Kotlin.kotlin.toList_tt9upe$;
+  var min = Kotlin.kotlin.collections.min_l63kqw$;
   var Error_0 = Kotlin.kotlin.Error;
   var joinToString = Kotlin.kotlin.collections.joinToString_fmv235$;
   var split = Kotlin.kotlin.text.split_ip8yn$;
@@ -4447,8 +4448,8 @@ if(false) {
   }
   function album$lambda$lambda$lambda(closure$thumb, closure$size) {
     return function ($receiver_17) {
-      $receiver_17.width = closure$size(closure$thumb.width);
-      $receiver_17.height = closure$size(closure$thumb.height);
+      $receiver_17.width = closure$size(closure$thumb.width | 0);
+      $receiver_17.height = closure$size(closure$thumb.height | 0);
     };
   }
   function album$lambda$lambda$lambda$lambda(this$) {
@@ -4525,56 +4526,48 @@ if(false) {
   WithSelected.prototype.equals = function (other) {
     return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.owners, other.owners) && Kotlin.equals(this.selected, other.selected)))));
   };
-  function scroll$lambda(y, e) {
-    var tmp$_17, tmp$_18;
-    var dy = e.deltaY;
-    var y1 = y + dy | 0;
-    var el = Kotlin.isType(tmp$_17 = e.currentTarget, Element) ? tmp$_17 : Kotlin.throwCCE();
-    var child = Kotlin.isType(tmp$_18 = el.firstChild, Element) ? tmp$_18 : Kotlin.throwCCE();
-    var ymax = child.clientHeight - el.clientHeight | 0;
-    if (ymax < 0)
-      return 0;
-    else if (y1 < 0)
-      return 0;
-    else if (y1 > ymax)
-      return ymax;
-    else {
-      e.preventDefault();
-      return y1;
+  function RectImpl(width, height) {
+    this.width_zebsh5$_0 = width;
+    this.height_zebsh5$_0 = height;
+  }
+  Object.defineProperty(RectImpl.prototype, 'width', {
+    get: function () {
+      return this.width_zebsh5$_0;
     }
-  }
-  function scroll($receiver_17) {
-    return throttle(fold($receiver_17.events('wheel'), 0, scroll$lambda).debug('scroll'), 20).startWith(0);
-  }
-  function makeScroll$lambda$lambda$lambda$lambda$lambda(closure$it) {
-    return function ($receiver_17) {
-      $receiver_17.position = 'relative';
-      $receiver_17.top = (-closure$it).toString() + 'px';
-    };
-  }
-  function makeScroll$lambda$lambda$lambda$lambda(closure$it, this$, closure$block) {
-    return function ($receiver_17) {
-      this$.css_5ij4lk$(makeScroll$lambda$lambda$lambda$lambda$lambda(closure$it));
-      closure$block(this$);
-    };
-  }
-  function makeScroll$lambda$lambda$lambda(closure$it, this$, closure$block) {
-    return function ($receiver_17) {
-      div($receiver_17, void 0, makeScroll$lambda$lambda$lambda$lambda(closure$it, this$, closure$block));
-    };
-  }
-  function makeScroll$lambda$lambda(closure$className, closure$block) {
-    return function ($receiver_17, it) {
-      div_0($receiver_17, closure$className, makeScroll$lambda$lambda$lambda(it, $receiver_17, closure$block));
-    };
-  }
-  function makeScroll$lambda(this$makeScroll) {
-    return function ($receiver_17, className, block) {
-      $receiver_17.invoke_p3d1op$(scroll(this$makeScroll.select('.' + className)), makeScroll$lambda$lambda(className, block));
-    };
-  }
-  function makeScroll($receiver_17) {
-    return makeScroll$lambda($receiver_17);
+  });
+  Object.defineProperty(RectImpl.prototype, 'height', {
+    get: function () {
+      return this.height_zebsh5$_0;
+    }
+  });
+  RectImpl.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'RectImpl',
+    interfaces: []
+  };
+  RectImpl.prototype.component1 = function () {
+    return this.width;
+  };
+  RectImpl.prototype.component2 = function () {
+    return this.height;
+  };
+  RectImpl.prototype.copy_lu1900$ = function (width, height) {
+    return new RectImpl(width === void 0 ? this.width : width, height === void 0 ? this.height : height);
+  };
+  RectImpl.prototype.toString = function () {
+    return 'RectImpl(width=' + Kotlin.toString(this.width) + (', height=' + Kotlin.toString(this.height)) + ')';
+  };
+  RectImpl.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.width) | 0;
+    result = result * 31 + Kotlin.hashCode(this.height) | 0;
+    return result;
+  };
+  RectImpl.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.width, other.width) && Kotlin.equals(this.height, other.height)))));
+  };
+  function windowRect(w) {
+    return new RectImpl(795.0, w.innerHeight);
   }
   function app$lambda(it) {
     var tmp$_17;
@@ -4668,6 +4661,12 @@ if(false) {
   function app$lambda_7(it) {
     return combine_0(it.first, it.second, app$lambda$lambda_2);
   }
+  function app$lambda_8(it) {
+    return null;
+  }
+  function app$lambda_9(it) {
+    return null;
+  }
   function app$lambda$lambda$lambda($receiver_17) {
     $receiver_17.unaryPlus_pdl1vz$('\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0430\u043B\u044C\u0431\u043E\u043C, \u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u0445\u043E\u0442\u0438\u0442\u0435 \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C');
   }
@@ -4722,10 +4721,88 @@ if(false) {
       this$.invoke_p3d1op$(closure$selectedOwner, app$lambda$lambda$lambda$lambda(closure$albumOwners, closure$scroll));
     };
   }
-  function app$lambda$lambda$lambda$lambda_0(closure$it) {
+  function app$lambda$lambda$lambda$makeFit$lambda(closure$cont) {
+    return function (img_2) {
+      if (get_ratio(img_2) > get_ratio(closure$cont))
+        return closure$cont.copy_lu1900$(closure$cont.height / get_ratio(img_2));
+      else if (get_ratio(img_2) < get_ratio(closure$cont))
+        return closure$cont.copy_lu1900$(void 0, closure$cont.width * get_ratio(img_2));
+      else
+        return closure$cont;
+    };
+  }
+  function app$lambda$lambda$lambda$makeFit(cont) {
+    return app$lambda$lambda$lambda$makeFit$lambda(cont);
+  }
+  function app$lambda$lambda$lambda$lambda$lambda_1($receiver_17) {
+    $receiver_17.unaryPlus_pdl1vz$('\xD7');
+  }
+  function app$lambda$lambda$lambda$lambda$lambda$lambda_1(closure$it, closure$fit) {
     return function ($receiver_17) {
       img($receiver_17, closure$it.text, closure$it.photo_75, 'photoBg');
-      img($receiver_17, closure$it.text, closure$it.photo_604, 'photo');
+      img($receiver_17, closure$it.text, getForRect(closure$it, closure$fit(closure$it)), 'photo');
+    };
+  }
+  function app$lambda$lambda$lambda$lambda_0(closure$horizontal, closure$list, closure$fit) {
+    return function ($receiver_17) {
+      set_tabIndex($receiver_17, '0');
+      set_classes($receiver_17, plus(get_classes($receiver_17), closure$horizontal ? 'horizontal' : 'vertical'));
+      div($receiver_17, 'button back', app$lambda$lambda$lambda$lambda$lambda_1);
+      var $receiver_18 = closure$list;
+      var tmp$_17;
+      tmp$_17 = $receiver_18.iterator();
+      while (tmp$_17.hasNext()) {
+        var element_17 = tmp$_17.next();
+        div($receiver_17, 'half', app$lambda$lambda$lambda$lambda$lambda$lambda_1(element_17, closure$fit));
+      }
+    };
+  }
+  function app$lambda$lambda$lambda_1(closure$it) {
+    return function ($receiver_17, rect) {
+      var tmp$_17, tmp$_18;
+      var list = toList(closure$it);
+      var makeFit = app$lambda$lambda$lambda$makeFit;
+      var hFit = makeFit(rect.copy_lu1900$(rect.width / 2));
+      var vFit = makeFit(rect.copy_lu1900$(void 0, rect.height / 2));
+      var destination_17 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$(Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$(list, 10));
+      var tmp$_19;
+      tmp$_19 = list.iterator();
+      while (tmp$_19.hasNext()) {
+        var item = tmp$_19.next();
+        destination_17.add_11rb$(hFit(item));
+      }
+      var transform = Kotlin.getPropertyCallableRef('min', 1, function ($receiver_18) {
+        return get_min($receiver_18);
+      });
+      var destination_18 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$(Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$(destination_17, 10));
+      var tmp$_20;
+      tmp$_20 = destination_17.iterator();
+      while (tmp$_20.hasNext()) {
+        var item_0 = tmp$_20.next();
+        destination_18.add_11rb$(transform(item_0));
+      }
+      var hMin = (tmp$_17 = min(destination_18)) != null ? tmp$_17 : Kotlin.throwNPE();
+      var destination_19 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$(Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$(list, 10));
+      var tmp$_21;
+      tmp$_21 = list.iterator();
+      while (tmp$_21.hasNext()) {
+        var item_1 = tmp$_21.next();
+        destination_19.add_11rb$(vFit(item_1));
+      }
+      var transform_0 = Kotlin.getPropertyCallableRef('min', 1, function ($receiver_18) {
+        return get_min($receiver_18);
+      });
+      var destination_20 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$(Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$(destination_19, 10));
+      var tmp$_22;
+      tmp$_22 = destination_19.iterator();
+      while (tmp$_22.hasNext()) {
+        var item_2 = tmp$_22.next();
+        destination_20.add_11rb$(transform_0(item_2));
+      }
+      var vMin = (tmp$_18 = min(destination_20)) != null ? tmp$_18 : Kotlin.throwNPE();
+      var horizontal = hMin > vMin;
+      var fit = horizontal ? hFit : vFit;
+      div_0($receiver_17, 'pair', app$lambda$lambda$lambda$lambda_0(horizontal, list, fit));
     };
   }
   function app$lambda$lambda_3(closure$selectedOwner, closure$albumOwners, closure$scroll) {
@@ -4735,16 +4812,11 @@ if(false) {
         div_0($receiver_17, 'selector', app$lambda$lambda$lambda_0(closure$selectedOwner, closure$albumOwners, closure$scroll, $receiver_17));
       }
        else {
-        var tmp$_17;
-        tmp$_17 = toList(it).iterator();
-        while (tmp$_17.hasNext()) {
-          var element_17 = tmp$_17.next();
-          div_0($receiver_17, 'half', app$lambda$lambda$lambda$lambda_0(element_17));
-        }
+        $receiver_17.invoke_p3d1op$($module$xstream.default.of(windowRect(window)), app$lambda$lambda$lambda_1(it));
       }
     };
   }
-  function app$lambda_8(closure$currentPair, closure$selectedOwner, closure$albumOwners, closure$scroll) {
+  function app$lambda_10(closure$currentPair, closure$selectedOwner, closure$albumOwners, closure$scroll) {
     return function ($receiver_17) {
       $receiver_17.invoke_p3d1op$(closure$currentPair, app$lambda$lambda_3(closure$selectedOwner, closure$albumOwners, closure$scroll));
     };
@@ -4763,7 +4835,7 @@ if(false) {
       return $receiver_17;
     };
   }
-  function app$lambda_9(f) {
+  function app$lambda_11(f) {
     var album_0 = f.component1();
     var tmp$_17 = randomPair(album_0.size)
     , a_2 = tmp$_17.component1()
@@ -4771,14 +4843,15 @@ if(false) {
     return toType($module$xstream.default.of(a_2, b_2).map(app$lambda$lambda_4(album_0)).debug('req'));
   }
   function app_0(sources) {
-    var selectOwner = sources.DOM.select('.owner').events('click').map(app$lambda).debug('select');
+    var selectOwner = clicks(sources.DOM.select('.owner')).map(app$lambda).debug('select');
     var scroll_0 = makeScroll(sources.DOM);
     var albumOwners = flatMap(sources.VK.me, app$lambda_0).remember().debug('owners');
     var selectedOwner = flatMap(albumOwners, app$lambda_1(selectOwner)).remember().debug('selected');
-    var currentAlbumId = sources.DOM.select('.album').events('click').map(app$lambda_2);
+    var currentAlbumId = clicks(sources.DOM.select('.album')).map(app$lambda_2);
     var currentAlbum = flatMap(flatMap(selectedOwner, app$lambda_3), app$lambda_4(currentAlbumId)).debug('album');
-    var currentPair = toNullable(flatMap(pairwise(toType(sources.VK.responses.debug('resp').filter(app$lambda_5).map(app$lambda_6))).debug('pairwise'), app$lambda_7).debug('photopair')).startWith(null);
-    return new AppSinks(appDiv('app', app$lambda_8(currentPair, selectedOwner, albumOwners, scroll_0)).debug('vtree'), flatMap(currentAlbum, app$lambda_9));
+    var selectPair = flatMap(pairwise(toType(sources.VK.responses.debug('resp').filter(app$lambda_5).map(app$lambda_6))).debug('pairwise'), app$lambda_7).debug('photopair');
+    var currentPair = $module$xstream.default.merge(toType(selectPair), toType(clicks(sources.DOM.select('.back')).map(app$lambda_8)), toType(keyups(sources.DOM.select('.app'), 'Escape').map(app$lambda_9))).startWith(null);
+    return new AppSinks(appDiv('app', app$lambda_10(currentPair, selectedOwner, albumOwners, scroll_0)).debug('vtree'), flatMap(currentAlbum, app$lambda_11));
   }
   function AppDrivers(selector) {
     this.DOM = $module$_cycle_dom.makeDOMDriver(selector, DOMDriverOptions_init([PropsModule, AttrsModule, StyleModule, PaverModule_getInstance()]));
@@ -4809,6 +4882,57 @@ if(false) {
     $module$_cycle_run.run(Kotlin.getCallableRef('app', function (sources) {
       return app_0(sources);
     }), new AppDrivers('#app'));
+  }
+  function scroll$lambda(y, e) {
+    var tmp$_17, tmp$_18;
+    var dy = e.deltaY;
+    var y1 = y + dy | 0;
+    var el = Kotlin.isType(tmp$_17 = e.currentTarget, Element) ? tmp$_17 : Kotlin.throwCCE();
+    var child = Kotlin.isType(tmp$_18 = el.firstChild, Element) ? tmp$_18 : Kotlin.throwCCE();
+    var ymax = child.clientHeight - el.clientHeight | 0;
+    if (ymax < 0)
+      return 0;
+    else if (y1 < 0)
+      return 0;
+    else if (y1 > ymax)
+      return ymax;
+    else {
+      e.preventDefault();
+      return y1;
+    }
+  }
+  function scroll($receiver_17) {
+    return throttle(fold($receiver_17.events('wheel'), 0, scroll$lambda).debug('scroll'), 20).startWith(0);
+  }
+  function makeScroll$lambda$lambda$lambda$lambda$lambda(closure$it) {
+    return function ($receiver_17) {
+      $receiver_17.position = 'relative';
+      $receiver_17.top = (-closure$it).toString() + 'px';
+    };
+  }
+  function makeScroll$lambda$lambda$lambda$lambda(closure$it, this$, closure$block) {
+    return function ($receiver_17) {
+      this$.css_5ij4lk$(makeScroll$lambda$lambda$lambda$lambda$lambda(closure$it));
+      closure$block(this$);
+    };
+  }
+  function makeScroll$lambda$lambda$lambda(closure$it, this$, closure$block) {
+    return function ($receiver_17) {
+      div($receiver_17, void 0, makeScroll$lambda$lambda$lambda$lambda(closure$it, this$, closure$block));
+    };
+  }
+  function makeScroll$lambda$lambda(closure$className, closure$block) {
+    return function ($receiver_17, it) {
+      div_0($receiver_17, closure$className, makeScroll$lambda$lambda$lambda(it, $receiver_17, closure$block));
+    };
+  }
+  function makeScroll$lambda(this$makeScroll) {
+    return function ($receiver_17, className, block) {
+      $receiver_17.invoke_p3d1op$(scroll(this$makeScroll.select('.' + className)), makeScroll$lambda$lambda(className, block));
+    };
+  }
+  function makeScroll($receiver_17) {
+    return makeScroll$lambda($receiver_17);
   }
   function Params(source_3, initParams) {
     if (source_3 === void 0)
@@ -18210,6 +18334,19 @@ if(false) {
     $receiver_17.consumer.onTagStart_tkgjla$(tag);
     $receiver_17.consumer.onTagEnd_tkgjla$(tag);
   }
+  function clicks($receiver_17) {
+    return $receiver_17.events('click');
+  }
+  function keyups$lambda(closure$key) {
+    return function (it) {
+      var tmp$_17;
+      var e = Kotlin.isType(tmp$_17 = it, KeyboardEvent) ? tmp$_17 : Kotlin.throwCCE();
+      return e.key === closure$key;
+    };
+  }
+  function keyups($receiver_17, key) {
+    return $receiver_17.events('keyup').debug('keyup').filter(keyups$lambda(key));
+  }
   function DOMDriverOptions(modules) {
     this.modules = modules;
   }
@@ -19449,6 +19586,19 @@ if(false) {
   function get_fullName($receiver_17) {
     return $receiver_17.first_name + ' ' + $receiver_17.last_name;
   }
+  function get_ratio($receiver_17) {
+    return $receiver_17.height / $receiver_17.width;
+  }
+  function get_min($receiver_17) {
+    var a_2 = $receiver_17.width;
+    var b_2 = $receiver_17.height;
+    return Math.min(a_2, b_2);
+  }
+  function get_max($receiver_17) {
+    var a_2 = $receiver_17.width;
+    var b_2 = $receiver_17.height;
+    return Math.max(a_2, b_2);
+  }
   function AlbumVM(album_0) {
     this.album = album_0;
   }
@@ -19474,6 +19624,21 @@ if(false) {
   AlbumVM.prototype.equals = function (other) {
     return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && Kotlin.equals(this.album, other.album))));
   };
+  function getForRect($receiver_17, rect) {
+    var tmp$_17, tmp$_18, tmp$_19, tmp$_20, tmp$_21;
+    if (rect.height > 1080.0 || (rect.width > 1024.0 && $receiver_17.photo_2560 != null))
+      return (tmp$_17 = $receiver_17.photo_2560) != null ? tmp$_17 : Kotlin.throwNPE();
+    else if (get_max(rect) > 807 && $receiver_17.photo_1280 != null)
+      return (tmp$_18 = $receiver_17.photo_1280) != null ? tmp$_18 : Kotlin.throwNPE();
+    else if (get_max(rect) > 604 && $receiver_17.photo_807 != null)
+      return (tmp$_19 = $receiver_17.photo_807) != null ? tmp$_19 : Kotlin.throwNPE();
+    else if (get_max(rect) > 130 && $receiver_17.photo_604 != null)
+      return (tmp$_20 = $receiver_17.photo_604) != null ? tmp$_20 : Kotlin.throwNPE();
+    else if (get_max(rect) > 75 && $receiver_17.photo_130 != null)
+      return (tmp$_21 = $receiver_17.photo_130) != null ? tmp$_21 : Kotlin.throwNPE();
+    else
+      return $receiver_17.photo_75;
+  }
   function get_uid($receiver_17) {
     return -$receiver_17.id;
   }
@@ -19964,13 +20129,15 @@ if(false) {
   package$app.owner_6vov1f$ = owner;
   package$app.album_6kxq3k$ = album;
   package$app.WithSelected = WithSelected;
-  package$app.scroll_2qyqs1$ = scroll;
-  package$app.makeScroll_2qyqs1$ = makeScroll;
+  package$app.RectImpl = RectImpl;
+  package$app.windowRect_ofitn1$ = windowRect;
   package$app.app_lwy2ck$ = app_0;
   package$app.AppDrivers = AppDrivers;
   package$app.AppSources = AppSources;
   package$app.AppSinks = AppSinks;
   package$app.main_kand9s$ = main;
+  package$app.scroll_2qyqs1$ = scroll;
+  package$app.makeScroll_2qyqs1$ = makeScroll;
   Params.Delegate = Params$Delegate;
   Params.Json = Params$Json;
   Params.Bool = Params$Bool;
@@ -21697,6 +21864,8 @@ if(false) {
   var package$lib = _.lib || (_.lib = {});
   var package$cycle = package$lib.cycle || (package$lib.cycle = {});
   var package$dom_0 = package$cycle.dom || (package$cycle.dom = {});
+  package$dom_0.clicks_2qyqs1$ = clicks;
+  package$dom_0.keyups_o4pm3z$ = keyups;
   package$dom_0.DOMDriverOptions_init_siq366$ = DOMDriverOptions_init;
   package$dom_0.DOMDriverOptions = DOMDriverOptions;
   var package$paver = package$lib.paver || (package$lib.paver = {});
@@ -21800,7 +21969,11 @@ if(false) {
   });
   package$vk.Case = Case;
   package$vk.get_fullName_ml56i3$ = get_fullName;
+  package$vk.get_ratio_mj8tgy$ = get_ratio;
+  package$vk.get_min_mj8tgy$ = get_min;
+  package$vk.get_max_mj8tgy$ = get_max;
   package$vk.AlbumVM = AlbumVM;
+  package$vk.getForRect_z65jc7$ = getForRect;
   package$vk.get_uid_gqnylz$ = get_uid;
   package$vk.GroupVM = GroupVM;
   Object.defineProperty(GroupFilter, 'admin', {
@@ -23754,7 +23927,7 @@ exports = module.exports = __webpack_require__(56)();
 
 
 // module
-exports.push([module.i, "body {\n    margin: 0;\n    background: #000;\n}\n\nh1, h2, h3, h4 {\n    margin: 0;\n    padding: 8px 16px 16px;\n    font-weight: 500;\n}\n\nh1 {\n    color: #222;\n    background: #fff;\n}\n\n.app {\n    width: 795px;\n    margin: 0 auto;\n    height: 100vh;\n    background: #000;\n    color: #fff;\n    font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n    font-weight: 300;\n    display: flex;\n    flex-direction: column;\n    overflow: hidden;\n}\n\n.app ~ * {\n    flex-shrink: 0;\n}\n\n.selector {\n    display: flex;\n    flex-grow: 1;\n    overflow: hidden;\n}\n\n.owners {\n    width: 50px;\n    flex-shrink: 0;\n}\n\n.owner {\n    height: 50px;\n    display: flex;\n    position: relative;\n}\n\n.owner > * {\n    flex-shrink: 0;\n}\n\n.blackout {\n    cursor: pointer;\n    background: rgba(0, 0, 0, 0.2);\n    position: absolute;\n    z-index: 1;\n    width: 50px;\n    height: 50px;\n    left: 0;\n    top: 0;\n}\n\n.blackout:not(:hover) {\n    background: rgba(0, 0, 0, 0.6);\n    transition: background 0.15s ease-out;\n}\n\n.selected > .blackout {\n    background: transparent;\n}\n\n.ownerName {\n    padding: 14px 8px;\n    background: rgba(0, 0, 0, 0.8);\n    z-index: 1;\n    color: #fff;\n    transition: color .15s ease-out;\n}\n\na.ownerName {\n    cursor: pointer;\n}\n\na.ownerName:hover {\n    color: #f88;\n    transition: none;\n}\n\n.owner:not(:hover) > .ownerName {\n    display: none;\n}\n\n.albums {\n    flex-grow: 1;\n}\n\n.album {\n    cursor: pointer;\n    position: relative;\n}\n\n.albumImg {\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n}\n\n.description {\n    position: absolute;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    background: rgba(0, 0, 0, 0.6);\n    padding: 8px;\n    line-height: 1.5;\n}\n\n.name {\n    text-overflow: ellipsis;\n    overflow: hidden;\n    white-space: nowrap;\n    font-size: 13px;\n}\n\n.count {\n    font-size: 11px;\n}\n\n.album:not(:hover) .description {\n    background: transparent;\n    color: transparent;\n    transition: background .15s ease-out, color .15s ease-out;\n}\n\n.half {\n    flex: 1 0 0;\n    min-height: 0;\n    min-width: 0;\n    position: relative;\n}\n\n.half > img {\n    position: absolute;\n    height: 100%;\n    width: 100%;\n}\n\n.photoBg {\n    object-fit: cover;\n    filter: opacity(0.5) blur(10px);\n}\n\n.photo {\n    object-fit: contain;\n}\n", ""]);
+exports.push([module.i, "body {\n    margin: 0;\n    background: #000;\n}\n\nh1, h2, h3, h4 {\n    margin: 0;\n    padding: 8px 16px 16px;\n    font-weight: 500;\n}\n\nh1 {\n    color: #222;\n    background: #fff;\n}\n\n.app {\n    width: 795px;\n    margin: 0 auto;\n    height: 100vh;\n    background: #000;\n    color: #fff;\n    font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n    font-weight: 300;\n    display: flex;\n    flex-direction: column;\n    overflow: hidden;\n}\n\n.app ~ * {\n    flex-shrink: 0;\n}\n\n.selector {\n    display: flex;\n    flex-grow: 1;\n    overflow: hidden;\n}\n\n.owners {\n    width: 50px;\n    flex-shrink: 0;\n}\n\n.owner {\n    height: 50px;\n    display: flex;\n    position: relative;\n}\n\n.owner > * {\n    flex-shrink: 0;\n}\n\n.blackout {\n    cursor: pointer;\n    background: rgba(0, 0, 0, 0.2);\n    position: absolute;\n    z-index: 1;\n    width: 50px;\n    height: 50px;\n    left: 0;\n    top: 0;\n}\n\n.blackout:not(:hover) {\n    background: rgba(0, 0, 0, 0.6);\n    transition: background 0.15s ease-out;\n}\n\n.selected > .blackout {\n    background: transparent;\n}\n\n.ownerName {\n    padding: 14px 8px;\n    background: rgba(0, 0, 0, 0.8);\n    z-index: 1;\n    color: #fff;\n    transition: color .15s ease-out;\n}\n\na.ownerName {\n    cursor: pointer;\n}\n\na.ownerName:hover {\n    color: #f88;\n    transition: none;\n}\n\n.owner:not(:hover) > .ownerName {\n    display: none;\n}\n\n.albums {\n    flex-grow: 1;\n}\n\n.album {\n    cursor: pointer;\n    position: relative;\n}\n\n.albumImg {\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n}\n\n.description {\n    position: absolute;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    background: rgba(0, 0, 0, 0.6);\n    padding: 8px;\n    line-height: 1.5;\n}\n\n.name {\n    text-overflow: ellipsis;\n    overflow: hidden;\n    white-space: nowrap;\n    font-size: 13px;\n}\n\n.count {\n    font-size: 11px;\n}\n\n.album:not(:hover) .description {\n    background: transparent;\n    color: transparent;\n    transition: background .15s ease-out, color .15s ease-out;\n}\n\n.half {\n    flex: 1 0 0;\n    min-height: 0;\n    min-width: 0;\n    position: relative;\n}\n\n.half > img {\n    position: absolute;\n    height: 100%;\n    width: 100%;\n}\n\n.photoBg {\n    object-fit: cover;\n    filter: opacity(0.5) blur(10px);\n}\n\n.photo {\n    object-fit: contain;\n}\n\n.pair {\n    position: relative;\n    flex: 1 0 0;\n    display: flex;\n    outline: none;\n}\n\n.vertical {\n    flex-direction: column;\n}\n\n.button {\n    position: absolute;\n    box-sizing: border-box;\n    z-index: 1;\n    cursor: pointer;\n    background-color: rgba(0, 0, 0, .8);\n    height: 32px;\n    width: 32px;\n    border-radius: 3px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    font-size: 24px;\n\n    opacity: .5;\n    transition: opacity .15s ease-out;\n}\n\n.button:hover {\n    transition: none;\n    opacity: 1;\n}\n\n.back {\n    top: 8px;\n    left: 8px;\n    padding-bottom: 5px;\n}\n", ""]);
 
 // exports
 

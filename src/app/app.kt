@@ -1,13 +1,15 @@
 package app
 
 import kotlinx.html.*
-import lib.cycle.dom.DOMSource
+import lib.cycle.dom.clicks
+import lib.cycle.dom.keyups
 import lib.snabbdom.HBuilder
 import lib.snabbdom.appDiv
 import lib.xstream.*
 import org.w3c.dom.Element
-import org.w3c.dom.events.Event
+import org.w3c.dom.Window
 import vk.*
+import kotlin.browser.window
 
 data class AlbumOwner(
     val uid: Int,
@@ -57,8 +59,8 @@ fun HBuilder.album(album: AlbumVM) {
             }
 
             css {
-                width = size(thumb.width)
-                height = size(thumb.height)
+                width = size(thumb.width.toInt())
+                height = size(thumb.height.toInt())
             }
 
             img(this@with.title, thumb.src, "albumImg")
@@ -76,49 +78,14 @@ data class WithSelected(
     val selected: AlbumOwner
 )
 
-fun DOMSource.scroll() : Stream<Int> =
-    events("wheel")
-        .fold(0) { y: Int, e: Event ->
-            val dy: Int = e.asDynamic().deltaY
-            val y1 = y + dy
-            val el = e.currentTarget as Element
-            val child = el.firstChild as Element
-            val ymax = child.clientHeight - el.clientHeight
-            when {
-                ymax < 0 -> 0
-                y1 < 0 -> 0
-                y1 > ymax -> ymax
-                else -> {
-                    e.preventDefault()
-                    y1
-                }
-            }
-        }
-        .debug("scroll")
-        .throttle(20)
-        .startWith(0)
+data class RectImpl(override val width: Double, override val height: Double) : Rect
 
-fun DOMSource.makeScroll(): HBuilder.(String, HBuilder.() -> Unit) -> Unit = { className, block ->
-    this@makeScroll.select(".$className")
-        .scroll()
-        .invoke {
-            div(className) {
-                div {
-                    css {
-                        position = "relative"
-                        top = "${-it}px"
-                    }
-                    block()
-                }
-            }
-        }
-}
-
+fun windowRect(w: Window) = RectImpl(795.0, w.innerHeight.toDouble())
 
 fun app(sources: AppSources) : AppSinks {
     val selectOwner: Stream<Int> = sources.DOM
         .select(".owner")
-        .events("click")
+        .clicks()
         .map {
             val el = it.currentTarget as Element
             el.id.toInt()
@@ -152,7 +119,7 @@ fun app(sources: AppSources) : AppSinks {
 
     val currentAlbumId: Stream<Int> = sources.DOM
         .select(".album")
-        .events("click")
+        .clicks()
         .map {
             val el = it.currentTarget as Element
             el.id.toInt()
@@ -170,7 +137,7 @@ fun app(sources: AppSources) : AppSinks {
         }
         .debug("album")
 
-    val currentPair: Stream<Pair<Photo, Photo>?> = sources.VK.responses
+    val selectPair: Stream<Pair<Photo, Photo>> = sources.VK.responses
         .debug("resp")
         .filter { it.category == "pair" }
         .map { it.stream }
@@ -183,8 +150,12 @@ fun app(sources: AppSources) : AppSinks {
             }
         }
         .debug("photopair")
-        .toNullable()
-        .startWith(null)
+
+    val currentPair = merge<Pair<Photo, Photo>?> (
+        selectPair.toType(),
+        sources.DOM.select(".back").clicks().map { null }.toType(),
+        sources.DOM.select(".app").keyups("Escape").map { null }.toType()
+    ).startWith(null)
 
     return AppSinks(
         DOM = appDiv("app") {
@@ -217,10 +188,38 @@ fun app(sources: AppSources) : AppSinks {
                         }
                     }
                 } else {
-                    it.toList().forEach {
-                        div("half") {
-                            img(it.text, it.photo_75, "photoBg")
-                            img(it.text, it.photo_604, "photo")
+                    of(windowRect(window)).invoke { rect ->
+                        val list = it.toList();
+
+                        fun makeFit(cont: RectImpl) = { img: Rect ->
+                            when {
+                                img.ratio > cont.ratio -> cont.copy(width = cont.height / img.ratio)
+                                img.ratio < cont.ratio -> cont.copy(height = cont.width * img.ratio)
+                                else -> cont
+                            }
+                        }
+
+                        val hFit = makeFit(rect.copy(width = rect.width / 2))
+                        val vFit = makeFit(rect.copy(height = rect.height / 2))
+                        val hMin = list.map(hFit).map(Rect::min).min()!!
+                        val vMin = list.map(vFit).map(Rect::min).min()!!
+
+                        val horizontal = hMin > vMin
+                        val fit = if (horizontal) hFit else vFit
+
+                        div("pair") {
+                            tabIndex = "0"
+                            classes += if (horizontal) "horizontal" else "vertical"
+
+                            div("button back") {
+                                +"×"
+                            }
+                            list.forEach {
+                                div("half") {
+                                    img(it.text, it.photo_75, "photoBg")
+                                    img(it.text, it.getForRect(fit(it)), "photo")
+                                }
+                            }
                         }
                     }
                 }

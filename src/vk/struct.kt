@@ -49,10 +49,17 @@ enum class Case {
 
 val User.fullName get() = "$first_name $last_name"
 
-external interface Thumb {
+external interface Rect {
+    val width: Double
+    val height: Double
+}
+
+val Rect.ratio : Double get() = height / width
+val Rect.min: Double get() = minOf(width, height)
+val Rect.max: Double get() = maxOf(width, height)
+
+external interface Thumb: Rect {
     val src: String
-    val width: Int
-    val height: Int
     val type: String
 }
 
@@ -75,7 +82,7 @@ external interface Album : VKStruct {
 }
 data class AlbumVM(val album: Album) : VKStructVM<Album>
 
-external interface Photo : VKStruct {
+external interface Photo : VKStruct, Rect {
     val id: Int
     val album_id: Int
     val owner_id: Int
@@ -83,13 +90,20 @@ external interface Photo : VKStruct {
     val text: String
     val date: Int
     val photo_75: String
-    val photo_130: String
-    val photo_604: String
-    val photo_807: String
-    val photo_1280: String
-    val photo_2560: String
-    val width: Int
-    val height: Int
+    val photo_130: String?
+    val photo_604: String?
+    val photo_807: String?
+    val photo_1280: String?
+    val photo_2560: String?
+}
+
+fun Photo.getForRect(rect: Rect): String = when {
+    rect.height > 1080.0 || rect.width > 1024.0 && photo_2560 != null -> photo_2560!!
+    rect.max > 807 && photo_1280 != null -> photo_1280!!
+    rect.max > 604 && photo_807 != null -> photo_807!!
+    rect.max > 130 && photo_604 != null -> photo_604!!
+    rect.max > 75 && photo_130 != null -> photo_130!!
+    else -> photo_75
 }
 
 external interface Group : VKStruct {
