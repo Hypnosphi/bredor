@@ -56,3 +56,5 @@ fun <T> Stream<T>.throttle(period: Int) = lib.xstream.throttle<T>(period)(this)
 
 fun <T> Stream<T>.pairwise(): Stream<Pair<T, T>> =
     lib.xstream.pairwise(this).map { it[0] to it[1] }
+
+fun <T> Stream<T?>.filterNotNull() = filter { it != null }.toType<T>()

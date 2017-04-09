@@ -12,6 +12,7 @@ import org.w3c.dom.events.Event
 fun DOMSource.scroll() : Stream<Int> =
     events("wheel")
         .fold(0) { y: Int, e: Event ->
+            e.preventDefault()
             val dy: Int = e.asDynamic().deltaY
             val y1 = y + dy
             val el = e.currentTarget as Element
@@ -21,10 +22,7 @@ fun DOMSource.scroll() : Stream<Int> =
                 ymax < 0 -> 0
                 y1 < 0 -> 0
                 y1 > ymax -> ymax
-                else -> {
-                    e.preventDefault()
-                    y1
-                }
+                else -> y1
             }
         }
         .debug("scroll")

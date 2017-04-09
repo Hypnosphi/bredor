@@ -143,6 +143,7 @@ a.ownerName:hover {
 }
 
 .half > img {
+    cursor: pointer;
     position: absolute;
     height: 100%;
     width: 100%;
@@ -180,7 +181,6 @@ a.ownerName:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
 
     opacity: .5;
     transition: opacity .15s ease-out;
@@ -194,5 +194,45 @@ a.ownerName:hover {
 .back {
     top: 8px;
     left: 8px;
+    font-size: 24px;
     padding-bottom: 5px;
+}
+
+.choose {
+    padding-bottom: 1px;
+    transform-origin: 50% 50%;
+}
+
+.vertical .choose {
+    top: 8px;
+    right: 8px;
+}
+
+.vertical .half:last-child .choose {
+    top: auto;
+    bottom: 8px;
+    transform: rotate(180deg);
+}
+
+.horizontal .choose {
+    left: 8px;
+    bottom: 8px;
+    transform: rotate(-90deg);
+}
+
+.horizontal .half:last-child .choose {
+    left: auto;
+    right: 8px;
+    transform: rotate(90deg);
+}
+
+.half:hover .choose {
+    transition: none;
+    opacity: 1;
+}
+
+.winner {
+    opacity: 1;
+    color: #6BC169;
+    transform: none !important;
 }

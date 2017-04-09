@@ -3,6 +3,7 @@ package app
 import kotlinx.html.*
 import lib.cycle.dom.clicks
 import lib.cycle.dom.keyups
+import lib.cycle.storage.Save
 import lib.snabbdom.HBuilder
 import lib.snabbdom.appDiv
 import lib.xstream.*
@@ -82,6 +83,8 @@ data class RectImpl(override val width: Double, override val height: Double) : R
 
 fun windowRect(w: Window) = RectImpl(795.0, w.innerHeight.toDouble())
 
+fun albumKey(id: Int) = "rankings_$id"
+
 fun app(sources: AppSources) : AppSinks {
     val selectOwner: Stream<Int> = sources.DOM
         .select(".owner")
@@ -153,10 +156,55 @@ fun app(sources: AppSources) : AppSinks {
 
     val currentPair = merge<Pair<Photo, Photo>?> (
         selectPair.toType(),
-        sources.DOM.select(".back").clicks().map { null }.toType(),
-        sources.DOM.select(".app").keyups("Escape").map { null }.toType()
+        sources.DOM.select(".back").clicks().map {
+            it.preventDefault()
+            null
+        }.toType(),
+        sources.DOM.keyups("Escape").map { null }.toType()
     ).startWith(null)
 
+    val rankings: Stream<Ranking> = currentAlbum
+        .flatMap {
+            val id = it.album.id
+            sources.storage.local.getItem(albumKey(id))
+                .map { Ranking(id, it) }
+        }
+        .remember()
+
+    val selectWinner: Stream<Pair<Int, Int>> = selectPair
+        .flatMap { (first, second) ->
+            val firstWon = first.id to second.id
+            val secondWon = second.id to first.id
+            merge(
+                sources.DOM.select(".half").clicks().map {
+                    val el = it.currentTarget as Element
+                    when (el.id.toInt()) {
+                        first.id -> firstWon
+                        else -> secondWon
+                    }
+                },
+                sources.DOM.select(".vertical").keyups("ArrowUp").map { firstWon },
+                sources.DOM.select(".vertical").keyups("ArrowDown").map { secondWon },
+                sources.DOM.select(".horizontal").keyups("ArrowLeft").map { firstWon },
+                sources.DOM.select(".horizontal").keyups("ArrowRight").map { secondWon }
+            )
+        }
+
+    val selectedWinner: Stream<Int> = rankings
+        .flatMap { ranking ->
+            selectWinner.map { (winner, loser) ->
+                ranking.pair(winner, loser)
+                winner
+            }
+        }
+        .debug("winner")
+
+    val justSelected: Stream<Int> = merge(
+        selectWinner.map { it.first },
+        currentPair.map { -1 }
+    ).remember()
+
+    @Suppress("UNUSED_PARAMETER")
     return AppSinks(
         DOM = appDiv("app") {
             currentPair {
@@ -216,8 +264,20 @@ fun app(sources: AppSources) : AppSinks {
                             }
                             list.forEach {
                                 div("half") {
+                                    id = it.id.toString()
+                                    key = it.id
                                     img(it.text, it.photo_75, "photoBg")
                                     img(it.text, it.getForRect(fit(it)), "photo")
+                                    justSelected { winner ->
+                                        div("button choose") {
+                                            if (winner == it.id) {
+                                                classes += "winner"
+                                                +"✓"
+                                            } else {
+                                                +"▲"
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -227,20 +287,30 @@ fun app(sources: AppSources) : AppSinks {
         }.debug("vtree"),
         VK = currentAlbum
             .flatMap { (album) ->
-                val (a, b) = randomPair(album.size)
+                selectWinner
+                    .toNullable()
+                    .startWith(null)
+                    .flatMap {
 
-                of(a, b)
-                    .map {
-                        VKReq.Photos.Get {
-                            owner_id = album.owner_id
-                            album_id = album.id
-                            offset = it
-                            count = 1
-                            category = "pair"
-                        }
+                        val (a, b) = randomPair(album.size)
+
+                        of(a, b)
+                            .map {
+                                VKReq.Photos.Get {
+                                    owner_id = album.owner_id
+                                    album_id = album.id
+                                    offset = it
+                                    count = 1
+                                    category = "pair"
+                                }
+                            }
+                            .debug("req")
                     }
-                    .debug("req")
-                    .toType<VKReq<*>>()
+            }.toType(),
+        storage = rankings.flatMap { ranking ->
+            selectedWinner.map {
+                Save(albumKey(ranking.albumId), ranking.serialize())
             }
+        }.debug("save").toType()
     )
 }

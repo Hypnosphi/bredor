@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 123);
+/******/ 	return __webpack_require__(__webpack_require__.s = 129);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -77,7 +77,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var symbol_observable_1 = __webpack_require__(118);
+var symbol_observable_1 = __webpack_require__(123);
 var NO = {};
 exports.NO = NO;
 function noop() { }
@@ -1948,8 +1948,8 @@ module.exports = function (value) {
 
 
 var assign        = __webpack_require__(13)
-  , normalizeOpts = __webpack_require__(78)
-  , isCallable    = __webpack_require__(72)
+  , normalizeOpts = __webpack_require__(83)
+  , isCallable    = __webpack_require__(77)
   , contains      = __webpack_require__(25)
 
   , d;
@@ -2095,7 +2095,7 @@ exports.getSelectors = getSelectors;
 "use strict";
 
 
-module.exports = __webpack_require__(92)() ? Symbol : __webpack_require__(94);
+module.exports = __webpack_require__(97)() ? Symbol : __webpack_require__(99);
 
 
 /***/ }),
@@ -2755,9 +2755,9 @@ module.exports = function (x) { return (toString.call(x) === id); };
 "use strict";
 
 
-module.exports = __webpack_require__(67)()
+module.exports = __webpack_require__(72)()
 	? Object.assign
-	: __webpack_require__(68);
+	: __webpack_require__(73);
 
 
 /***/ }),
@@ -2789,7 +2789,7 @@ var clear    = __webpack_require__(22)
   , callable = __webpack_require__(3)
   , value    = __webpack_require__(1)
   , d        = __webpack_require__(2)
-  , autoBind = __webpack_require__(57)
+  , autoBind = __webpack_require__(62)
   , Symbol   = __webpack_require__(6)
 
   , defineProperty = Object.defineProperty
@@ -3447,7 +3447,7 @@ module.exports = function (/*customCreate*/) {
 
 
 
-var isObject      = __webpack_require__(73)
+var isObject      = __webpack_require__(78)
   , value         = __webpack_require__(1)
 
   , isPrototypeOf = Object.prototype.isPrototypeOf
@@ -3514,7 +3514,7 @@ module.exports = (function (status) {
 	return false;
 }())));
 
-__webpack_require__(70);
+__webpack_require__(75);
 
 
 /***/ }),
@@ -3524,9 +3524,9 @@ __webpack_require__(70);
 "use strict";
 
 
-module.exports = __webpack_require__(80)()
+module.exports = __webpack_require__(85)()
 	? String.prototype.contains
-	: __webpack_require__(81);
+	: __webpack_require__(86);
 
 
 /***/ }),
@@ -3536,7 +3536,7 @@ module.exports = __webpack_require__(80)()
 "use strict";
 
 
-var isIterable = __webpack_require__(85);
+var isIterable = __webpack_require__(90);
 
 module.exports = function (value) {
 	if (!isIterable(value)) throw new TypeError(value + " is not iterable");
@@ -3551,7 +3551,7 @@ module.exports = function (value) {
 "use strict";
 
 
-module.exports = __webpack_require__(87)() ? Map : __webpack_require__(91);
+module.exports = __webpack_require__(92)() ? Map : __webpack_require__(96);
 
 
 /***/ }),
@@ -3981,10 +3981,10 @@ module.exports = function(module) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(55);
+var content = __webpack_require__(60);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(117)(content, {});
+var update = __webpack_require__(122)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -4004,7 +4004,7 @@ if(false) {
 /* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-(function (_, Kotlin, $module$xstream, $module$_cycle_dom, $module$_cycle_run, $module$snabbdom_modules_props, $module$snabbdom_modules_attributes, $module$snabbdom_modules_style, $module$jsonp, $module$xstream_extra_throttle, $module$xstream_extra_pairwise) {
+(function (_, Kotlin, $module$xstream, $module$_cycle_dom, $module$_cycle_storage, $module$_cycle_run, $module$snabbdom_modules_props, $module$snabbdom_modules_attributes, $module$snabbdom_modules_style, $module$jsonp, $module$xstream_extra_throttle, $module$xstream_extra_pairwise) {
   'use strict';
   var plus = Kotlin.kotlin.collections.plus_xfiyik$;
   var toInt = Kotlin.kotlin.text.toInt_pdl1vz$;
@@ -4014,6 +4014,7 @@ if(false) {
   var to = Kotlin.kotlin.to_ujzrz7$;
   var toList = Kotlin.kotlin.toList_tt9upe$;
   var min = Kotlin.kotlin.collections.min_l63kqw$;
+  var HashMap_init = Kotlin.kotlin.collections.HashMap_init_q3lmfv$;
   var Error_0 = Kotlin.kotlin.Error;
   var joinToString = Kotlin.kotlin.collections.joinToString_fmv235$;
   var split = Kotlin.kotlin.text.split_ip8yn$;
@@ -4569,6 +4570,9 @@ if(false) {
   function windowRect(w) {
     return new RectImpl(795.0, w.innerHeight);
   }
+  function albumKey(id) {
+    return 'rankings_' + id;
+  }
   function app$lambda(it) {
     var tmp$_17;
     var el = Kotlin.isType(tmp$_17 = it.currentTarget, Element) ? tmp$_17 : Kotlin.throwCCE();
@@ -4662,10 +4666,80 @@ if(false) {
     return combine_0(it.first, it.second, app$lambda$lambda_2);
   }
   function app$lambda_8(it) {
+    it.preventDefault();
     return null;
   }
   function app$lambda_9(it) {
     return null;
+  }
+  function app$lambda$lambda_3(closure$id) {
+    return function (it) {
+      return new Ranking(closure$id, it);
+    };
+  }
+  function app$lambda_10(closure$sources) {
+    return function (it) {
+      var id = it.album.id;
+      return closure$sources.storage.local.getItem(albumKey(id)).map(app$lambda$lambda_3(id));
+    };
+  }
+  function app$lambda$lambda_4(closure$firstWon, closure$first, closure$secondWon) {
+    return function (it) {
+      var tmp$_17;
+      var el = Kotlin.isType(tmp$_17 = it.currentTarget, Element) ? tmp$_17 : Kotlin.throwCCE();
+      if (toInt(el.id) === closure$first.id)
+        return closure$firstWon;
+      else
+        return closure$secondWon;
+    };
+  }
+  function app$lambda$lambda_5(closure$firstWon) {
+    return function (it) {
+      return closure$firstWon;
+    };
+  }
+  function app$lambda$lambda_6(closure$secondWon) {
+    return function (it) {
+      return closure$secondWon;
+    };
+  }
+  function app$lambda$lambda_7(closure$firstWon) {
+    return function (it) {
+      return closure$firstWon;
+    };
+  }
+  function app$lambda$lambda_8(closure$secondWon) {
+    return function (it) {
+      return closure$secondWon;
+    };
+  }
+  function app$lambda_11(closure$sources) {
+    return function (f) {
+      var first_2 = f.component1()
+      , second = f.component2();
+      var firstWon = to(first_2.id, second.id);
+      var secondWon = to(second.id, first_2.id);
+      return $module$xstream.default.merge(clicks(closure$sources.DOM.select('.half')).map(app$lambda$lambda_4(firstWon, first_2, secondWon)), keyups(closure$sources.DOM.select('.vertical'), 'ArrowUp').map(app$lambda$lambda_5(firstWon)), keyups(closure$sources.DOM.select('.vertical'), 'ArrowDown').map(app$lambda$lambda_6(secondWon)), keyups(closure$sources.DOM.select('.horizontal'), 'ArrowLeft').map(app$lambda$lambda_7(firstWon)), keyups(closure$sources.DOM.select('.horizontal'), 'ArrowRight').map(app$lambda$lambda_8(secondWon)));
+    };
+  }
+  function app$lambda$lambda_9(closure$ranking) {
+    return function (f) {
+      var winner = f.component1()
+      , loser = f.component2();
+      closure$ranking.pair_vux9f0$(winner, loser);
+      return winner;
+    };
+  }
+  function app$lambda_12(closure$selectWinner) {
+    return function (ranking) {
+      return closure$selectWinner.map(app$lambda$lambda_9(ranking));
+    };
+  }
+  function app$lambda_13(it) {
+    return it.first;
+  }
+  function app$lambda_14(it) {
+    return -1;
   }
   function app$lambda$lambda$lambda($receiver_17) {
     $receiver_17.unaryPlus_pdl1vz$('\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0430\u043B\u044C\u0431\u043E\u043C, \u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u0445\u043E\u0442\u0438\u0442\u0435 \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C');
@@ -4737,13 +4811,32 @@ if(false) {
   function app$lambda$lambda$lambda$lambda$lambda_1($receiver_17) {
     $receiver_17.unaryPlus_pdl1vz$('\xD7');
   }
-  function app$lambda$lambda$lambda$lambda$lambda$lambda_1(closure$it, closure$fit) {
+  function app$lambda$lambda$lambda$lambda$lambda$lambda$lambda$lambda(closure$winner, closure$it) {
     return function ($receiver_17) {
-      img($receiver_17, closure$it.text, closure$it.photo_75, 'photoBg');
-      img($receiver_17, closure$it.text, getForRect(closure$it, closure$fit(closure$it)), 'photo');
+      if (closure$winner === closure$it.id) {
+        set_classes($receiver_17, plus(get_classes($receiver_17), 'winner'));
+        $receiver_17.unaryPlus_pdl1vz$('\u2713');
+      }
+       else {
+        $receiver_17.unaryPlus_pdl1vz$('\u25B2');
+      }
     };
   }
-  function app$lambda$lambda$lambda$lambda_0(closure$horizontal, closure$list, closure$fit) {
+  function app$lambda$lambda$lambda$lambda$lambda$lambda$lambda_0(closure$it) {
+    return function ($receiver_17, winner) {
+      div_0($receiver_17, 'button choose', app$lambda$lambda$lambda$lambda$lambda$lambda$lambda$lambda(winner, closure$it));
+    };
+  }
+  function app$lambda$lambda$lambda$lambda$lambda$lambda_1(closure$it, this$, closure$fit, closure$justSelected) {
+    return function ($receiver_17) {
+      set_id($receiver_17, closure$it.id.toString());
+      this$.key = closure$it.id;
+      img($receiver_17, closure$it.text, closure$it.photo_75, 'photoBg');
+      img($receiver_17, closure$it.text, getForRect(closure$it, closure$fit(closure$it)), 'photo');
+      this$.invoke_p3d1op$(closure$justSelected, app$lambda$lambda$lambda$lambda$lambda$lambda$lambda_0(closure$it));
+    };
+  }
+  function app$lambda$lambda$lambda$lambda_0(closure$horizontal, closure$list, this$, closure$fit, closure$justSelected) {
     return function ($receiver_17) {
       set_tabIndex($receiver_17, '0');
       set_classes($receiver_17, plus(get_classes($receiver_17), closure$horizontal ? 'horizontal' : 'vertical'));
@@ -4753,11 +4846,11 @@ if(false) {
       tmp$_17 = $receiver_18.iterator();
       while (tmp$_17.hasNext()) {
         var element_17 = tmp$_17.next();
-        div($receiver_17, 'half', app$lambda$lambda$lambda$lambda$lambda$lambda_1(element_17, closure$fit));
+        div($receiver_17, 'half', app$lambda$lambda$lambda$lambda$lambda$lambda_1(element_17, this$, closure$fit, closure$justSelected));
       }
     };
   }
-  function app$lambda$lambda$lambda_1(closure$it) {
+  function app$lambda$lambda$lambda_1(closure$it, closure$justSelected) {
     return function ($receiver_17, rect) {
       var tmp$_17, tmp$_18;
       var list = toList(closure$it);
@@ -4802,26 +4895,26 @@ if(false) {
       var vMin = (tmp$_18 = min(destination_20)) != null ? tmp$_18 : Kotlin.throwNPE();
       var horizontal = hMin > vMin;
       var fit = horizontal ? hFit : vFit;
-      div_0($receiver_17, 'pair', app$lambda$lambda$lambda$lambda_0(horizontal, list, fit));
+      div_0($receiver_17, 'pair', app$lambda$lambda$lambda$lambda_0(horizontal, list, $receiver_17, fit, closure$justSelected));
     };
   }
-  function app$lambda$lambda_3(closure$selectedOwner, closure$albumOwners, closure$scroll) {
+  function app$lambda$lambda_10(closure$selectedOwner, closure$albumOwners, closure$scroll, closure$justSelected) {
     return function ($receiver_17, it) {
       if (it == null) {
         h1($receiver_17, void 0, app$lambda$lambda$lambda);
         div_0($receiver_17, 'selector', app$lambda$lambda$lambda_0(closure$selectedOwner, closure$albumOwners, closure$scroll, $receiver_17));
       }
        else {
-        $receiver_17.invoke_p3d1op$($module$xstream.default.of(windowRect(window)), app$lambda$lambda$lambda_1(it));
+        $receiver_17.invoke_p3d1op$($module$xstream.default.of(windowRect(window)), app$lambda$lambda$lambda_1(it, closure$justSelected));
       }
     };
   }
-  function app$lambda_10(closure$currentPair, closure$selectedOwner, closure$albumOwners, closure$scroll) {
+  function app$lambda_15(closure$currentPair, closure$selectedOwner, closure$albumOwners, closure$scroll, closure$justSelected) {
     return function ($receiver_17) {
-      $receiver_17.invoke_p3d1op$(closure$currentPair, app$lambda$lambda_3(closure$selectedOwner, closure$albumOwners, closure$scroll));
+      $receiver_17.invoke_p3d1op$(closure$currentPair, app$lambda$lambda_10(closure$selectedOwner, closure$albumOwners, closure$scroll, closure$justSelected));
     };
   }
-  function app$lambda$lambda_4(closure$album) {
+  function app$lambda$lambda$lambda_2(closure$album) {
     return function (it) {
       VKReq$Photos$Get$Companion_getInstance();
       var ctor = Kotlin.kotlin.js.get_js_1yb8b7$(Kotlin.getKClass(VKReq$Photos$Get));
@@ -4835,12 +4928,29 @@ if(false) {
       return $receiver_17;
     };
   }
-  function app$lambda_11(f) {
-    var album_0 = f.component1();
-    var tmp$_17 = randomPair(album_0.size)
-    , a_2 = tmp$_17.component1()
-    , b_2 = tmp$_17.component2();
-    return toType($module$xstream.default.of(a_2, b_2).map(app$lambda$lambda_4(album_0)).debug('req'));
+  function app$lambda$lambda_11(closure$album) {
+    return function (it) {
+      var tmp$_17 = randomPair(closure$album.size)
+      , a_2 = tmp$_17.component1()
+      , b_2 = tmp$_17.component2();
+      return $module$xstream.default.of(a_2, b_2).map(app$lambda$lambda$lambda_2(closure$album)).debug('req');
+    };
+  }
+  function app$lambda_16(closure$selectWinner) {
+    return function (f) {
+      var album_0 = f.component1();
+      return flatMap(toNullable(closure$selectWinner).startWith(null), app$lambda$lambda_11(album_0));
+    };
+  }
+  function app$lambda$lambda_12(closure$ranking) {
+    return function (it) {
+      return new Save(albumKey(closure$ranking.albumId), closure$ranking.serialize());
+    };
+  }
+  function app$lambda_17(closure$selectedWinner) {
+    return function (ranking) {
+      return closure$selectedWinner.map(app$lambda$lambda_12(ranking));
+    };
   }
   function app_0(sources) {
     var selectOwner = clicks(sources.DOM.select('.owner')).map(app$lambda).debug('select');
@@ -4850,12 +4960,17 @@ if(false) {
     var currentAlbumId = clicks(sources.DOM.select('.album')).map(app$lambda_2);
     var currentAlbum = flatMap(flatMap(selectedOwner, app$lambda_3), app$lambda_4(currentAlbumId)).debug('album');
     var selectPair = flatMap(pairwise(toType(sources.VK.responses.debug('resp').filter(app$lambda_5).map(app$lambda_6))).debug('pairwise'), app$lambda_7).debug('photopair');
-    var currentPair = $module$xstream.default.merge(toType(selectPair), toType(clicks(sources.DOM.select('.back')).map(app$lambda_8)), toType(keyups(sources.DOM.select('.app'), 'Escape').map(app$lambda_9))).startWith(null);
-    return new AppSinks(appDiv('app', app$lambda_10(currentPair, selectedOwner, albumOwners, scroll_0)).debug('vtree'), flatMap(currentAlbum, app$lambda_11));
+    var currentPair = $module$xstream.default.merge(toType(selectPair), toType(clicks(sources.DOM.select('.back')).map(app$lambda_8)), toType(keyups(sources.DOM, 'Escape').map(app$lambda_9))).startWith(null);
+    var rankings = flatMap(currentAlbum, app$lambda_10(sources)).remember();
+    var selectWinner = flatMap(selectPair, app$lambda_11(sources));
+    var selectedWinner = flatMap(rankings, app$lambda_12(selectWinner)).debug('winner');
+    var justSelected = $module$xstream.default.merge(selectWinner.map(app$lambda_13), currentPair.map(app$lambda_14)).remember();
+    return new AppSinks(appDiv('app', app$lambda_15(currentPair, selectedOwner, albumOwners, scroll_0, justSelected)).debug('vtree'), toType(flatMap(currentAlbum, app$lambda_16(selectWinner))), toType(flatMap(rankings, app$lambda_17(selectedWinner)).debug('save')));
   }
   function AppDrivers(selector) {
     this.DOM = $module$_cycle_dom.makeDOMDriver(selector, DOMDriverOptions_init([PropsModule, AttrsModule, StyleModule, PaverModule_getInstance()]));
     this.VK = VKDriver;
+    this.storage = $module$_cycle_storage.default;
   }
   AppDrivers.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
@@ -4869,9 +4984,10 @@ if(false) {
     simpleName: 'AppSources',
     interfaces: []
   };
-  function AppSinks(DOM, VK_0) {
+  function AppSinks(DOM, VK_0, storage) {
     this.DOM = DOM;
     this.VK = VK_0;
+    this.storage = storage;
   }
   AppSinks.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
@@ -4883,8 +4999,58 @@ if(false) {
       return app_0(sources);
     }), new AppDrivers('#app'));
   }
+  function Ranking(albumId, serialized) {
+    this.albumId = albumId;
+    this.map = HashMap_init();
+    var tmp$_17, tmp$_18;
+    if (serialized != null) {
+      var parsed = JSON.parse(serialized);
+      var keys = Object.keys(parsed);
+      for (tmp$_17 = 0; tmp$_17 !== keys.length; ++tmp$_17) {
+        var key = keys[tmp$_17];
+        if (parsed.hasOwnProperty(key)) {
+          var $receiver_17 = this.map;
+          var key_0 = toInt(key);
+          var value = typeof (tmp$_18 = parsed[key]) === 'number' ? tmp$_18 : Kotlin.throwCCE();
+          $receiver_17.put_xwzc9p$(key_0, value);
+        }
+      }
+    }
+  }
+  function Ranking$serialize$lambda(this$Ranking) {
+    return function ($receiver_17) {
+      var tmp$_17;
+      tmp$_17 = this$Ranking.map.keys.iterator();
+      while (tmp$_17.hasNext()) {
+        var key = tmp$_17.next();
+        $receiver_17[key] = this$Ranking.map.get_11rb$(key);
+      }
+    };
+  }
+  Ranking.prototype.serialize = function () {
+    var obj = js_0(Ranking$serialize$lambda(this));
+    return JSON.stringify(obj);
+  };
+  Ranking.prototype.pair_vux9f0$ = function (winner, loser) {
+    var tmp$_17, tmp$_18;
+    var r1 = (tmp$_17 = this.map.get_11rb$(winner)) != null ? tmp$_17 : 0.0;
+    var r2 = (tmp$_18 = this.map.get_11rb$(loser)) != null ? tmp$_18 : 0.0;
+    var d = 1 / (1 + Math.pow(2.0, r1 - r2));
+    var $receiver_17 = this.map;
+    var value = r1 + d;
+    $receiver_17.put_xwzc9p$(winner, value);
+    var $receiver_18 = this.map;
+    var value_0 = r2 - d;
+    $receiver_18.put_xwzc9p$(loser, value_0);
+  };
+  Ranking.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'Ranking',
+    interfaces: []
+  };
   function scroll$lambda(y, e) {
     var tmp$_17, tmp$_18;
+    e.preventDefault();
     var dy = e.deltaY;
     var y1 = y + dy | 0;
     var el = Kotlin.isType(tmp$_17 = e.currentTarget, Element) ? tmp$_17 : Kotlin.throwCCE();
@@ -4896,10 +5062,8 @@ if(false) {
       return 0;
     else if (y1 > ymax)
       return ymax;
-    else {
-      e.preventDefault();
+    else
       return y1;
-    }
   }
   function scroll($receiver_17) {
     return throttle(fold($receiver_17.events('wheel'), 0, scroll$lambda).debug('scroll'), 20).startWith(0);
@@ -18345,7 +18509,7 @@ if(false) {
     };
   }
   function keyups($receiver_17, key) {
-    return $receiver_17.events('keyup').debug('keyup').filter(keyups$lambda(key));
+    return $receiver_17.events('keyup').filter(keyups$lambda(key));
   }
   function DOMDriverOptions(modules) {
     this.modules = modules;
@@ -18376,6 +18540,59 @@ if(false) {
   };
   DOMDriverOptions.prototype.equals = function (other) {
     return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && Kotlin.equals(this.modules, other.modules))));
+  };
+  function Save(key, objValue) {
+    this.key_70gp2f$_0 = key;
+    this.objValue = objValue;
+    this.value_70gp2f$_0 = this.objValue.toString();
+    this.target_70gp2f$_0 = 'local';
+    this.action_70gp2f$_0 = 'setItem';
+  }
+  Object.defineProperty(Save.prototype, 'key', {
+    get: function () {
+      return this.key_70gp2f$_0;
+    }
+  });
+  Object.defineProperty(Save.prototype, 'value', {
+    get: function () {
+      return this.value_70gp2f$_0;
+    }
+  });
+  Object.defineProperty(Save.prototype, 'target', {
+    get: function () {
+      return this.target_70gp2f$_0;
+    }
+  });
+  Object.defineProperty(Save.prototype, 'action', {
+    get: function () {
+      return this.action_70gp2f$_0;
+    }
+  });
+  Save.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'Save',
+    interfaces: []
+  };
+  Save.prototype.component1 = function () {
+    return this.key;
+  };
+  Save.prototype.component2 = function () {
+    return this.objValue;
+  };
+  Save.prototype.copy_bm4g0d$ = function (key, objValue) {
+    return new Save(key === void 0 ? this.key : key, objValue === void 0 ? this.objValue : objValue);
+  };
+  Save.prototype.toString = function () {
+    return 'Save(key=' + Kotlin.toString(this.key) + (', objValue=' + Kotlin.toString(this.objValue)) + ')';
+  };
+  Save.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.key) | 0;
+    result = result * 31 + Kotlin.hashCode(this.objValue) | 0;
+    return result;
+  };
+  Save.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.key, other.key) && Kotlin.equals(this.objValue, other.objValue)))));
   };
   function Tile(width, height, elm) {
     this.width = width;
@@ -18894,6 +19111,12 @@ if(false) {
   }
   function pairwise($receiver_17) {
     return $module$xstream_extra_pairwise.default($receiver_17).map(pairwise$lambda);
+  }
+  function filterNotNull$lambda(it) {
+    return it != null;
+  }
+  function filterNotNull($receiver_17) {
+    return toType($receiver_17.filter(filterNotNull$lambda));
   }
   var version;
   var root;
@@ -20131,11 +20354,13 @@ if(false) {
   package$app.WithSelected = WithSelected;
   package$app.RectImpl = RectImpl;
   package$app.windowRect_ofitn1$ = windowRect;
+  package$app.albumKey_za3lpa$ = albumKey;
   package$app.app_lwy2ck$ = app_0;
   package$app.AppDrivers = AppDrivers;
   package$app.AppSources = AppSources;
   package$app.AppSinks = AppSinks;
   package$app.main_kand9s$ = main;
+  package$app.Ranking = Ranking;
   package$app.scroll_2qyqs1$ = scroll;
   package$app.makeScroll_2qyqs1$ = makeScroll;
   Params.Delegate = Params$Delegate;
@@ -21868,6 +22093,8 @@ if(false) {
   package$dom_0.keyups_o4pm3z$ = keyups;
   package$dom_0.DOMDriverOptions_init_siq366$ = DOMDriverOptions_init;
   package$dom_0.DOMDriverOptions = DOMDriverOptions;
+  var package$storage = package$cycle.storage || (package$cycle.storage = {});
+  package$storage.Save = Save;
   var package$paver = package$lib.paver || (package$lib.paver = {});
   package$paver.Tile_init_2rdptt$ = Tile_init;
   package$paver.Tile = Tile;
@@ -21912,6 +22139,7 @@ if(false) {
   package$xstream.toNullable_9hvxng$ = toNullable;
   package$xstream.throttle_v924oq$ = throttle;
   package$xstream.pairwise_9hvxng$ = pairwise;
+  package$xstream.filterNotNull_9hvxng$ = filterNotNull;
   Object.defineProperty(VKReq$Users$Get, 'Companion', {
     get: VKReq$Users$Get$Companion_getInstance
   });
@@ -22219,7 +22447,7 @@ if(false) {
   Kotlin.defineModule('_compiled-tmp', _);
   main([]);
   return _;
-}(module.exports, __webpack_require__(98), __webpack_require__(0), __webpack_require__(47), __webpack_require__(53), __webpack_require__(33), __webpack_require__(32), __webpack_require__(34), __webpack_require__(97), __webpack_require__(122), __webpack_require__(121)));
+}(module.exports, __webpack_require__(103), __webpack_require__(0), __webpack_require__(47), __webpack_require__(54), __webpack_require__(53), __webpack_require__(33), __webpack_require__(32), __webpack_require__(34), __webpack_require__(102), __webpack_require__(128), __webpack_require__(127)));
 
 //@ sourceMappingURL=_compiled-tmp.js.map
 
@@ -22963,7 +23191,7 @@ exports.IsolateModule = IsolateModule;
 "use strict";
 
 var h_1 = __webpack_require__(7);
-var classNameFromVNode_1 = __webpack_require__(106);
+var classNameFromVNode_1 = __webpack_require__(111);
 var selectorParser_1 = __webpack_require__(28);
 var VNodeWrapper = (function () {
     function VNodeWrapper(rootElement) {
@@ -23426,10 +23654,10 @@ exports.isolateSink = isolateSink;
 
 "use strict";
 
-var snabbdom_1 = __webpack_require__(115);
+var snabbdom_1 = __webpack_require__(120);
 var xstream_1 = __webpack_require__(0);
 var MainDOMSource_1 = __webpack_require__(19);
-var tovnode_1 = __webpack_require__(116);
+var tovnode_1 = __webpack_require__(121);
 var VNodeWrapper_1 = __webpack_require__(45);
 var utils_1 = __webpack_require__(5);
 var modules_1 = __webpack_require__(52);
@@ -23507,8 +23735,8 @@ exports.makeDOMDriver = makeDOMDriver;
 "use strict";
 
 var HTMLSource_1 = __webpack_require__(18);
-var init = __webpack_require__(107);
-var modulesForHTML = __webpack_require__(110);
+var init = __webpack_require__(112);
+var modulesForHTML = __webpack_require__(115);
 var defaultModules = [
     modulesForHTML.attributes,
     modulesForHTML.props,
@@ -23600,7 +23828,7 @@ exports.mockDOMSource = mockDOMSource;
 
 "use strict";
 
-var class_1 = __webpack_require__(113);
+var class_1 = __webpack_require__(118);
 exports.ClassModule = class_1.default;
 var props_1 = __webpack_require__(33);
 exports.PropsModule = props_1.default;
@@ -23608,7 +23836,7 @@ var attributes_1 = __webpack_require__(32);
 exports.AttrsModule = attributes_1.default;
 var style_1 = __webpack_require__(34);
 exports.StyleModule = style_1.default;
-var dataset_1 = __webpack_require__(114);
+var dataset_1 = __webpack_require__(119);
 exports.DatasetModule = dataset_1.default;
 var modules = [style_1.default, class_1.default, props_1.default, attributes_1.default, dataset_1.default];
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -23808,6 +24036,241 @@ exports.default = run;
 
 /***/ }),
 /* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _writeToStore = __webpack_require__(57);
+
+var _writeToStore2 = _interopRequireDefault(_writeToStore);
+
+var _responseCollection = __webpack_require__(55);
+
+var _responseCollection2 = _interopRequireDefault(_responseCollection);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Storage Driver.
+ *
+ * This is a localStorage and sessionStorage Driver for Cycle.js apps. The
+ * driver is also a function, and it takes a stream of requests as input, and
+ * returns a **`responseCollection`** with functions that allow reading from the
+ * storage objects. The functions on the **`responseCollection`** return streams
+ * of the storage data that was requested.
+ *
+ * **Requests**. The stream of requests should emit objects. These should be
+ * instructions to write to the desired Storage object. Here are the `request`
+ * object properties:
+ *
+ * - `target` *(String)*: type of storage, can be `local` or `session`, defaults
+ * to `local`.
+ * - `action` *(String)*: type of action, can be `setItem`, `removeItem` or
+ * `clear`, defaults to `setItem`.
+ * - `key` *(String)*: storage key.
+ * - `value` *(String)*: storage value.
+ *
+ * **responseCollection**. The **`responseCollection`** is an Object that
+ * exposes functions to read from local- and sessionStorage.
+ *
+ * ```js
+ * // Returns key of nth localStorage value.
+ * responseCollection.local.getKey(n)
+ * // Returns localStorage value of `key`.
+ * responseCollection.local.getItem(key)
+ * // Returns key of nth sessionStorage value.
+ * responseCollection.session.getKey(n)
+ * // Returns sessionStorage value of `key`.
+ * responseCollection.session.getItem(key)
+ * ```
+ *
+ * @param request$ - a stream of write request objects.
+ * @return {Object} the response collection containing functions
+ * for reading from storage.
+ * @function storageDriver
+ */
+function storageDriver(request$) {
+  // Execute writing actions.
+  request$.addListener({
+    next: function next(request) {
+      return (0, _writeToStore2.default)(request);
+    },
+    error: function error() {},
+    complete: function complete() {}
+  });
+
+  // Return reading functions.
+  return (0, _responseCollection2.default)(request$);
+}
+
+exports.default = storageDriver;
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (request$) {
+  return {
+    // For localStorage.
+    get local() {
+      return (0, _util2.default)(request$);
+    },
+    // For sessionStorage.
+    get session() {
+      return (0, _util2.default)(request$, 'session');
+    }
+  };
+};
+
+var _util = __webpack_require__(56);
+
+var _util2 = _interopRequireDefault(_util);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = getResponseObj;
+
+var _dropRepeats = __webpack_require__(126);
+
+var _dropRepeats2 = _interopRequireDefault(_dropRepeats);
+
+var _adapt = __webpack_require__(58);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function getStorage$(request$, type) {
+  if (type === 'local') {
+    return request$.filter(function (req) {
+      return !req.target || req.target === 'local';
+    });
+  } else {
+    return request$.filter(function (req) {
+      return req.target === 'session';
+    });
+  }
+}
+
+function storageKey(n, request$) {
+  var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'local';
+
+  var storage$ = getStorage$(request$, type);
+  var key = type === 'local' ? localStorage.key(n) : sessionStorage.key(n);
+
+  return storage$.filter(function (req) {
+    return req.key === key;
+  }).map(function (req) {
+    return req.key;
+  }).startWith(key).compose((0, _dropRepeats2.default)());
+}
+
+function storageGetItem(key, request$) {
+  var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'local';
+
+  var storage$ = getStorage$(request$, type);
+  var storageObj = type === 'local' ? localStorage : sessionStorage;
+
+  return storage$.filter(function (req) {
+    return req.key === key;
+  }).map(function (req) {
+    return req.value;
+  }).startWith(storageObj.getItem(key));
+}
+
+function getResponseObj(request$) {
+  var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'local';
+
+  return {
+    // Function returning stream of the nth key.
+    key: function key(n) {
+      return (0, _adapt.adapt)(storageKey(n, request$, type));
+    },
+
+    // Function returning stream of item values.
+    getItem: function getItem(key) {
+      return (0, _adapt.adapt)(storageGetItem(key, request$, type));
+    }
+  };
+}
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * @function writeToStore
+ * @description
+ * A universal write function for localStorage and sessionStorage.
+ * @param {object} request - the storage request object
+ * @param {string} request.target - a string determines which storage to use
+ * @param {string} request.action - a string determines the write action
+ * @param {string} request.key - the key of a storage item
+ * @param {string} request.value - the value of a storage item
+ */
+function writeToStore(_ref) {
+  var _ref$target = _ref.target,
+      target = _ref$target === undefined ? "local" : _ref$target,
+      _ref$action = _ref.action,
+      action = _ref$action === undefined ? "setItem" : _ref$action,
+      key = _ref.key,
+      value = _ref.value;
+
+  // Determine the storage target.
+  var storage = target === "local" ? localStorage : sessionStorage;
+
+  // Execute the storage action and pass arguments if they were defined.
+  storage[action](key, value);
+}
+
+exports.default = writeToStore;
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var adaptStream = function (x) { return x; };
+function setAdapt(f) {
+    adaptStream = f;
+}
+exports.setAdapt = setAdapt;
+function adapt(stream) {
+    return adaptStream(stream);
+}
+exports.adapt = adapt;
+//# sourceMappingURL=adapt.js.map
+
+/***/ }),
+/* 59 */
 /***/ (function(module, exports) {
 
 /*!
@@ -23919,21 +24382,21 @@ module.exports = (function split(undef) {
 
 
 /***/ }),
-/* 55 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(56)();
+exports = module.exports = __webpack_require__(61)();
 // imports
 
 
 // module
-exports.push([module.i, "body {\n    margin: 0;\n    background: #000;\n}\n\nh1, h2, h3, h4 {\n    margin: 0;\n    padding: 8px 16px 16px;\n    font-weight: 500;\n}\n\nh1 {\n    color: #222;\n    background: #fff;\n}\n\n.app {\n    width: 795px;\n    margin: 0 auto;\n    height: 100vh;\n    background: #000;\n    color: #fff;\n    font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n    font-weight: 300;\n    display: flex;\n    flex-direction: column;\n    overflow: hidden;\n}\n\n.app ~ * {\n    flex-shrink: 0;\n}\n\n.selector {\n    display: flex;\n    flex-grow: 1;\n    overflow: hidden;\n}\n\n.owners {\n    width: 50px;\n    flex-shrink: 0;\n}\n\n.owner {\n    height: 50px;\n    display: flex;\n    position: relative;\n}\n\n.owner > * {\n    flex-shrink: 0;\n}\n\n.blackout {\n    cursor: pointer;\n    background: rgba(0, 0, 0, 0.2);\n    position: absolute;\n    z-index: 1;\n    width: 50px;\n    height: 50px;\n    left: 0;\n    top: 0;\n}\n\n.blackout:not(:hover) {\n    background: rgba(0, 0, 0, 0.6);\n    transition: background 0.15s ease-out;\n}\n\n.selected > .blackout {\n    background: transparent;\n}\n\n.ownerName {\n    padding: 14px 8px;\n    background: rgba(0, 0, 0, 0.8);\n    z-index: 1;\n    color: #fff;\n    transition: color .15s ease-out;\n}\n\na.ownerName {\n    cursor: pointer;\n}\n\na.ownerName:hover {\n    color: #f88;\n    transition: none;\n}\n\n.owner:not(:hover) > .ownerName {\n    display: none;\n}\n\n.albums {\n    flex-grow: 1;\n}\n\n.album {\n    cursor: pointer;\n    position: relative;\n}\n\n.albumImg {\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n}\n\n.description {\n    position: absolute;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    background: rgba(0, 0, 0, 0.6);\n    padding: 8px;\n    line-height: 1.5;\n}\n\n.name {\n    text-overflow: ellipsis;\n    overflow: hidden;\n    white-space: nowrap;\n    font-size: 13px;\n}\n\n.count {\n    font-size: 11px;\n}\n\n.album:not(:hover) .description {\n    background: transparent;\n    color: transparent;\n    transition: background .15s ease-out, color .15s ease-out;\n}\n\n.half {\n    flex: 1 0 0;\n    min-height: 0;\n    min-width: 0;\n    position: relative;\n}\n\n.half > img {\n    position: absolute;\n    height: 100%;\n    width: 100%;\n}\n\n.photoBg {\n    object-fit: cover;\n    filter: opacity(0.5) blur(10px);\n}\n\n.photo {\n    object-fit: contain;\n}\n\n.pair {\n    position: relative;\n    flex: 1 0 0;\n    display: flex;\n    outline: none;\n}\n\n.vertical {\n    flex-direction: column;\n}\n\n.button {\n    position: absolute;\n    box-sizing: border-box;\n    z-index: 1;\n    cursor: pointer;\n    background-color: rgba(0, 0, 0, .8);\n    height: 32px;\n    width: 32px;\n    border-radius: 3px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    font-size: 24px;\n\n    opacity: .5;\n    transition: opacity .15s ease-out;\n}\n\n.button:hover {\n    transition: none;\n    opacity: 1;\n}\n\n.back {\n    top: 8px;\n    left: 8px;\n    padding-bottom: 5px;\n}\n", ""]);
+exports.push([module.i, "body {\n    margin: 0;\n    background: #000;\n}\n\nh1, h2, h3, h4 {\n    margin: 0;\n    padding: 8px 16px 16px;\n    font-weight: 500;\n}\n\nh1 {\n    color: #222;\n    background: #fff;\n}\n\n.app {\n    width: 795px;\n    margin: 0 auto;\n    height: 100vh;\n    background: #000;\n    color: #fff;\n    font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n    font-weight: 300;\n    display: flex;\n    flex-direction: column;\n    overflow: hidden;\n}\n\n.app ~ * {\n    flex-shrink: 0;\n}\n\n.selector {\n    display: flex;\n    flex-grow: 1;\n    overflow: hidden;\n}\n\n.owners {\n    width: 50px;\n    flex-shrink: 0;\n}\n\n.owner {\n    height: 50px;\n    display: flex;\n    position: relative;\n}\n\n.owner > * {\n    flex-shrink: 0;\n}\n\n.blackout {\n    cursor: pointer;\n    background: rgba(0, 0, 0, 0.2);\n    position: absolute;\n    z-index: 1;\n    width: 50px;\n    height: 50px;\n    left: 0;\n    top: 0;\n}\n\n.blackout:not(:hover) {\n    background: rgba(0, 0, 0, 0.6);\n    transition: background 0.15s ease-out;\n}\n\n.selected > .blackout {\n    background: transparent;\n}\n\n.ownerName {\n    padding: 14px 8px;\n    background: rgba(0, 0, 0, 0.8);\n    z-index: 1;\n    color: #fff;\n    transition: color .15s ease-out;\n}\n\na.ownerName {\n    cursor: pointer;\n}\n\na.ownerName:hover {\n    color: #f88;\n    transition: none;\n}\n\n.owner:not(:hover) > .ownerName {\n    display: none;\n}\n\n.albums {\n    flex-grow: 1;\n}\n\n.album {\n    cursor: pointer;\n    position: relative;\n}\n\n.albumImg {\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n}\n\n.description {\n    position: absolute;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    background: rgba(0, 0, 0, 0.6);\n    padding: 8px;\n    line-height: 1.5;\n}\n\n.name {\n    text-overflow: ellipsis;\n    overflow: hidden;\n    white-space: nowrap;\n    font-size: 13px;\n}\n\n.count {\n    font-size: 11px;\n}\n\n.album:not(:hover) .description {\n    background: transparent;\n    color: transparent;\n    transition: background .15s ease-out, color .15s ease-out;\n}\n\n.half {\n    flex: 1 0 0;\n    min-height: 0;\n    min-width: 0;\n    position: relative;\n}\n\n.half > img {\n    cursor: pointer;\n    position: absolute;\n    height: 100%;\n    width: 100%;\n}\n\n.photoBg {\n    object-fit: cover;\n    filter: opacity(0.5) blur(10px);\n}\n\n.photo {\n    object-fit: contain;\n}\n\n.pair {\n    position: relative;\n    flex: 1 0 0;\n    display: flex;\n    outline: none;\n}\n\n.vertical {\n    flex-direction: column;\n}\n\n.button {\n    position: absolute;\n    box-sizing: border-box;\n    z-index: 1;\n    cursor: pointer;\n    background-color: rgba(0, 0, 0, .8);\n    height: 32px;\n    width: 32px;\n    border-radius: 3px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n\n    opacity: .5;\n    transition: opacity .15s ease-out;\n}\n\n.button:hover {\n    transition: none;\n    opacity: 1;\n}\n\n.back {\n    top: 8px;\n    left: 8px;\n    font-size: 24px;\n    padding-bottom: 5px;\n}\n\n.choose {\n    padding-bottom: 1px;\n    transform-origin: 50% 50%;\n}\n\n.vertical .choose {\n    top: 8px;\n    right: 8px;\n}\n\n.vertical .half:last-child .choose {\n    top: auto;\n    bottom: 8px;\n    transform: rotate(180deg);\n}\n\n.horizontal .choose {\n    left: 8px;\n    bottom: 8px;\n    transform: rotate(-90deg);\n}\n\n.horizontal .half:last-child .choose {\n    left: auto;\n    right: 8px;\n    transform: rotate(90deg);\n}\n\n.half:hover .choose {\n    transition: none;\n    opacity: 1;\n}\n\n.winner {\n    opacity: 1;\n    color: #6BC169;\n    transform: none !important;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 56 */
+/* 61 */
 /***/ (function(module, exports) {
 
 /*
@@ -23989,14 +24452,14 @@ module.exports = function() {
 
 
 /***/ }),
-/* 57 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var copy       = __webpack_require__(69)
-  , map        = __webpack_require__(77)
+var copy       = __webpack_require__(74)
+  , map        = __webpack_require__(82)
   , callable   = __webpack_require__(3)
   , validValue = __webpack_require__(1)
 
@@ -24027,7 +24490,7 @@ module.exports = function (props/*, bindTo*/) {
 
 
 /***/ }),
-/* 58 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -24037,7 +24500,7 @@ module.exports = function (props/*, bindTo*/) {
  * Expose `debug()` as the module.
  */
 
-exports = module.exports = __webpack_require__(59);
+exports = module.exports = __webpack_require__(64);
 exports.log = log;
 exports.formatArgs = formatArgs;
 exports.save = save;
@@ -24201,7 +24664,7 @@ function localstorage(){
 
 
 /***/ }),
-/* 59 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -24217,7 +24680,7 @@ exports.coerce = coerce;
 exports.disable = disable;
 exports.enable = enable;
 exports.enabled = enabled;
-exports.humanize = __webpack_require__(102);
+exports.humanize = __webpack_require__(107);
 
 /**
  * The currently active debug mode names, and names to skip.
@@ -24404,13 +24867,13 @@ function coerce(val) {
 
 
 /***/ }),
-/* 60 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var toPosInt = __webpack_require__(65)
+var toPosInt = __webpack_require__(70)
   , value    = __webpack_require__(1)
 
   , indexOf = Array.prototype.indexOf
@@ -24440,19 +24903,19 @@ module.exports = function (searchElement/*, fromIndex*/) {
 
 
 /***/ }),
-/* 61 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(62)()
+module.exports = __webpack_require__(67)()
 	? Math.sign
-	: __webpack_require__(63);
+	: __webpack_require__(68);
 
 
 /***/ }),
-/* 62 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24466,7 +24929,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 63 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24480,13 +24943,13 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 64 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var sign = __webpack_require__(61)
+var sign = __webpack_require__(66)
 
   , abs = Math.abs, floor = Math.floor;
 
@@ -24499,13 +24962,13 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 65 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var toInteger = __webpack_require__(64)
+var toInteger = __webpack_require__(69)
 
   , max = Math.max;
 
@@ -24513,7 +24976,7 @@ module.exports = function (value) { return max(0, toInteger(value)); };
 
 
 /***/ }),
-/* 66 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24549,7 +25012,7 @@ module.exports = function (method, defVal) {
 
 
 /***/ }),
-/* 67 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24565,13 +25028,13 @@ module.exports = function () {
 
 
 /***/ }),
-/* 68 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var keys  = __webpack_require__(74)
+var keys  = __webpack_require__(79)
   , value = __webpack_require__(1)
 
   , max = Math.max;
@@ -24594,7 +25057,7 @@ module.exports = function (dest, src/*, …srcn*/) {
 
 
 /***/ }),
-/* 69 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24611,7 +25074,7 @@ module.exports = function (obj) {
 
 
 /***/ }),
-/* 70 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24654,17 +25117,17 @@ module.exports = (function () {
 
 
 /***/ }),
-/* 71 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(66)('forEach');
+module.exports = __webpack_require__(71)('forEach');
 
 
 /***/ }),
-/* 72 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24676,7 +25139,7 @@ module.exports = function (obj) { return typeof obj === 'function'; };
 
 
 /***/ }),
-/* 73 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24690,19 +25153,19 @@ module.exports = function (x) {
 
 
 /***/ }),
-/* 74 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(75)()
+module.exports = __webpack_require__(80)()
 	? Object.keys
-	: __webpack_require__(76);
+	: __webpack_require__(81);
 
 
 /***/ }),
-/* 75 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24717,7 +25180,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 76 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24731,14 +25194,14 @@ module.exports = function (object) {
 
 
 /***/ }),
-/* 77 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var callable = __webpack_require__(3)
-  , forEach  = __webpack_require__(71)
+  , forEach  = __webpack_require__(76)
 
   , call = Function.prototype.call;
 
@@ -24753,7 +25216,7 @@ module.exports = function (obj, cb/*, thisArg*/) {
 
 
 /***/ }),
-/* 78 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24777,7 +25240,7 @@ module.exports = function (options/*, …options*/) {
 
 
 /***/ }),
-/* 79 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24793,7 +25256,7 @@ module.exports = function (arg/*, …args*/) {
 
 
 /***/ }),
-/* 80 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24808,7 +25271,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 81 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24822,7 +25285,7 @@ module.exports = function (searchString/*, position*/) {
 
 
 /***/ }),
-/* 82 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24859,7 +25322,7 @@ ArrayIterator.prototype = Object.create(Iterator.prototype, {
 
 
 /***/ }),
-/* 83 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24868,7 +25331,7 @@ ArrayIterator.prototype = Object.create(Iterator.prototype, {
 var isArguments = __webpack_require__(12)
   , callable    = __webpack_require__(3)
   , isString    = __webpack_require__(14)
-  , get         = __webpack_require__(84)
+  , get         = __webpack_require__(89)
 
   , isArray = Array.isArray, call = Function.prototype.call
   , some = Array.prototype.some;
@@ -24912,7 +25375,7 @@ module.exports = function (iterable, cb/*, thisArg*/) {
 
 
 /***/ }),
-/* 84 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24920,8 +25383,8 @@ module.exports = function (iterable, cb/*, thisArg*/) {
 
 var isArguments    = __webpack_require__(12)
   , isString       = __webpack_require__(14)
-  , ArrayIterator  = __webpack_require__(82)
-  , StringIterator = __webpack_require__(86)
+  , ArrayIterator  = __webpack_require__(87)
+  , StringIterator = __webpack_require__(91)
   , iterable       = __webpack_require__(26)
   , iteratorSymbol = __webpack_require__(6).iterator;
 
@@ -24934,7 +25397,7 @@ module.exports = function (obj) {
 
 
 /***/ }),
-/* 85 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24956,7 +25419,7 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 86 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25000,7 +25463,7 @@ StringIterator.prototype = Object.create(Iterator.prototype, {
 
 
 /***/ }),
-/* 87 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25039,7 +25502,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 88 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25055,18 +25518,18 @@ module.exports = (function () {
 
 
 /***/ }),
-/* 89 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(79)('key',
+module.exports = __webpack_require__(84)('key',
 	'value', 'key+value');
 
 
 /***/ }),
-/* 90 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25076,7 +25539,7 @@ var setPrototypeOf    = __webpack_require__(9)
   , d                 = __webpack_require__(2)
   , Iterator          = __webpack_require__(15)
   , toStringTagSymbol = __webpack_require__(6).toStringTag
-  , kinds             = __webpack_require__(89)
+  , kinds             = __webpack_require__(94)
 
   , defineProperties = Object.defineProperties
   , unBind = Iterator.prototype._unBind
@@ -25111,24 +25574,24 @@ Object.defineProperty(MapIterator.prototype, toStringTagSymbol,
 
 
 /***/ }),
-/* 91 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var clear          = __webpack_require__(22)
-  , eIndexOf       = __webpack_require__(60)
+  , eIndexOf       = __webpack_require__(65)
   , setPrototypeOf = __webpack_require__(9)
   , callable       = __webpack_require__(3)
   , validValue     = __webpack_require__(1)
   , d              = __webpack_require__(2)
-  , ee             = __webpack_require__(96)
+  , ee             = __webpack_require__(101)
   , Symbol         = __webpack_require__(6)
   , iterator       = __webpack_require__(26)
-  , forOf          = __webpack_require__(83)
-  , Iterator       = __webpack_require__(90)
-  , isNative       = __webpack_require__(88)
+  , forOf          = __webpack_require__(88)
+  , Iterator       = __webpack_require__(95)
+  , isNative       = __webpack_require__(93)
 
   , call = Function.prototype.call
   , defineProperties = Object.defineProperties, getPrototypeOf = Object.getPrototypeOf
@@ -25222,7 +25685,7 @@ Object.defineProperty(MapPoly.prototype, Symbol.toStringTag, d('c', 'Map'));
 
 
 /***/ }),
-/* 92 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25246,7 +25709,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 93 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25262,7 +25725,7 @@ module.exports = function (x) {
 
 
 /***/ }),
-/* 94 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25271,7 +25734,7 @@ module.exports = function (x) {
 
 
 var d              = __webpack_require__(2)
-  , validateSymbol = __webpack_require__(95)
+  , validateSymbol = __webpack_require__(100)
 
   , create = Object.create, defineProperties = Object.defineProperties
   , defineProperty = Object.defineProperty, objPrototype = Object.prototype
@@ -25387,13 +25850,13 @@ defineProperty(HiddenSymbol.prototype, SymbolPolyfill.toPrimitive,
 
 
 /***/ }),
-/* 95 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isSymbol = __webpack_require__(93);
+var isSymbol = __webpack_require__(98);
 
 module.exports = function (value) {
 	if (!isSymbol(value)) throw new TypeError(value + " is not a symbol");
@@ -25402,7 +25865,7 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 96 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25541,14 +26004,14 @@ exports.methods = methods;
 
 
 /***/ }),
-/* 97 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
  * Module dependencies
  */
 
-var debug = __webpack_require__(58)('jsonp');
+var debug = __webpack_require__(63)('jsonp');
 
 /**
  * Module exports.
@@ -25644,7 +26107,7 @@ function jsonp(url, opts, fn){
 
 
 /***/ }),
-/* 98 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
@@ -59256,10 +59719,10 @@ Kotlin.isCharSequence = function(value) {
 })();
 
 }));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(105)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(110)))
 
 /***/ }),
-/* 99 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -59701,7 +60164,7 @@ module.exports = kebabCase;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
-/* 100 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -62048,7 +62511,7 @@ module.exports = remove;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(36)(module)))
 
 /***/ }),
-/* 101 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -62951,7 +63414,7 @@ module.exports = uniq;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
-/* 102 */
+/* 107 */
 /***/ (function(module, exports) {
 
 /**
@@ -63082,7 +63545,7 @@ function plural(ms, n, name) {
 
 
 /***/ }),
-/* 103 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63179,13 +63642,13 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 104 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 // https://github.com/Matt-Esch/virtual-dom/blob/master/virtual-hyperscript/parse-tag.js
 
-var split = __webpack_require__(54)
+var split = __webpack_require__(59)
 
 var classIdSplit = /([\.#]?[a-zA-Z0-9\u007F-\uFFFF_:-]+)/
 var notClassId = /^\.|#/
@@ -63231,7 +63694,7 @@ module.exports = function parseSelector (selector, upper) {
 
 
 /***/ }),
-/* 105 */
+/* 110 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -63417,7 +63880,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 106 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63443,11 +63906,11 @@ exports.classNameFromVNode = classNameFromVNode;
 //# sourceMappingURL=classNameFromVNode.js.map
 
 /***/ }),
-/* 107 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var parseSelector = __webpack_require__(104)
+var parseSelector = __webpack_require__(109)
 var VOID_ELEMENTS = __webpack_require__(29).VOID
 var CONTAINER_ELEMENTS = __webpack_require__(29).CONTAINER
 
@@ -63523,7 +63986,7 @@ module.exports = function init (modules) {
 
 
 /***/ }),
-/* 108 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -63542,13 +64005,13 @@ module.exports = function attrsModule (vnode, attributes) {
 
 
 /***/ }),
-/* 109 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 var forOwn = __webpack_require__(10)
-var remove = __webpack_require__(100)
-var uniq = __webpack_require__(101)
+var remove = __webpack_require__(105)
+var uniq = __webpack_require__(106)
 
 // data.class
 
@@ -63579,20 +64042,20 @@ module.exports = function classModule (vnode, attributes) {
 
 
 /***/ }),
-/* 110 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 module.exports = {
-  class: __webpack_require__(109),
-  props: __webpack_require__(111),
-  attributes: __webpack_require__(108),
-  style: __webpack_require__(112)
+  class: __webpack_require__(114),
+  props: __webpack_require__(116),
+  attributes: __webpack_require__(113),
+  style: __webpack_require__(117)
 }
 
 
 /***/ }),
-/* 111 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -63652,14 +64115,14 @@ module.exports = function propsModule (vnode, attributes) {
 
 
 /***/ }),
-/* 112 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var assign = __webpack_require__(103)
+var assign = __webpack_require__(108)
 var forOwn = __webpack_require__(10)
 var escape = __webpack_require__(16)
-var kebabCase = __webpack_require__(99)
+var kebabCase = __webpack_require__(104)
 
 // data.style
 
@@ -63686,7 +64149,7 @@ module.exports = function styleModule (vnode, attributes) {
 
 
 /***/ }),
-/* 113 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63717,7 +64180,7 @@ exports.default = exports.classModule;
 //# sourceMappingURL=class.js.map
 
 /***/ }),
-/* 114 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63759,7 +64222,7 @@ exports.default = exports.datasetModule;
 //# sourceMappingURL=dataset.js.map
 
 /***/ }),
-/* 115 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64071,7 +64534,7 @@ exports.init = init;
 //# sourceMappingURL=snabbdom.js.map
 
 /***/ }),
-/* 116 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64121,7 +64584,7 @@ exports.default = toVNode;
 //# sourceMappingURL=tovnode.js.map
 
 /***/ }),
-/* 117 */
+/* 122 */
 /***/ (function(module, exports) {
 
 /*
@@ -64373,14 +64836,14 @@ function updateLink(linkElement, obj) {
 
 
 /***/ }),
-/* 118 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(119);
+module.exports = __webpack_require__(124);
 
 
 /***/ }),
-/* 119 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64390,7 +64853,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ponyfill = __webpack_require__(120);
+var _ponyfill = __webpack_require__(125);
 
 var _ponyfill2 = _interopRequireDefault(_ponyfill);
 
@@ -64416,7 +64879,7 @@ exports['default'] = result;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(36)(module)))
 
 /***/ }),
-/* 120 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64445,7 +64908,135 @@ function symbolObservablePonyfill(root) {
 };
 
 /***/ }),
-/* 121 */
+/* 126 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var index_1 = __webpack_require__(0);
+var empty = {};
+var DropRepeatsOperator = (function () {
+    function DropRepeatsOperator(ins, fn) {
+        this.ins = ins;
+        this.fn = fn;
+        this.type = 'dropRepeats';
+        this.out = null;
+        this.v = empty;
+    }
+    DropRepeatsOperator.prototype._start = function (out) {
+        this.out = out;
+        this.ins._add(this);
+    };
+    DropRepeatsOperator.prototype._stop = function () {
+        this.ins._remove(this);
+        this.out = null;
+        this.v = empty;
+    };
+    DropRepeatsOperator.prototype.isEq = function (x, y) {
+        return this.fn ? this.fn(x, y) : x === y;
+    };
+    DropRepeatsOperator.prototype._n = function (t) {
+        var u = this.out;
+        if (!u)
+            return;
+        var v = this.v;
+        if (v !== empty && this.isEq(t, v))
+            return;
+        this.v = t;
+        u._n(t);
+    };
+    DropRepeatsOperator.prototype._e = function (err) {
+        var u = this.out;
+        if (!u)
+            return;
+        u._e(err);
+    };
+    DropRepeatsOperator.prototype._c = function () {
+        var u = this.out;
+        if (!u)
+            return;
+        u._c();
+    };
+    return DropRepeatsOperator;
+}());
+exports.DropRepeatsOperator = DropRepeatsOperator;
+/**
+ * Drops consecutive duplicate values in a stream.
+ *
+ * Marble diagram:
+ *
+ * ```text
+ * --1--2--1--1--1--2--3--4--3--3|
+ *     dropRepeats
+ * --1--2--1--------2--3--4--3---|
+ * ```
+ *
+ * Example:
+ *
+ * ```js
+ * import dropRepeats from 'xstream/extra/dropRepeats'
+ *
+ * const stream = xs.of(1, 2, 1, 1, 1, 2, 3, 4, 3, 3)
+ *   .compose(dropRepeats())
+ *
+ * stream.addListener({
+ *   next: i => console.log(i),
+ *   error: err => console.error(err),
+ *   complete: () => console.log('completed')
+ * })
+ * ```
+ *
+ * ```text
+ * > 1
+ * > 2
+ * > 1
+ * > 2
+ * > 3
+ * > 4
+ * > 3
+ * > completed
+ * ```
+ *
+ * Example with a custom isEqual function:
+ *
+ * ```js
+ * import dropRepeats from 'xstream/extra/dropRepeats'
+ *
+ * const stream = xs.of('a', 'b', 'a', 'A', 'B', 'b')
+ *   .compose(dropRepeats((x, y) => x.toLowerCase() === y.toLowerCase()))
+ *
+ * stream.addListener({
+ *   next: i => console.log(i),
+ *   error: err => console.error(err),
+ *   complete: () => console.log('completed')
+ * })
+ * ```
+ *
+ * ```text
+ * > a
+ * > b
+ * > a
+ * > B
+ * > completed
+ * ```
+ *
+ * @param {Function} isEqual An optional function of type
+ * `(x: T, y: T) => boolean` that takes an event from the input stream and
+ * checks if it is equal to previous event, by returning a boolean.
+ * @return {Stream}
+ */
+function dropRepeats(isEqual) {
+    if (isEqual === void 0) { isEqual = void 0; }
+    return function dropRepeatsOperator(ins) {
+        return new index_1.Stream(new DropRepeatsOperator(ins, isEqual));
+    };
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = dropRepeats;
+//# sourceMappingURL=dropRepeats.js.map
+
+/***/ }),
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64541,7 +65132,7 @@ exports.default = pairwise;
 //# sourceMappingURL=pairwise.js.map
 
 /***/ }),
-/* 122 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64646,7 +65237,7 @@ exports.default = throttle;
 //# sourceMappingURL=throttle.js.map
 
 /***/ }),
-/* 123 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(38);
