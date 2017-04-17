@@ -65,7 +65,7 @@ h1 {
 
 .blackout:not(:hover) {
     background: rgba(0, 0, 0, 0.6);
-    transition: background 0.15s ease-out;
+    transition: background .15s ease-out;
 }
 
 .selected > .blackout {
@@ -194,8 +194,8 @@ a.ownerName:hover {
 .back {
     top: 8px;
     left: 8px;
-    font-size: 24px;
-    padding-bottom: 5px;
+    font-size: 48px;
+    padding-bottom: 9px;
 }
 
 .choose {
@@ -231,8 +231,87 @@ a.ownerName:hover {
     opacity: 1;
 }
 
-.winner {
+.ok {
     opacity: 1;
     color: #6BC169;
     transform: none !important;
+}
+
+.snd {
+    top: 8px;
+    left: 48px;
+}
+
+.view {
+    top: 8px;
+    left: 88px;
+    filter: grayscale(1);
+}
+
+.loading {
+    font-size: 32px;
+    padding-bottom: 4px;
+}
+
+.loading > span {
+    animation: spin 1s infinite;
+    padding-bottom: 4px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0) }
+    100% { transform: rotate(360deg) }
+}
+
+.paranja {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+    cursor: pointer;
+}
+
+.help {
+    width: 320px;
+    padding: 16px 24px;
+    font-weight: 400;
+    line-height: 1.4;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    color: #444;
+    z-index: 2;
+}
+
+.confirm {
+    display: block;
+    margin-top: 16px;
+    padding: 8px 32px;
+    cursor: pointer;
+    background-color: #5e81a8;
+    color: #fff;
+    border: 0;
+    border-radius: 3px;
+    font: inherit;
+}
+
+.close {
+    color: #fff;
+    font-size: 32px;
+    position: absolute;
+    top: -8px;
+    right: -32px;
+    opacity: 0.7;
+    transition: opacity .15s ease-out;
+    pointer-events: none;
+}
+
+.paranja:hover ~ .help > .close {
+    opacity: 1;
+    transition: none;
 }

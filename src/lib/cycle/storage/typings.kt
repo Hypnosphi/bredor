@@ -16,7 +16,7 @@ data class Save (override val key: String, val objValue: Any): StorageRequest {
 }
 
 external interface Storage {
-    fun getItem(key: String): MemoryStream<String>
+    fun getItem(key: String): MemoryStream<String?>
 }
 
 external interface ResponseCollection {

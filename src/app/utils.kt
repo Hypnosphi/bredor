@@ -3,7 +3,6 @@ package app
 import org.w3c.dom.url.URLSearchParams
 import kotlin.browser.window
 import kotlin.js.Math
-import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 import kotlin.reflect.KProperty1
 
@@ -116,4 +115,10 @@ fun randomPair(size: Int): Pair<Int, Int> {
     var b = random(size - 1)
     if (b >= a) b += 1
     return a to b
+}
+
+fun <K, V> Map<K, V>.toJs() = js {
+    forEach { (key, value) ->
+        this@js[key.toString()] = value
+    }
 }

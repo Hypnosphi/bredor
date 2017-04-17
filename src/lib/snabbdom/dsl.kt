@@ -158,7 +158,7 @@ fun h(handler: HBuilder.() -> Unit): Stream<List<VNode>> =
     }
 
 fun <T> h(stream: Stream<T>, handler: HBuilder.(T) -> Unit): Stream<List<VNode>> =
-    stream.flatMap {
+    stream.switchMap {
         h { handler(it) }
     }
 

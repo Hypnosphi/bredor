@@ -2,6 +2,7 @@ package app
 
 import kotlinx.html.*
 import lib.cycle.dom.clicks
+import lib.cycle.dom.cls
 import lib.cycle.dom.keyups
 import lib.cycle.storage.Save
 import lib.snabbdom.HBuilder
@@ -9,8 +10,10 @@ import lib.snabbdom.appDiv
 import lib.xstream.*
 import org.w3c.dom.Element
 import org.w3c.dom.Window
+import org.w3c.dom.events.Event
 import vk.*
 import kotlin.browser.window
+import kotlin.js.Date
 
 data class AlbumOwner(
     val uid: Int,
@@ -85,9 +88,26 @@ fun windowRect(w: Window) = RectImpl(795.0, w.innerHeight.toDouble())
 
 fun albumKey(id: Int) = "rankings_$id"
 
+const val helpKey = "help_seen"
+
 fun app(sources: AppSources) : AppSinks {
+//    sources.DOM.clicks().limitBandwidth(1000, 3).addListener {
+//        next = {
+//            console.log(Date().getTime())
+//        }
+//    }
+
+    sources.DOM
+        .select(".btn:not(.choose)")
+        .clicks()
+        .addListener {
+            next = {
+                it.stopPropagation()
+            }
+        }
+
     val selectOwner: Stream<Int> = sources.DOM
-        .select(".owner")
+        .cls("owner")
         .clicks()
         .map {
             val el = it.currentTarget as Element
@@ -98,7 +118,7 @@ fun app(sources: AppSources) : AppSinks {
     val scroll = sources.DOM.makeScroll()
 
     val albumOwners: Stream<List<AlbumOwner>> = sources.VK.me
-        .flatMap {
+        .switchMap {
             val me = listOf(it.asAlbumOwner())
             it.groups
                 .map {
@@ -110,7 +130,7 @@ fun app(sources: AppSources) : AppSinks {
         .debug("owners")
 
     val selectedOwner: Stream<AlbumOwner> = albumOwners
-        .flatMap { owners ->
+        .switchMap { owners ->
             selectOwner
                 .map { id ->
                     owners.find { it.uid == id }!!
@@ -121,7 +141,7 @@ fun app(sources: AppSources) : AppSinks {
         .debug("selected")
 
     val currentAlbumId: Stream<Int> = sources.DOM
-        .select(".album")
+        .cls("album")
         .clicks()
         .map {
             val el = it.currentTarget as Element
@@ -129,10 +149,10 @@ fun app(sources: AppSources) : AppSinks {
         }
 
     val currentAlbum: Stream<AlbumVM> = selectedOwner
-        .flatMap {
+        .switchMap {
             it.albums()
         }
-        .flatMap { albums ->
+        .switchMap { albums ->
             currentAlbumId
                 .map { id ->
                     albums.find { it.album.id == id }!!
@@ -140,15 +160,17 @@ fun app(sources: AppSources) : AppSinks {
         }
         .debug("album")
 
-    val selectPair: Stream<Pair<Photo, Photo>> = sources.VK.responses
-        .debug("resp")
+    val selectPair/*: Stream<Pair<Photo, Photo>>*/ = sources.VK.responses
+        .debug {
+            console.log("resp ${Date().getTime()} $it")
+        }
         .filter { it.category == "pair" }
         .map { it.stream }
         .toType<Stream<VKList<Photo>>>()
-        .pairwise()
-        .debug("pairwise")
-        .flatMap {
-            combine(it.first, it.second) { fst, snd ->
+        .couples()
+        .debug("zipped")
+        .switchMap {
+            combine(it.first.debug("fst"), it.second.debug("snd")) { fst, snd ->
                 fst.first() to snd.first()
             }
         }
@@ -156,42 +178,41 @@ fun app(sources: AppSources) : AppSinks {
 
     val currentPair = merge<Pair<Photo, Photo>?> (
         selectPair.toType(),
-        sources.DOM.select(".back").clicks().map {
-            it.preventDefault()
+        sources.DOM.cls("back").clicks().map {
             null
         }.toType(),
-        sources.DOM.keyups("Escape").map { null }.toType()
+        sources.DOM.cls("pair").keyups("Escape").map { null }.toType()
     ).startWith(null)
 
     val rankings: Stream<Ranking> = currentAlbum
-        .flatMap {
-            val id = it.album.id
-            sources.storage.local.getItem(albumKey(id))
-                .map { Ranking(id, it) }
+        .switchMap {
+            val album = it.album
+            sources.storage.local.getItem(albumKey(album.id))
+                .map { Ranking(album, it) }
         }
         .remember()
 
     val selectWinner: Stream<Pair<Int, Int>> = selectPair
-        .flatMap { (first, second) ->
+        .switchMap { (first, second) ->
             val firstWon = first.id to second.id
             val secondWon = second.id to first.id
             merge(
-                sources.DOM.select(".half").clicks().map {
+                sources.DOM.cls("half").clicks().map {
                     val el = it.currentTarget as Element
                     when (el.id.toInt()) {
                         first.id -> firstWon
                         else -> secondWon
                     }
                 },
-                sources.DOM.select(".vertical").keyups("ArrowUp").map { firstWon },
-                sources.DOM.select(".vertical").keyups("ArrowDown").map { secondWon },
-                sources.DOM.select(".horizontal").keyups("ArrowLeft").map { firstWon },
-                sources.DOM.select(".horizontal").keyups("ArrowRight").map { secondWon }
+                sources.DOM.cls("vertical").keyups("ArrowUp").map { firstWon },
+                sources.DOM.cls("vertical").keyups("ArrowDown").map { secondWon },
+                sources.DOM.cls("horizontal").keyups("ArrowLeft").map { firstWon },
+                sources.DOM.cls("horizontal").keyups("ArrowRight").map { secondWon }
             )
         }
 
     val selectedWinner: Stream<Int> = rankings
-        .flatMap { ranking ->
+        .switchMap { ranking ->
             selectWinner.map { (winner, loser) ->
                 ranking.pair(winner, loser)
                 winner
@@ -204,7 +225,80 @@ fun app(sources: AppSources) : AppSinks {
         currentPair.map { -1 }
     ).remember()
 
-    @Suppress("UNUSED_PARAMETER")
+    val pairRequests: Stream<VKReq<*>> = currentAlbum
+        .switchMap { (album) ->
+            selectWinner
+                .toNullable()
+                .startWith(null)
+                .switchMap {
+
+                    val (a, b) = randomPair(album.size)
+
+                    of(a, b)
+                        .map {
+                            VKReq.Photos.Get {
+                                owner_id = album.owner_id
+                                album_id = album.id
+                                offset = it
+                                count = 1
+                                category = "pair"
+                            }
+                        }
+                        .debug("req")
+                }
+        }.toType()
+
+    val sortAlbum: Stream<Event> = sources.DOM
+        .cls("sort")
+        .clicks()
+
+    val sortRequests: Stream<VKReq<*>> = rankings
+        .switchMap { ranking ->
+            sortAlbum.switchMap {
+                from(ranking.sort().toTypedArray())
+                    .map {
+                        VKReq.Photos.ReorderPhotos {
+                            owner_id = ranking.album.owner_id
+                            photo_id = it.key
+                            category = "sort"
+                            // place first
+                            before = it.key
+                        }
+                    }
+            }
+        }.toType()
+
+    val sortResponses: Stream<Int> = sources.VK
+        .select("sort")
+
+    val reqCount = merge(
+        sortRequests.map { 1 },
+        sortResponses.debug("sortResp").map { -1 }
+    ).fold(0) { a, b -> a + b }.debug("reqCount")
+
+    val complete = rankings
+        .toNullable()
+        .startWith(null)
+        .switchMap {
+            reqCount
+                .drop(1)
+                .filter { it == 0 }
+                .map { true }
+                .startWith(false)
+        }
+        .remember()
+        .debug("complete")
+
+    val showHelp: Stream<Boolean> = sources.storage.local
+        .getItem(helpKey)
+        .map { it !== "true" }
+
+    val hideHelp = merge(
+        sources.DOM.cls("paranja").clicks(),
+        sources.DOM.cls("confirm").clicks(),
+        sources.DOM.cls("dialog").keyups("Enter")
+    )
+
     return AppSinks(
         DOM = appDiv("app") {
             currentPair {
@@ -236,6 +330,28 @@ fun app(sources: AppSources) : AppSinks {
                         }
                     }
                 } else {
+                    showHelp {
+                        div("dialog") {
+                            tabIndex = "0"
+
+                            if(!it) {
+                                css {
+                                    display = "none"
+                                }
+                            }
+
+                            div("paranja")
+                            div("help") {
+                                +"Выбирайте более удачное фото кликом по нему или стрелочкой клавиатуры. Когда надоест или просто решите, что достаточно, нажмите кнопку ✓. Это запустит сортировку фотографий в альбоме по рассчитанному рейтингу."
+                                button(type = ButtonType.button, classes = "confirm") {
+                                    +"Ладно"
+                                }
+                                span("close") {
+                                    +"×"
+                                }
+                            }
+                        }
+                    }
                     of(windowRect(window)).invoke { rect ->
                         val list = it.toList();
 
@@ -260,8 +376,35 @@ fun app(sources: AppSources) : AppSinks {
                             classes += if (horizontal) "horizontal" else "vertical"
 
                             div("button back") {
-                                +"×"
+                                +"‹"
+                                title = "Назад"
                             }
+
+                            combine(reqCount, complete).invoke {
+                                val count: Int = it[0]
+                                val ok: Boolean = it[1]
+                                div("button snd") {
+                                    if (count > 0) {
+                                        classes += "loading"
+                                        span {
+                                            +"◌"
+                                        }
+                                    } else {
+                                        classes += "sort"
+                                        if (ok) {
+                                            classes += "ok"
+                                        }
+                                        +"✓"
+                                    }
+                                    title = "Запустить сортировку"
+                                }
+                            }
+
+                            a(list.first().albumUrl, "_blank", "button view") {
+                                title = "Перейти к альбому"
+                                +"👁"
+                            }
+
                             list.forEach {
                                 div("half") {
                                     id = it.id.toString()
@@ -271,10 +414,11 @@ fun app(sources: AppSources) : AppSinks {
                                     justSelected { winner ->
                                         div("button choose") {
                                             if (winner == it.id) {
-                                                classes += "winner"
+                                                classes += "ok"
                                                 +"✓"
                                             } else {
                                                 +"▲"
+                                                title = "Выберите это фото кликом по нему или стрелочкой клавиатуры"
                                             }
                                         }
                                     }
@@ -285,32 +429,16 @@ fun app(sources: AppSources) : AppSinks {
                 }
             }
         }.debug("vtree"),
-        VK = currentAlbum
-            .flatMap { (album) ->
-                selectWinner
-                    .toNullable()
-                    .startWith(null)
-                    .flatMap {
-
-                        val (a, b) = randomPair(album.size)
-
-                        of(a, b)
-                            .map {
-                                VKReq.Photos.Get {
-                                    owner_id = album.owner_id
-                                    album_id = album.id
-                                    offset = it
-                                    count = 1
-                                    category = "pair"
-                                }
-                            }
-                            .debug("req")
-                    }
-            }.toType(),
-        storage = rankings.flatMap { ranking ->
-            selectedWinner.map {
-                Save(albumKey(ranking.albumId), ranking.serialize())
+        VK = merge(pairRequests, sortRequests),
+        storage = merge(
+            rankings.switchMap { ranking ->
+                selectedWinner.map {
+                    Save(albumKey(ranking.album.id), ranking.serialize())
+                }
+            },
+            hideHelp.map {
+                Save(helpKey, "true")
             }
-        }.debug("save").toType()
+        ).debug("save").toType()
     )
 }

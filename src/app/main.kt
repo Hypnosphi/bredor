@@ -1,12 +1,9 @@
 package app
 
-import lib.cycle.DriversDefinition
-import lib.cycle.Sinks
-import lib.cycle.Sources
+import lib.cycle.*
 import lib.cycle.dom.DOMDriverOptions
 import lib.cycle.dom.DOMSource
 import lib.cycle.dom.makeDOMDriver
-import lib.cycle.run
 import lib.cycle.storage.ResponseCollection
 import lib.cycle.storage.StorageRequest
 import lib.cycle.storage.storageDriver
@@ -16,9 +13,11 @@ import lib.snabbdom.PropsModule
 import lib.snabbdom.StyleModule
 import lib.snabbdom.VNode
 import lib.xstream.Stream
+import lib.xstream.addListener
 import vk.VKDriver
 import vk.VKReq
 import vk.VKSource
+import kotlin.browser.window
 
 class AppDrivers(selector: String) : DriversDefinition {
     val DOM = makeDOMDriver(selector, DOMDriverOptions(PropsModule, AttrsModule, StyleModule, PaverModule))

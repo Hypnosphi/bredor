@@ -82,6 +82,8 @@ external interface Album : VKStruct {
 }
 data class AlbumVM(val album: Album) : VKStructVM<Album>
 
+val Album.url get() = "https://vk.com/album${owner_id}_$id"
+
 external interface Photo : VKStruct, Rect {
     val id: Int
     val album_id: Int
@@ -96,6 +98,8 @@ external interface Photo : VKStruct, Rect {
     val photo_1280: String?
     val photo_2560: String?
 }
+
+val Photo.albumUrl get() = "https://vk.com/album${owner_id}_${album_id}"
 
 fun Photo.getForRect(rect: Rect): String = when {
     rect.height > 1080.0 || rect.width > 1024.0 && photo_2560 != null -> photo_2560!!

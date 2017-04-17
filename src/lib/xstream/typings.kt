@@ -13,6 +13,7 @@ external interface Producer<T> {
 
 external interface Stream<T> {
     fun addListener(listener: Listener<T>)
+    fun removeListener(listener: Listener<T>)
 
     fun <U> map(project: (T) -> U): Stream<U>
     @JsName("map")
@@ -28,6 +29,11 @@ external interface Stream<T> {
     fun remember(): MemoryStream<T>
 
     fun <R> fold(accumulate: (acc: R, t: T) -> R, seed: R): MemoryStream<R>
+
+    fun take(count: Int): Stream<T>
+    fun drop(count: Int): Stream<T>
+
+    fun shamefullySendNext(value: T)
 }
 
 external interface MetaStream<T> : Stream<Stream<T>> {
@@ -37,3 +43,9 @@ external interface MetaStream<T> : Stream<Stream<T>> {
 external interface MemoryStream<T> : Stream<T>
 
 typealias Operator<T, R> = (Stream<T>) -> Stream<R>
+
+external interface FromDiagramOptions {
+    var values: dynamic
+    var errorValue: Throwable
+    var timeUnit: Int
+}

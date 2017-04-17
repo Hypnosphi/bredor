@@ -9,3 +9,5 @@ fun DOMSource.keyups(key: String) = events("keyup")
         val e = it as KeyboardEvent
         e.key === key
     }
+
+fun DOMSource.cls(name: String) = select(".$name")

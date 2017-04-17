@@ -80,6 +80,15 @@ sealed class VKReq<T>(val ns: String, val method: String) {
             var offset by params.Integer()
             var count by params.Integer()
         }
+
+        class ReorderPhotos: Photos<Int>("reorderPhotos") {
+            companion object : Builder<ReorderPhotos>
+
+            var owner_id by params.Integer()
+            var photo_id by params.Integer()
+            var before by params.Integer()
+            var after by params.Integer()
+        }
     }
 
     abstract class Groups<T>(method: String): VKReq<T>("groups", method) {

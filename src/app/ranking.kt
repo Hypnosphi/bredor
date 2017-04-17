@@ -1,8 +1,9 @@
 package app
 
+import vk.Album
 import kotlin.js.Math
 
-class Ranking(val albumId: Int, serialized: String?) {
+class Ranking(val album: Album, serialized: String?) {
     val map = HashMap<Int, Double>()
 
     init {
@@ -34,4 +35,8 @@ class Ranking(val albumId: Int, serialized: String?) {
         map[loser] = r2 - d
     }
 
+    val size: Int get() = map.size
+
+    fun sort(): List<Map.Entry<Int, Double>> = map.entries
+        .sortedBy { it.value }
 }

@@ -1,10 +1,7 @@
 package vk
 
 import lib.cycle.DriverFunction
-import lib.xstream.Stream
-import lib.xstream.addListener
-import lib.xstream.flatMap
-import lib.xstream.toType
+import lib.xstream.*
 
 data class ResponseStream<T>(
     val category: String?,
@@ -26,16 +23,17 @@ fun <T> VKSource.select(category: String) : Stream<T> =
         }
 
 
-@Suppress("UNUSED_PARAMETER")
-val VKDriver : DriverFunction<VKReq<*>, VKSource> = { sink, name ->
-    val responses = sink.map {
-        ResponseStream(
-            it.category,
-            it.response().apply {
-                addListener()
-            }
-        )
-    }
+val VKDriver : DriverFunction<VKReq<*>, VKSource> = {
+    val responses = it
+        .limitBandwidth(1000, 3)
+        .map {
+            ResponseStream(
+                it.category,
+                it.response().remember().apply {
+                    addListener()
+                }
+            )
+        }
     responses.addListener()
     VKSource(
         responses,
