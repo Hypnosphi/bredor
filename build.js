@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 129);
+/******/ 	return __webpack_require__(__webpack_require__.s = 132);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -4004,7 +4004,7 @@ if(false) {
 /* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-(function (_, Kotlin, $module$xstream, $module$_cycle_dom, $module$_cycle_storage, $module$_cycle_run, $module$snabbdom_modules_props, $module$snabbdom_modules_attributes, $module$snabbdom_modules_style, $module$jsonp, $module$xstream_extra_throttle, $module$xstream_extra_pairwise) {
+(function (_, Kotlin, $module$xstream, $module$_cycle_dom, $module$_cycle_storage, $module$_cycle_run, $module$snabbdom_modules_props, $module$snabbdom_modules_attributes, $module$snabbdom_modules_style, $module$jsonp, $module$xstream_extra_throttle, $module$xstream_extra_pairwise, $module$xstream_extra_flattenSequentially, $module$xstream_extra_flattenConcurrently, $module$xstream_extra_delay) {
   'use strict';
   var plus = Kotlin.kotlin.collections.plus_xfiyik$;
   var toInt = Kotlin.kotlin.text.toInt_pdl1vz$;
@@ -4343,6 +4343,8 @@ if(false) {
   VKReq$Photos$GetAlbums.prototype.constructor = VKReq$Photos$GetAlbums;
   VKReq$Photos$Get.prototype = Object.create(VKReq$Photos.prototype);
   VKReq$Photos$Get.prototype.constructor = VKReq$Photos$Get;
+  VKReq$Photos$ReorderPhotos.prototype = Object.create(VKReq$Photos.prototype);
+  VKReq$Photos$ReorderPhotos.prototype.constructor = VKReq$Photos$ReorderPhotos;
   VKReq$Groups.prototype = Object.create(VKReq.prototype);
   VKReq$Groups.prototype.constructor = VKReq$Groups;
   VKReq$Groups$Get.prototype = Object.create(VKReq$Groups.prototype);
@@ -4573,12 +4575,19 @@ if(false) {
   function albumKey(id) {
     return 'rankings_' + id;
   }
-  function app$lambda(it) {
+  var helpKey;
+  function app$lambda$lambda(it) {
+    it.stopPropagation();
+  }
+  function app$lambda($receiver_17) {
+    $receiver_17.next = app$lambda$lambda;
+  }
+  function app$lambda_0(it) {
     var tmp$_17;
     var el = Kotlin.isType(tmp$_17 = it.currentTarget, Element) ? tmp$_17 : Kotlin.throwCCE();
     return toInt(el.id);
   }
-  function app$lambda$lambda(closure$me) {
+  function app$lambda$lambda_0(closure$me) {
     return function (it) {
       var tmp$_17 = closure$me;
       var destination_17 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$(Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$(it, 10));
@@ -4591,11 +4600,11 @@ if(false) {
       return plus_0(tmp$_17, destination_17);
     };
   }
-  function app$lambda_0(it) {
+  function app$lambda_1(it) {
     var me = listOf(asAlbumOwner(it));
-    return it.groups.map(app$lambda$lambda(me)).startWith(me);
+    return it.groups.map(app$lambda$lambda_0(me)).startWith(me);
   }
-  function app$lambda$lambda_0(closure$owners) {
+  function app$lambda$lambda_1(closure$owners) {
     return function (id) {
       var tmp$_17;
       var $receiver_17 = closure$owners;
@@ -4615,20 +4624,20 @@ if(false) {
       return (tmp$_17 = firstOrNull_6jwkkr$result) != null ? tmp$_17 : Kotlin.throwNPE();
     };
   }
-  function app$lambda_1(closure$selectOwner) {
+  function app$lambda_2(closure$selectOwner) {
     return function (owners) {
-      return closure$selectOwner.map(app$lambda$lambda_0(owners)).startWith(first(owners));
+      return closure$selectOwner.map(app$lambda$lambda_1(owners)).startWith(first(owners));
     };
   }
-  function app$lambda_2(it) {
+  function app$lambda_3(it) {
     var tmp$_17;
     var el = Kotlin.isType(tmp$_17 = it.currentTarget, Element) ? tmp$_17 : Kotlin.throwCCE();
     return toInt(el.id);
   }
-  function app$lambda_3(it) {
+  function app$lambda_4(it) {
     return it.albums();
   }
-  function app$lambda$lambda_1(closure$albums) {
+  function app$lambda$lambda_2(closure$albums) {
     return function (id) {
       var tmp$_17;
       var $receiver_17 = closure$albums;
@@ -4648,42 +4657,44 @@ if(false) {
       return (tmp$_17 = firstOrNull_6jwkkr$result) != null ? tmp$_17 : Kotlin.throwNPE();
     };
   }
-  function app$lambda_4(closure$currentAlbumId) {
+  function app$lambda_5(closure$currentAlbumId) {
     return function (albums) {
-      return closure$currentAlbumId.map(app$lambda$lambda_1(albums));
+      return closure$currentAlbumId.map(app$lambda$lambda_2(albums));
     };
-  }
-  function app$lambda_5(it) {
-    return Kotlin.equals(it.category, 'pair');
   }
   function app$lambda_6(it) {
-    return it.stream;
-  }
-  function app$lambda$lambda_2(fst, snd) {
-    return to(first_0(fst), first_0(snd));
+    console.log('resp ' + (new Date()).getTime() + ' ' + it);
   }
   function app$lambda_7(it) {
-    return combine_0(it.first, it.second, app$lambda$lambda_2);
+    return Kotlin.equals(it.category, 'pair');
   }
   function app$lambda_8(it) {
-    it.preventDefault();
-    return null;
+    return it.stream;
+  }
+  function app$lambda$lambda_3(fst, snd) {
+    return to(first_0(fst), first_0(snd));
   }
   function app$lambda_9(it) {
+    return combine_0(it.first.debug('fst'), it.second.debug('snd'), app$lambda$lambda_3);
+  }
+  function app$lambda_10(it) {
     return null;
   }
-  function app$lambda$lambda_3(closure$id) {
+  function app$lambda_11(it) {
+    return null;
+  }
+  function app$lambda$lambda_4(closure$album) {
     return function (it) {
-      return new Ranking(closure$id, it);
+      return new Ranking(closure$album, it);
     };
   }
-  function app$lambda_10(closure$sources) {
+  function app$lambda_12(closure$sources) {
     return function (it) {
-      var id = it.album.id;
-      return closure$sources.storage.local.getItem(albumKey(id)).map(app$lambda$lambda_3(id));
+      var album_0 = it.album;
+      return closure$sources.storage.local.getItem(albumKey(album_0.id)).map(app$lambda$lambda_4(album_0));
     };
   }
-  function app$lambda$lambda_4(closure$firstWon, closure$first, closure$secondWon) {
+  function app$lambda$lambda_5(closure$firstWon, closure$first, closure$secondWon) {
     return function (it) {
       var tmp$_17;
       var el = Kotlin.isType(tmp$_17 = it.currentTarget, Element) ? tmp$_17 : Kotlin.throwCCE();
@@ -4693,36 +4704,36 @@ if(false) {
         return closure$secondWon;
     };
   }
-  function app$lambda$lambda_5(closure$firstWon) {
+  function app$lambda$lambda_6(closure$firstWon) {
     return function (it) {
       return closure$firstWon;
     };
   }
-  function app$lambda$lambda_6(closure$secondWon) {
+  function app$lambda$lambda_7(closure$secondWon) {
     return function (it) {
       return closure$secondWon;
     };
   }
-  function app$lambda$lambda_7(closure$firstWon) {
+  function app$lambda$lambda_8(closure$firstWon) {
     return function (it) {
       return closure$firstWon;
     };
   }
-  function app$lambda$lambda_8(closure$secondWon) {
+  function app$lambda$lambda_9(closure$secondWon) {
     return function (it) {
       return closure$secondWon;
     };
   }
-  function app$lambda_11(closure$sources) {
+  function app$lambda_13(closure$sources) {
     return function (f) {
       var first_2 = f.component1()
       , second = f.component2();
       var firstWon = to(first_2.id, second.id);
       var secondWon = to(second.id, first_2.id);
-      return $module$xstream.default.merge(clicks(closure$sources.DOM.select('.half')).map(app$lambda$lambda_4(firstWon, first_2, secondWon)), keyups(closure$sources.DOM.select('.vertical'), 'ArrowUp').map(app$lambda$lambda_5(firstWon)), keyups(closure$sources.DOM.select('.vertical'), 'ArrowDown').map(app$lambda$lambda_6(secondWon)), keyups(closure$sources.DOM.select('.horizontal'), 'ArrowLeft').map(app$lambda$lambda_7(firstWon)), keyups(closure$sources.DOM.select('.horizontal'), 'ArrowRight').map(app$lambda$lambda_8(secondWon)));
+      return $module$xstream.default.merge(clicks(cls(closure$sources.DOM, 'half')).map(app$lambda$lambda_5(firstWon, first_2, secondWon)), keyups(cls(closure$sources.DOM, 'vertical'), 'ArrowUp').map(app$lambda$lambda_6(firstWon)), keyups(cls(closure$sources.DOM, 'vertical'), 'ArrowDown').map(app$lambda$lambda_7(secondWon)), keyups(cls(closure$sources.DOM, 'horizontal'), 'ArrowLeft').map(app$lambda$lambda_8(firstWon)), keyups(cls(closure$sources.DOM, 'horizontal'), 'ArrowRight').map(app$lambda$lambda_9(secondWon)));
     };
   }
-  function app$lambda$lambda_9(closure$ranking) {
+  function app$lambda$lambda_10(closure$ranking) {
     return function (f) {
       var winner = f.component1()
       , loser = f.component2();
@@ -4730,18 +4741,92 @@ if(false) {
       return winner;
     };
   }
-  function app$lambda_12(closure$selectWinner) {
+  function app$lambda_14(closure$selectWinner) {
     return function (ranking) {
-      return closure$selectWinner.map(app$lambda$lambda_9(ranking));
+      return closure$selectWinner.map(app$lambda$lambda_10(ranking));
     };
   }
-  function app$lambda_13(it) {
+  function app$lambda_15(it) {
     return it.first;
   }
-  function app$lambda_14(it) {
+  function app$lambda_16(it) {
     return -1;
   }
-  function app$lambda$lambda$lambda($receiver_17) {
+  function app$lambda$lambda$lambda(closure$album) {
+    return function (it) {
+      VKReq$Photos$Get$Companion_getInstance();
+      var ctor = Kotlin.kotlin.js.get_js_1yb8b7$(Kotlin.getKClass(VKReq$Photos$Get));
+      var $receiver_17 = new ctor();
+      var closure$album_0 = closure$album;
+      $receiver_17.owner_id = closure$album_0.owner_id;
+      $receiver_17.album_id = closure$album_0.id;
+      $receiver_17.offset = it;
+      $receiver_17.count = 1;
+      $receiver_17.category = 'pair';
+      return $receiver_17;
+    };
+  }
+  function app$lambda$lambda_11(closure$album) {
+    return function (it) {
+      var tmp$_17 = randomPair(closure$album.size)
+      , a_2 = tmp$_17.component1()
+      , b_2 = tmp$_17.component2();
+      return $module$xstream.default.of(a_2, b_2).map(app$lambda$lambda$lambda(closure$album)).debug('req');
+    };
+  }
+  function app$lambda_17(closure$selectWinner) {
+    return function (f) {
+      var album_0 = f.component1();
+      return switchMap(toNullable(closure$selectWinner).startWith(null), app$lambda$lambda_11(album_0));
+    };
+  }
+  function app$lambda$lambda$lambda_0(closure$ranking) {
+    return function (it) {
+      VKReq$Photos$ReorderPhotos$Companion_getInstance();
+      var ctor = Kotlin.kotlin.js.get_js_1yb8b7$(Kotlin.getKClass(VKReq$Photos$ReorderPhotos));
+      var $receiver_17 = new ctor();
+      $receiver_17.owner_id = closure$ranking.album.owner_id;
+      $receiver_17.photo_id = it.key;
+      $receiver_17.category = 'sort';
+      $receiver_17.before = it.key;
+      return $receiver_17;
+    };
+  }
+  function app$lambda$lambda_12(closure$ranking) {
+    return function (it) {
+      var $receiver_17 = closure$ranking.sort();
+      return $module$xstream.default.from(Kotlin.kotlin.collections.copyToArray($receiver_17)).map(app$lambda$lambda$lambda_0(closure$ranking));
+    };
+  }
+  function app$lambda_18(closure$sortAlbum) {
+    return function (ranking) {
+      return switchMap(closure$sortAlbum, app$lambda$lambda_12(ranking));
+    };
+  }
+  function app$lambda_19(it) {
+    return 1;
+  }
+  function app$lambda_20(it) {
+    return -1;
+  }
+  function app$lambda_21(a_2, b_2) {
+    return a_2 + b_2 | 0;
+  }
+  function app$lambda$lambda_13(it) {
+    return it === 0;
+  }
+  function app$lambda$lambda_14(it) {
+    return true;
+  }
+  function app$lambda_22(closure$reqCount) {
+    return function (it) {
+      return closure$reqCount.drop(1).filter(app$lambda$lambda_13).map(app$lambda$lambda_14).startWith(false);
+    };
+  }
+  function app$lambda_23(it) {
+    return it !== 'true';
+  }
+  function app$lambda$lambda$lambda_1($receiver_17) {
     $receiver_17.unaryPlus_pdl1vz$('\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0430\u043B\u044C\u0431\u043E\u043C, \u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u0445\u043E\u0442\u0438\u0442\u0435 \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C');
   }
   function app$lambda$lambda$lambda$lambda$lambda$lambda(closure$owners, closure$selected) {
@@ -4790,10 +4875,37 @@ if(false) {
       closure$scroll($receiver_17, 'albums', app$lambda$lambda$lambda$lambda$lambda_0(selected));
     };
   }
-  function app$lambda$lambda$lambda_0(closure$selectedOwner, closure$albumOwners, closure$scroll, this$) {
+  function app$lambda$lambda$lambda_2(closure$selectedOwner, closure$albumOwners, closure$scroll, this$) {
     return function ($receiver_17) {
       this$.invoke_p3d1op$(closure$selectedOwner, app$lambda$lambda$lambda$lambda(closure$albumOwners, closure$scroll));
     };
+  }
+  function app$lambda$lambda$lambda$lambda$lambda_1($receiver_17) {
+    $receiver_17.display = 'none';
+  }
+  function app$lambda$lambda$lambda$lambda$lambda$lambda_1($receiver_17) {
+    $receiver_17.unaryPlus_pdl1vz$('\u041B\u0430\u0434\u043D\u043E');
+  }
+  function app$lambda$lambda$lambda$lambda$lambda$lambda_2($receiver_17) {
+    $receiver_17.unaryPlus_pdl1vz$('\xD7');
+  }
+  function app$lambda$lambda$lambda$lambda$lambda_2($receiver_17) {
+    $receiver_17.unaryPlus_pdl1vz$('\u0412\u044B\u0431\u0438\u0440\u0430\u0439\u0442\u0435 \u0431\u043E\u043B\u0435\u0435 \u0443\u0434\u0430\u0447\u043D\u043E\u0435 \u0444\u043E\u0442\u043E \u043A\u043B\u0438\u043A\u043E\u043C \u043F\u043E \u043D\u0435\u043C\u0443 \u0438\u043B\u0438 \u0441\u0442\u0440\u0435\u043B\u043E\u0447\u043A\u043E\u0439 \u043A\u043B\u0430\u0432\u0438\u0430\u0442\u0443\u0440\u044B. \u041A\u043E\u0433\u0434\u0430 \u043D\u0430\u0434\u043E\u0435\u0441\u0442 \u0438\u043B\u0438 \u043F\u0440\u043E\u0441\u0442\u043E \u0440\u0435\u0448\u0438\u0442\u0435, \u0447\u0442\u043E \u0434\u043E\u0441\u0442\u0430\u0442\u043E\u0447\u043D\u043E, \u043D\u0430\u0436\u043C\u0438\u0442\u0435 \u043A\u043D\u043E\u043F\u043A\u0443 \u2713. \u042D\u0442\u043E \u0437\u0430\u043F\u0443\u0441\u0442\u0438\u0442 \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0443 \u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u0439 \u0432 \u0430\u043B\u044C\u0431\u043E\u043C\u0435 \u043F\u043E \u0440\u0430\u0441\u0441\u0447\u0438\u0442\u0430\u043D\u043D\u043E\u043C\u0443 \u0440\u0435\u0439\u0442\u0438\u043D\u0433\u0443.');
+    button($receiver_17, void 0, void 0, ButtonType$button_getInstance(), 'confirm', app$lambda$lambda$lambda$lambda$lambda$lambda_1);
+    span($receiver_17, 'close', app$lambda$lambda$lambda$lambda$lambda$lambda_2);
+  }
+  function app$lambda$lambda$lambda$lambda_0(closure$it, this$) {
+    return function ($receiver_17) {
+      set_tabIndex($receiver_17, '0');
+      if (!closure$it) {
+        this$.css_5ij4lk$(app$lambda$lambda$lambda$lambda$lambda_1);
+      }
+      div($receiver_17, 'paranja');
+      div($receiver_17, 'help', app$lambda$lambda$lambda$lambda$lambda_2);
+    };
+  }
+  function app$lambda$lambda$lambda_3($receiver_17, it) {
+    div_0($receiver_17, 'dialog', app$lambda$lambda$lambda$lambda_0(it, $receiver_17));
   }
   function app$lambda$lambda$lambda$makeFit$lambda(closure$cont) {
     return function (img_2) {
@@ -4808,49 +4920,81 @@ if(false) {
   function app$lambda$lambda$lambda$makeFit(cont) {
     return app$lambda$lambda$lambda$makeFit$lambda(cont);
   }
-  function app$lambda$lambda$lambda$lambda$lambda_1($receiver_17) {
-    $receiver_17.unaryPlus_pdl1vz$('\xD7');
+  function app$lambda$lambda$lambda$lambda$lambda_3($receiver_17) {
+    $receiver_17.unaryPlus_pdl1vz$('\u2039');
+    set_title($receiver_17, '\u041D\u0430\u0437\u0430\u0434');
+  }
+  function app$lambda$lambda$lambda$lambda$lambda$lambda$lambda_0($receiver_17) {
+    $receiver_17.unaryPlus_pdl1vz$('\u25CC');
+  }
+  function app$lambda$lambda$lambda$lambda$lambda$lambda_3(closure$count, closure$ok) {
+    return function ($receiver_17) {
+      if (closure$count > 0) {
+        set_classes($receiver_17, plus(get_classes($receiver_17), 'loading'));
+        span($receiver_17, void 0, app$lambda$lambda$lambda$lambda$lambda$lambda$lambda_0);
+      }
+       else {
+        set_classes($receiver_17, plus(get_classes($receiver_17), 'sort'));
+        if (closure$ok) {
+          set_classes($receiver_17, plus(get_classes($receiver_17), 'ok'));
+        }
+        $receiver_17.unaryPlus_pdl1vz$('\u2713');
+      }
+      set_title($receiver_17, '\u0417\u0430\u043F\u0443\u0441\u0442\u0438\u0442\u044C \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0443');
+    };
+  }
+  function app$lambda$lambda$lambda$lambda$lambda_4($receiver_17, it) {
+    var count = it[0];
+    var ok = it[1];
+    div_0($receiver_17, 'button snd', app$lambda$lambda$lambda$lambda$lambda$lambda_3(count, ok));
+  }
+  function app$lambda$lambda$lambda$lambda$lambda_5($receiver_17) {
+    set_title($receiver_17, '\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u043A \u0430\u043B\u044C\u0431\u043E\u043C\u0443');
+    $receiver_17.unaryPlus_pdl1vz$('\uD83D\uDC41');
   }
   function app$lambda$lambda$lambda$lambda$lambda$lambda$lambda$lambda(closure$winner, closure$it) {
     return function ($receiver_17) {
       if (closure$winner === closure$it.id) {
-        set_classes($receiver_17, plus(get_classes($receiver_17), 'winner'));
+        set_classes($receiver_17, plus(get_classes($receiver_17), 'ok'));
         $receiver_17.unaryPlus_pdl1vz$('\u2713');
       }
        else {
         $receiver_17.unaryPlus_pdl1vz$('\u25B2');
+        set_title($receiver_17, '\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u044D\u0442\u043E \u0444\u043E\u0442\u043E \u043A\u043B\u0438\u043A\u043E\u043C \u043F\u043E \u043D\u0435\u043C\u0443 \u0438\u043B\u0438 \u0441\u0442\u0440\u0435\u043B\u043E\u0447\u043A\u043E\u0439 \u043A\u043B\u0430\u0432\u0438\u0430\u0442\u0443\u0440\u044B');
       }
     };
   }
-  function app$lambda$lambda$lambda$lambda$lambda$lambda$lambda_0(closure$it) {
+  function app$lambda$lambda$lambda$lambda$lambda$lambda$lambda_1(closure$it) {
     return function ($receiver_17, winner) {
       div_0($receiver_17, 'button choose', app$lambda$lambda$lambda$lambda$lambda$lambda$lambda$lambda(winner, closure$it));
     };
   }
-  function app$lambda$lambda$lambda$lambda$lambda$lambda_1(closure$it, this$, closure$fit, closure$justSelected) {
+  function app$lambda$lambda$lambda$lambda$lambda$lambda_4(closure$it, this$, closure$fit, closure$justSelected) {
     return function ($receiver_17) {
       set_id($receiver_17, closure$it.id.toString());
       this$.key = closure$it.id;
       img($receiver_17, closure$it.text, closure$it.photo_75, 'photoBg');
       img($receiver_17, closure$it.text, getForRect(closure$it, closure$fit(closure$it)), 'photo');
-      this$.invoke_p3d1op$(closure$justSelected, app$lambda$lambda$lambda$lambda$lambda$lambda$lambda_0(closure$it));
+      this$.invoke_p3d1op$(closure$justSelected, app$lambda$lambda$lambda$lambda$lambda$lambda$lambda_1(closure$it));
     };
   }
-  function app$lambda$lambda$lambda$lambda_0(closure$horizontal, closure$list, this$, closure$fit, closure$justSelected) {
+  function app$lambda$lambda$lambda$lambda_1(closure$horizontal, closure$reqCount, closure$complete, this$, closure$list, closure$fit, closure$justSelected) {
     return function ($receiver_17) {
       set_tabIndex($receiver_17, '0');
       set_classes($receiver_17, plus(get_classes($receiver_17), closure$horizontal ? 'horizontal' : 'vertical'));
-      div($receiver_17, 'button back', app$lambda$lambda$lambda$lambda$lambda_1);
+      div($receiver_17, 'button back', app$lambda$lambda$lambda$lambda$lambda_3);
+      this$.invoke_p3d1op$($module$xstream.default.combine(closure$reqCount, closure$complete), app$lambda$lambda$lambda$lambda$lambda_4);
+      a($receiver_17, get_albumUrl(first(closure$list)), '_blank', 'button view', app$lambda$lambda$lambda$lambda$lambda_5);
       var $receiver_18 = closure$list;
       var tmp$_17;
       tmp$_17 = $receiver_18.iterator();
       while (tmp$_17.hasNext()) {
         var element_17 = tmp$_17.next();
-        div($receiver_17, 'half', app$lambda$lambda$lambda$lambda$lambda$lambda_1(element_17, this$, closure$fit, closure$justSelected));
+        div($receiver_17, 'half', app$lambda$lambda$lambda$lambda$lambda$lambda_4(element_17, this$, closure$fit, closure$justSelected));
       }
     };
   }
-  function app$lambda$lambda$lambda_1(closure$it, closure$justSelected) {
+  function app$lambda$lambda$lambda_4(closure$it, closure$reqCount, closure$complete, closure$justSelected) {
     return function ($receiver_17, rect) {
       var tmp$_17, tmp$_18;
       var list = toList(closure$it);
@@ -4895,77 +5039,62 @@ if(false) {
       var vMin = (tmp$_18 = min(destination_20)) != null ? tmp$_18 : Kotlin.throwNPE();
       var horizontal = hMin > vMin;
       var fit = horizontal ? hFit : vFit;
-      div_0($receiver_17, 'pair', app$lambda$lambda$lambda$lambda_0(horizontal, list, $receiver_17, fit, closure$justSelected));
+      div_0($receiver_17, 'pair', app$lambda$lambda$lambda$lambda_1(horizontal, closure$reqCount, closure$complete, $receiver_17, list, fit, closure$justSelected));
     };
   }
-  function app$lambda$lambda_10(closure$selectedOwner, closure$albumOwners, closure$scroll, closure$justSelected) {
+  function app$lambda$lambda_15(closure$selectedOwner, closure$albumOwners, closure$scroll, closure$showHelp, closure$reqCount, closure$complete, closure$justSelected) {
     return function ($receiver_17, it) {
       if (it == null) {
-        h1($receiver_17, void 0, app$lambda$lambda$lambda);
-        div_0($receiver_17, 'selector', app$lambda$lambda$lambda_0(closure$selectedOwner, closure$albumOwners, closure$scroll, $receiver_17));
+        h1($receiver_17, void 0, app$lambda$lambda$lambda_1);
+        div_0($receiver_17, 'selector', app$lambda$lambda$lambda_2(closure$selectedOwner, closure$albumOwners, closure$scroll, $receiver_17));
       }
        else {
-        $receiver_17.invoke_p3d1op$($module$xstream.default.of(windowRect(window)), app$lambda$lambda$lambda_1(it, closure$justSelected));
+        $receiver_17.invoke_p3d1op$(closure$showHelp, app$lambda$lambda$lambda_3);
+        $receiver_17.invoke_p3d1op$($module$xstream.default.of(windowRect(window)), app$lambda$lambda$lambda_4(it, closure$reqCount, closure$complete, closure$justSelected));
       }
     };
   }
-  function app$lambda_15(closure$currentPair, closure$selectedOwner, closure$albumOwners, closure$scroll, closure$justSelected) {
+  function app$lambda_24(closure$currentPair, closure$selectedOwner, closure$albumOwners, closure$scroll, closure$showHelp, closure$reqCount, closure$complete, closure$justSelected) {
     return function ($receiver_17) {
-      $receiver_17.invoke_p3d1op$(closure$currentPair, app$lambda$lambda_10(closure$selectedOwner, closure$albumOwners, closure$scroll, closure$justSelected));
+      $receiver_17.invoke_p3d1op$(closure$currentPair, app$lambda$lambda_15(closure$selectedOwner, closure$albumOwners, closure$scroll, closure$showHelp, closure$reqCount, closure$complete, closure$justSelected));
     };
   }
-  function app$lambda$lambda$lambda_2(closure$album) {
+  function app$lambda$lambda_16(closure$ranking) {
     return function (it) {
-      VKReq$Photos$Get$Companion_getInstance();
-      var ctor = Kotlin.kotlin.js.get_js_1yb8b7$(Kotlin.getKClass(VKReq$Photos$Get));
-      var $receiver_17 = new ctor();
-      var closure$album_0 = closure$album;
-      $receiver_17.owner_id = closure$album_0.owner_id;
-      $receiver_17.album_id = closure$album_0.id;
-      $receiver_17.offset = it;
-      $receiver_17.count = 1;
-      $receiver_17.category = 'pair';
-      return $receiver_17;
+      return new Save(albumKey(closure$ranking.album.id), closure$ranking.serialize());
     };
   }
-  function app$lambda$lambda_11(closure$album) {
-    return function (it) {
-      var tmp$_17 = randomPair(closure$album.size)
-      , a_2 = tmp$_17.component1()
-      , b_2 = tmp$_17.component2();
-      return $module$xstream.default.of(a_2, b_2).map(app$lambda$lambda$lambda_2(closure$album)).debug('req');
-    };
-  }
-  function app$lambda_16(closure$selectWinner) {
-    return function (f) {
-      var album_0 = f.component1();
-      return flatMap(toNullable(closure$selectWinner).startWith(null), app$lambda$lambda_11(album_0));
-    };
-  }
-  function app$lambda$lambda_12(closure$ranking) {
-    return function (it) {
-      return new Save(albumKey(closure$ranking.albumId), closure$ranking.serialize());
-    };
-  }
-  function app$lambda_17(closure$selectedWinner) {
+  function app$lambda_25(closure$selectedWinner) {
     return function (ranking) {
-      return closure$selectedWinner.map(app$lambda$lambda_12(ranking));
+      return closure$selectedWinner.map(app$lambda$lambda_16(ranking));
     };
+  }
+  function app$lambda_26(it) {
+    return new Save(helpKey, 'true');
   }
   function app_0(sources) {
-    var selectOwner = clicks(sources.DOM.select('.owner')).map(app$lambda).debug('select');
+    addListener(clicks(sources.DOM.select('.btn:not(.choose)')), app$lambda);
+    var selectOwner = clicks(cls(sources.DOM, 'owner')).map(app$lambda_0).debug('select');
     var scroll_0 = makeScroll(sources.DOM);
-    var albumOwners = flatMap(sources.VK.me, app$lambda_0).remember().debug('owners');
-    var selectedOwner = flatMap(albumOwners, app$lambda_1(selectOwner)).remember().debug('selected');
-    var currentAlbumId = clicks(sources.DOM.select('.album')).map(app$lambda_2);
-    var currentAlbum = flatMap(flatMap(selectedOwner, app$lambda_3), app$lambda_4(currentAlbumId)).debug('album');
-    var selectPair = flatMap(pairwise(toType(sources.VK.responses.debug('resp').filter(app$lambda_5).map(app$lambda_6))).debug('pairwise'), app$lambda_7).debug('photopair');
-    var currentPair = $module$xstream.default.merge(toType(selectPair), toType(clicks(sources.DOM.select('.back')).map(app$lambda_8)), toType(keyups(sources.DOM, 'Escape').map(app$lambda_9))).startWith(null);
-    var rankings = flatMap(currentAlbum, app$lambda_10(sources)).remember();
-    var selectWinner = flatMap(selectPair, app$lambda_11(sources));
-    var selectedWinner = flatMap(rankings, app$lambda_12(selectWinner)).debug('winner');
-    var justSelected = $module$xstream.default.merge(selectWinner.map(app$lambda_13), currentPair.map(app$lambda_14)).remember();
-    return new AppSinks(appDiv('app', app$lambda_15(currentPair, selectedOwner, albumOwners, scroll_0, justSelected)).debug('vtree'), toType(flatMap(currentAlbum, app$lambda_16(selectWinner))), toType(flatMap(rankings, app$lambda_17(selectedWinner)).debug('save')));
+    var albumOwners = switchMap(sources.VK.me, app$lambda_1).remember().debug('owners');
+    var selectedOwner = switchMap(albumOwners, app$lambda_2(selectOwner)).remember().debug('selected');
+    var currentAlbumId = clicks(cls(sources.DOM, 'album')).map(app$lambda_3);
+    var currentAlbum = switchMap(switchMap(selectedOwner, app$lambda_4), app$lambda_5(currentAlbumId)).debug('album');
+    var selectPair = switchMap(couples(toType(sources.VK.responses.debug(app$lambda_6).filter(app$lambda_7).map(app$lambda_8))).debug('zipped'), app$lambda_9).debug('photopair');
+    var currentPair = $module$xstream.default.merge(toType(selectPair), toType(clicks(cls(sources.DOM, 'back')).map(app$lambda_10)), toType(keyups(cls(sources.DOM, 'pair'), 'Escape').map(app$lambda_11))).startWith(null);
+    var rankings = switchMap(currentAlbum, app$lambda_12(sources)).remember();
+    var selectWinner = switchMap(selectPair, app$lambda_13(sources));
+    var selectedWinner = switchMap(rankings, app$lambda_14(selectWinner)).debug('winner');
+    var justSelected = $module$xstream.default.merge(selectWinner.map(app$lambda_15), currentPair.map(app$lambda_16)).remember();
+    var pairRequests = toType(switchMap(currentAlbum, app$lambda_17(selectWinner)));
+    var sortAlbum = clicks(cls(sources.DOM, 'sort'));
+    var sortRequests = toType(switchMap(rankings, app$lambda_18(sortAlbum)));
+    var sortResponses = select(sources.VK, 'sort');
+    var reqCount = fold($module$xstream.default.merge(sortRequests.map(app$lambda_19), sortResponses.debug('sortResp').map(app$lambda_20)), 0, app$lambda_21).debug('reqCount');
+    var complete = switchMap(toNullable(rankings).startWith(null), app$lambda_22(reqCount)).remember().debug('complete');
+    var showHelp = sources.storage.local.getItem(helpKey).map(app$lambda_23);
+    var hideHelp = $module$xstream.default.merge(clicks(cls(sources.DOM, 'paranja')), clicks(cls(sources.DOM, 'confirm')), keyups(cls(sources.DOM, 'dialog'), 'Enter'));
+    return new AppSinks(appDiv('app', app$lambda_24(currentPair, selectedOwner, albumOwners, scroll_0, showHelp, reqCount, complete, justSelected)).debug('vtree'), $module$xstream.default.merge(pairRequests, sortRequests), toType($module$xstream.default.merge(switchMap(rankings, app$lambda_25(selectedWinner)), hideHelp.map(app$lambda_26)).debug('save')));
   }
   function AppDrivers(selector) {
     this.DOM = $module$_cycle_dom.makeDOMDriver(selector, DOMDriverOptions_init([PropsModule, AttrsModule, StyleModule, PaverModule_getInstance()]));
@@ -4999,8 +5128,8 @@ if(false) {
       return app_0(sources);
     }), new AppDrivers('#app'));
   }
-  function Ranking(albumId, serialized) {
-    this.albumId = albumId;
+  function Ranking(album_0, serialized) {
+    this.album = album_0;
     this.map = HashMap_init();
     var tmp$_17, tmp$_18;
     if (serialized != null) {
@@ -5042,6 +5171,18 @@ if(false) {
     var $receiver_18 = this.map;
     var value_0 = r2 - d;
     $receiver_18.put_xwzc9p$(loser, value_0);
+  };
+  Object.defineProperty(Ranking.prototype, 'size', {
+    get: function () {
+      return this.map.size;
+    }
+  });
+  function Ranking$sort$lambda(it) {
+    return it.value;
+  }
+  Ranking.prototype.sort = function () {
+    var $receiver_17 = this.map.entries;
+    return Kotlin.kotlin.collections.sortedWith_eknfly$($receiver_17, new Kotlin.kotlin.comparisons.compareBy$f(Ranking$sort$lambda));
   };
   Ranking.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
@@ -5334,6 +5475,21 @@ if(false) {
     if (b_2 >= a_2)
       b_2 = b_2 + 1 | 0;
     return to(a_2, b_2);
+  }
+  function toJs$lambda(this$toJs) {
+    return function ($receiver_17) {
+      var tmp$_17;
+      tmp$_17 = this$toJs.entries.iterator();
+      while (tmp$_17.hasNext()) {
+        var element_17 = tmp$_17.next();
+        var key = element_17.key;
+        var value = element_17.value;
+        $receiver_17[Kotlin.toString(key)] = value;
+      }
+    };
+  }
+  function toJs($receiver_17) {
+    return js_0(toJs$lambda($receiver_17));
   }
   function setEvent($receiver_17, name, callback) {
     $receiver_17[name] = callback;
@@ -5630,7 +5786,7 @@ if(false) {
   }
   function button$lambda($receiver_17) {
   }
-  function button($receiver_17, formEncType, formMethod, type, classes, block) {
+  function button_0($receiver_17, formEncType, formMethod, type, classes, block) {
     if (formEncType === void 0)
       formEncType = null;
     if (formMethod === void 0)
@@ -6386,7 +6542,7 @@ if(false) {
   }
   function select$lambda($receiver_17) {
   }
-  function select($receiver_17, classes, block) {
+  function select_0($receiver_17, classes, block) {
     if (classes === void 0)
       classes = null;
     if (block === void 0)
@@ -6415,7 +6571,7 @@ if(false) {
   }
   function span$lambda($receiver_17) {
   }
-  function span($receiver_17, classes, block) {
+  function span_0($receiver_17, classes, block) {
     if (classes === void 0)
       classes = null;
     if (block === void 0)
@@ -7765,9 +7921,9 @@ if(false) {
       tmp$_18 = null;
     return tmp$_18;
   };
-  DelegatingMap.prototype.putAll_a2k3zr$ = function (from) {
+  DelegatingMap.prototype.putAll_a2k3zr$ = function (from_0) {
     var tmp$_17;
-    tmp$_17 = from.entries.iterator();
+    tmp$_17 = from_0.entries.iterator();
     while (tmp$_17.hasNext()) {
       var element_17 = tmp$_17.next();
       this.put_xwzc9p$(element_17.key, element_17.value);
@@ -8737,7 +8893,7 @@ if(false) {
   }
   function button$lambda_0($receiver_17) {
   }
-  function button_0($receiver_17, formEncType, formMethod, type, classes, block) {
+  function button_1($receiver_17, formEncType, formMethod, type, classes, block) {
     if (formEncType === void 0)
       formEncType = null;
     if (formMethod === void 0)
@@ -9471,7 +9627,7 @@ if(false) {
   }
   function select$lambda_0($receiver_17) {
   }
-  function select_0($receiver_17, classes, block) {
+  function select_1($receiver_17, classes, block) {
     if (classes === void 0)
       classes = null;
     if (block === void 0)
@@ -9498,7 +9654,7 @@ if(false) {
   }
   function span$lambda_0($receiver_17) {
   }
-  function span_0($receiver_17, classes, block) {
+  function span_1($receiver_17, classes, block) {
     if (classes === void 0)
       classes = null;
     if (block === void 0)
@@ -13196,7 +13352,7 @@ if(false) {
   }
   function span$lambda_1($receiver_17) {
   }
-  function span_1($receiver_17, classes, block) {
+  function span($receiver_17, classes, block) {
     if (classes === void 0)
       classes = null;
     if (block === void 0)
@@ -13519,7 +13675,7 @@ if(false) {
   }
   function button$lambda_1($receiver_17) {
   }
-  function button_1($receiver_17, formEncType, formMethod, type, classes, block) {
+  function button($receiver_17, formEncType, formMethod, type, classes, block) {
     if (formEncType === void 0)
       formEncType = null;
     if (formMethod === void 0)
@@ -14096,7 +14252,7 @@ if(false) {
   }
   function select$lambda_1($receiver_17) {
   }
-  function select_1($receiver_17, classes, block) {
+  function select_2($receiver_17, classes, block) {
     if (classes === void 0)
       classes = null;
     if (block === void 0)
@@ -18511,6 +18667,9 @@ if(false) {
   function keyups($receiver_17, key) {
     return $receiver_17.events('keyup').filter(keyups$lambda(key));
   }
+  function cls($receiver_17, name) {
+    return $receiver_17.select('.' + name);
+  }
   function DOMDriverOptions(modules) {
     this.modules = modules;
   }
@@ -18957,7 +19116,7 @@ if(false) {
     };
   }
   function h_0(stream, handler) {
-    return flatMap(stream, h$lambda(handler));
+    return switchMap(stream, h$lambda(handler));
   }
   function appDiv$lambda$lambda(closure$handler, this$) {
     return function ($receiver_17) {
@@ -19027,8 +19186,11 @@ if(false) {
   var PropsModule;
   var AttrsModule;
   var StyleModule;
-  function flatMap($receiver_17, project) {
+  function switchMap($receiver_17, project) {
     return $receiver_17.map(project).flatten();
+  }
+  function bind($receiver_17, project) {
+    return persist($receiver_17.take(1)).map(project).flatten();
   }
   function combine$lambda(closure$project) {
     return function (values) {
@@ -19074,21 +19236,26 @@ if(false) {
       opts = null;
     return create_1(jsonpStream$lambda(url, opts));
   }
+  function addListener$lambda($receiver_17) {
+  }
   function addListener$lambda$lambda(it) {
   }
   function addListener$lambda$lambda_0(it) {
   }
   function addListener$lambda$lambda_1() {
   }
-  function addListener$lambda($receiver_17) {
-    $receiver_17.next = addListener$lambda$lambda;
-    $receiver_17.error = addListener$lambda$lambda_0;
-    $receiver_17.complete = addListener$lambda$lambda_1;
+  function addListener$lambda_0(closure$listener) {
+    return function ($receiver_17) {
+      $receiver_17.next = addListener$lambda$lambda;
+      $receiver_17.error = addListener$lambda$lambda_0;
+      $receiver_17.complete = addListener$lambda$lambda_1;
+      closure$listener($receiver_17);
+    };
   }
   function addListener($receiver_17, listener) {
     if (listener === void 0)
       listener = addListener$lambda;
-    $receiver_17.addListener(jsObject(listener));
+    $receiver_17.addListener(jsObject(addListener$lambda_0(listener)));
   }
   function fold($receiver_17, seed, accumulate) {
     return $receiver_17.fold(accumulate, seed);
@@ -19117,6 +19284,212 @@ if(false) {
   }
   function filterNotNull($receiver_17) {
     return toType($receiver_17.filter(filterNotNull$lambda));
+  }
+  function concatMap($receiver_17, project) {
+    return $module$xstream_extra_flattenSequentially.default($receiver_17.map(project));
+  }
+  function flatMap_0($receiver_17, project) {
+    return $module$xstream_extra_flattenConcurrently.default($receiver_17.map(project));
+  }
+  function delay($receiver_17, period) {
+    return $module$xstream_extra_delay.default(period)($receiver_17);
+  }
+  function sample$lambda(closure$period) {
+    return function (it) {
+      return delay($module$xstream.default.of(it), closure$period);
+    };
+  }
+  function sample($receiver_17, period) {
+    return concatMap($receiver_17, sample$lambda(period));
+  }
+  function couples$lambda(f, next) {
+    var fst = f.component1();
+    if (fst == null)
+      return to(next, null);
+    else
+      return to(null, to(fst, next));
+  }
+  function couples$lambda_0(it) {
+    return it.second;
+  }
+  function couples($receiver_17) {
+    return filterNotNull(fold($receiver_17, to(null, null), couples$lambda).map(couples$lambda_0));
+  }
+  function diagramOptions$lambda(closure$unit, closure$error, closure$valuesBuilder) {
+    return function ($receiver_17) {
+      if (closure$unit != null) {
+        $receiver_17.timeUnit = closure$unit;
+      }
+      if (closure$error != null) {
+        $receiver_17.errorValue = closure$error;
+      }
+      if (closure$valuesBuilder != null) {
+        var closure$valuesBuilder_0 = closure$valuesBuilder;
+        var $receiver_18 = Kotlin.kotlin.collections.LinkedHashMap_init_q3lmfv$();
+        closure$valuesBuilder_0($receiver_18);
+        $receiver_17.values = toJs($receiver_18);
+      }
+    };
+  }
+  function diagramOptions(unit, error, valuesBuilder) {
+    if (unit === void 0)
+      unit = null;
+    if (error === void 0)
+      error = null;
+    if (valuesBuilder === void 0)
+      valuesBuilder = null;
+    return jsObject(diagramOptions$lambda(unit, error, valuesBuilder));
+  }
+  function diagram(diagram_1, unit, errorValue) {
+    if (unit === void 0)
+      unit = null;
+    if (errorValue === void 0)
+      errorValue = null;
+    return $module$xstream_extra_flattenSequentially.default(diagram_1, diagramOptions(unit, errorValue));
+  }
+  function diagram_0(diagram_1, unit, errorValue, valuesBuilder) {
+    if (unit === void 0)
+      unit = null;
+    if (errorValue === void 0)
+      errorValue = null;
+    return $module$xstream_extra_flattenSequentially.default(diagram_1, diagramOptions(unit, errorValue, valuesBuilder));
+  }
+  function reserve$lambda$lambda(it) {
+    return it + 1 | 0;
+  }
+  function reserve$lambda$lambda_0(it) {
+    return it - 1 | 0;
+  }
+  function reserve$lambda($receiver_17) {
+    $receiver_17.put_xwzc9p$(Kotlin.toBoxedChar(105), reserve$lambda$lambda);
+    $receiver_17.put_xwzc9p$(Kotlin.toBoxedChar(111), reserve$lambda$lambda_0);
+  }
+  function reserve(period) {
+    return diagram_0('io|', period, void 0, reserve$lambda);
+  }
+  function BandwithData(events, count, out) {
+    if (events === void 0)
+      events = $module$xstream.default.never();
+    if (count === void 0)
+      count = $module$xstream.default.of(0).remember();
+    if (out === void 0)
+      out = $module$xstream.default.never();
+    this.events = events;
+    this.count = count;
+    this.out = out;
+  }
+  BandwithData.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'BandwithData',
+    interfaces: []
+  };
+  BandwithData.prototype.component1 = function () {
+    return this.events;
+  };
+  BandwithData.prototype.component2 = function () {
+    return this.count;
+  };
+  BandwithData.prototype.component3 = function () {
+    return this.out;
+  };
+  BandwithData.prototype.copy_n30gjt$ = function (events, count, out) {
+    return new BandwithData(events === void 0 ? this.events : events, count === void 0 ? this.count : count, out === void 0 ? this.out : out);
+  };
+  BandwithData.prototype.toString = function () {
+    return 'BandwithData(events=' + Kotlin.toString(this.events) + (', count=' + Kotlin.toString(this.count)) + (', out=' + Kotlin.toString(this.out)) + ')';
+  };
+  BandwithData.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.events) | 0;
+    result = result * 31 + Kotlin.hashCode(this.count) | 0;
+    result = result * 31 + Kotlin.hashCode(this.out) | 0;
+    return result;
+  };
+  BandwithData.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.events, other.events) && Kotlin.equals(this.count, other.count) && Kotlin.equals(this.out, other.out)))));
+  };
+  function apply$lambda(value, fn) {
+    return fn(value);
+  }
+  function apply_0($receiver_17, init) {
+    return fold($receiver_17, init, apply$lambda);
+  }
+  function Buffer(period, size_0) {
+    this.period = period;
+    this.size = size_0;
+    this.count_0 = 0;
+    this.queue_0 = [];
+  }
+  function Buffer$run$lambda(this$Buffer) {
+    return function () {
+      var tmp$_17 = (this$Buffer.count_0 = this$Buffer.count_0 - 1 | 0, this$Buffer.count_0) < this$Buffer.size;
+      if (tmp$_17) {
+        tmp$_17 = !(this$Buffer.queue_0.length === 0);
+      }
+      if (tmp$_17) {
+        this$Buffer.run_o14v8n$(this$Buffer.queue_0.shift());
+      }
+    };
+  }
+  Buffer.prototype.run_o14v8n$ = function (cb) {
+    this.count_0 = this.count_0 + 1 | 0;
+    cb();
+    setTimeout(this.period, Buffer$run$lambda(this));
+  };
+  Buffer.prototype.add_o14v8n$ = function (cb) {
+    if (this.count_0 < this.size) {
+      this.run_o14v8n$(cb);
+    }
+     else {
+      this.queue_0.push(cb);
+    }
+  };
+  Buffer.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'Buffer',
+    interfaces: []
+  };
+  function limitBandwidth$lambda$lambda($receiver_17) {
+  }
+  function limitBandwidth$lambda$lambda$lambda$lambda$lambda(closure$listener, closure$it) {
+    return function () {
+      console.log('wow');
+      closure$listener.next(closure$it);
+    };
+  }
+  function limitBandwidth$lambda$lambda$lambda$lambda(closure$buffer, closure$listener) {
+    return function (it) {
+      closure$buffer.add_o14v8n$(limitBandwidth$lambda$lambda$lambda$lambda$lambda(closure$listener, it));
+    };
+  }
+  function limitBandwidth$lambda$lambda$lambda(closure$buffer, closure$listener) {
+    return function ($receiver_17) {
+      $receiver_17.next = limitBandwidth$lambda$lambda$lambda$lambda(closure$buffer, closure$listener);
+    };
+  }
+  function limitBandwidth$lambda$lambda_0(closure$buffer, closure$il, this$limitBandwidth) {
+    return function (listener) {
+      closure$il.v = jsObject(limitBandwidth$lambda$lambda$lambda(closure$buffer, listener));
+      this$limitBandwidth.addListener(closure$il.v);
+    };
+  }
+  function limitBandwidth$lambda$lambda_1(closure$il, this$limitBandwidth) {
+    return function () {
+      this$limitBandwidth.removeListener(closure$il.v);
+    };
+  }
+  function limitBandwidth$lambda(closure$period, closure$bufferSize, this$limitBandwidth) {
+    return function ($receiver_17) {
+      var buffer = new Buffer(closure$period, closure$bufferSize);
+      var il = {v: jsObject(limitBandwidth$lambda$lambda)};
+      $receiver_17.start = limitBandwidth$lambda$lambda_0(buffer, il, this$limitBandwidth);
+      $receiver_17.stop = limitBandwidth$lambda$lambda_1(il, this$limitBandwidth);
+    };
+  }
+  function limitBandwidth($receiver_17, period, bufferSize) {
+    if (bufferSize === void 0)
+      bufferSize = 1;
+    return create_1(limitBandwidth$lambda(period, bufferSize, $receiver_17));
   }
   var version;
   var root;
@@ -19403,6 +19776,66 @@ if(false) {
     simpleName: 'Get',
     interfaces: [VKReq$Photos]
   };
+  function VKReq$Photos$ReorderPhotos() {
+    VKReq$Photos$ReorderPhotos$Companion_getInstance();
+    VKReq$Photos.call(this, 'reorderPhotos');
+    this.owner_id$delegate = new Params$Integer(this.params);
+    this.photo_id$delegate = new Params$Integer(this.params);
+    this.before$delegate = new Params$Integer(this.params);
+    this.after$delegate = new Params$Integer(this.params);
+  }
+  function VKReq$Photos$ReorderPhotos$Companion() {
+    VKReq$Photos$ReorderPhotos$Companion_instance = this;
+  }
+  VKReq$Photos$ReorderPhotos$Companion.$metadata$ = {
+    kind: Kotlin.Kind.OBJECT,
+    simpleName: 'Companion',
+    interfaces: [Builder]
+  };
+  var VKReq$Photos$ReorderPhotos$Companion_instance = null;
+  function VKReq$Photos$ReorderPhotos$Companion_getInstance() {
+    if (VKReq$Photos$ReorderPhotos$Companion_instance === null) {
+      new VKReq$Photos$ReorderPhotos$Companion();
+    }
+    return VKReq$Photos$ReorderPhotos$Companion_instance;
+  }
+  Object.defineProperty(VKReq$Photos$ReorderPhotos.prototype, 'owner_id', {
+    get: function () {
+      return this.owner_id$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('owner_id'));
+    },
+    set: function (owner_id) {
+      this.owner_id$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('owner_id'), owner_id);
+    }
+  });
+  Object.defineProperty(VKReq$Photos$ReorderPhotos.prototype, 'photo_id', {
+    get: function () {
+      return this.photo_id$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('photo_id'));
+    },
+    set: function (photo_id) {
+      this.photo_id$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('photo_id'), photo_id);
+    }
+  });
+  Object.defineProperty(VKReq$Photos$ReorderPhotos.prototype, 'before', {
+    get: function () {
+      return this.before$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('before'));
+    },
+    set: function (before) {
+      this.before$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('before'), before);
+    }
+  });
+  Object.defineProperty(VKReq$Photos$ReorderPhotos.prototype, 'after', {
+    get: function () {
+      return this.after$delegate.getValue_t0xcdd$(this, new Kotlin.PropertyMetadata('after'));
+    },
+    set: function (after) {
+      this.after$delegate.setValue_cvomos$(this, new Kotlin.PropertyMetadata('after'), after);
+    }
+  });
+  VKReq$Photos$ReorderPhotos.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: 'ReorderPhotos',
+    interfaces: [VKReq$Photos]
+  };
   VKReq$Photos.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
     simpleName: 'Photos',
@@ -19624,17 +20057,17 @@ if(false) {
   function select$lambda_3(it) {
     return toType(it.stream);
   }
-  function select_2($receiver_17, category) {
-    return flatMap($receiver_17.responses.filter(select$lambda_2(category)), select$lambda_3);
+  function select($receiver_17, category) {
+    return flatMap_0($receiver_17.responses.filter(select$lambda_2(category)), select$lambda_3);
   }
   function VKDriver$lambda$lambda(it) {
     var tmp$_17 = it.category;
-    var $receiver_17 = it.response();
+    var $receiver_17 = it.response().remember();
     addListener($receiver_17);
     return new ResponseStream(tmp$_17, $receiver_17);
   }
-  function VKDriver$lambda(sink, name) {
-    var responses = sink.map(VKDriver$lambda$lambda);
+  function VKDriver$lambda(it) {
+    var responses = limitBandwidth(it, 1000, 3).map(VKDriver$lambda$lambda);
     addListener(responses);
     return new VKSource(responses, VK_getInstance().me);
   }
@@ -19847,6 +20280,12 @@ if(false) {
   AlbumVM.prototype.equals = function (other) {
     return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && Kotlin.equals(this.album, other.album))));
   };
+  function get_url($receiver_17) {
+    return 'https://vk.com/album' + $receiver_17.owner_id + '_' + $receiver_17.id;
+  }
+  function get_albumUrl($receiver_17) {
+    return 'https://vk.com/album' + $receiver_17.owner_id + '_' + $receiver_17.album_id;
+  }
   function getForRect($receiver_17, rect) {
     var tmp$_17, tmp$_18, tmp$_19, tmp$_20, tmp$_21;
     if (rect.height > 1080.0 || (rect.width > 1024.0 && $receiver_17.photo_2560 != null))
@@ -20355,6 +20794,11 @@ if(false) {
   package$app.RectImpl = RectImpl;
   package$app.windowRect_ofitn1$ = windowRect;
   package$app.albumKey_za3lpa$ = albumKey;
+  Object.defineProperty(package$app, 'helpKey', {
+    get: function () {
+      return helpKey;
+    }
+  });
   package$app.app_lwy2ck$ = app_0;
   package$app.AppDrivers = AppDrivers;
   package$app.AppSources = AppSources;
@@ -20380,6 +20824,7 @@ if(false) {
   package$app.setTimeout_n53o35$ = setTimeout;
   package$app.random_za3lpa$ = random;
   package$app.randomPair_za3lpa$ = randomPair;
+  package$app.toJs_go3l1a$ = toJs;
   var package$kotlinx = _.kotlinx || (_.kotlinx = {});
   var package$html = package$kotlinx.html || (package$kotlinx.html = {});
   var package$dom = package$html.dom || (package$html.dom = {});
@@ -20403,7 +20848,7 @@ if(false) {
   package$js.blockQuote_rw5zzj$ = blockQuote;
   package$js.body_sbi9b0$ = body;
   package$js.br_jn093m$ = br;
-  package$js.button_5fpah4$ = button;
+  package$js.button_5fpah4$ = button_0;
   package$js.canvas_61vnh7$ = canvas;
   package$js.canvas_o2d15m$ = canvas_0;
   package$js.caption_2b4nbw$ = caption;
@@ -20477,10 +20922,10 @@ if(false) {
   package$js.samp_11f6yb$ = samp;
   package$js.script_m6rtyx$ = script;
   package$js.section_ceckl$ = section;
-  package$js.select_hs5l1a$ = select;
+  package$js.select_hs5l1a$ = select_0;
   package$js.small_8pbyt9$ = small;
   package$js.source_1ucc65$ = source;
-  package$js.span_x24v7w$ = span;
+  package$js.span_x24v7w$ = span_0;
   package$js.strong_ddyujd$ = strong;
   package$js.style_61vnh7$ = style;
   package$js.style_s80t09$ = style_0;
@@ -20870,7 +21315,7 @@ if(false) {
   package$html.blockQuote_kqn8r$ = blockQuote_0;
   package$html.body_z1rdug$ = body_0;
   package$html.br_msntey$ = br_0;
-  package$html.button_lzqaus$ = button_0;
+  package$html.button_lzqaus$ = button_1;
   package$html.canvas_89i3hl$ = canvas_1;
   package$html.canvas_q2368u$ = canvas_2;
   package$html.caption_7tv3ws$ = caption_0;
@@ -20945,10 +21390,10 @@ if(false) {
   package$html.script_3sbaix$ = script_0;
   package$html.script_howm5d$ = script_1;
   package$html.section_ezs79p$ = section_0;
-  package$html.select_ty59tq$ = select_0;
+  package$html.select_ty59tq$ = select_1;
   package$html.small_fm3dud$ = small_0;
   package$html.source_naaf4v$ = source_0;
-  package$html.span_fqsp1s$ = span_0;
+  package$html.span_fqsp1s$ = span_1;
   package$html.strong_k099i5$ = strong_0;
   package$html.style_89i3hl$ = style_1;
   package$html.style_x3xo8v$ = style_2;
@@ -21704,7 +22149,7 @@ if(false) {
   package$html.ruby_wobulv$ = ruby_1;
   package$html.samp_wmuy2y$ = samp_1;
   package$html.small_69ofui$ = small_1;
-  package$html.span_6djfml$ = span_1;
+  package$html.span_6djfml$ = span;
   package$html.strong_okpg28$ = strong_1;
   package$html.sub_u07n5t$ = sub_1;
   package$html.sup_yx52tp$ = sup_1;
@@ -21738,7 +22183,7 @@ if(false) {
   package$html.section_ac1jhf$ = section_1;
   package$html.a_gu26kr$ = a;
   package$html.audio_hb8i2y$ = audio_1;
-  package$html.button_whohl6$ = button_1;
+  package$html.button_whohl6$ = button;
   package$html.getButton_2ghcrw$ = getButton;
   package$html.postButton_2ghcrw$ = postButton;
   package$html.putButton_2ghcrw$ = putButton;
@@ -21781,7 +22226,7 @@ if(false) {
   package$html.rsaKeyGen_7fxx9n$ = rsaKeyGen;
   package$html.label_yd75js$ = label_1;
   package$html.object__ix0ywc$ = object__1;
-  package$html.select_9klr40$ = select_1;
+  package$html.select_9klr40$ = select_2;
   package$html.textArea_b1tfd9$ = textArea_3;
   package$html.textArea_n0vc64$ = textArea_4;
   package$html.hardTextArea_skdnmm$ = hardTextArea;
@@ -22091,6 +22536,7 @@ if(false) {
   var package$dom_0 = package$cycle.dom || (package$cycle.dom = {});
   package$dom_0.clicks_2qyqs1$ = clicks;
   package$dom_0.keyups_o4pm3z$ = keyups;
+  package$dom_0.cls_o4pm3z$ = cls;
   package$dom_0.DOMDriverOptions_init_siq366$ = DOMDriverOptions_init;
   package$dom_0.DOMDriverOptions = DOMDriverOptions;
   var package$storage = package$cycle.storage || (package$cycle.storage = {});
@@ -22128,7 +22574,8 @@ if(false) {
     }
   });
   var package$xstream = package$lib.xstream || (package$lib.xstream = {});
-  package$xstream.flatMap_im4ds3$ = flatMap;
+  package$xstream.switchMap_im4ds3$ = switchMap;
+  package$xstream.bind_im4ds3$ = bind;
   package$xstream.combine_onjrjx$ = combine_0;
   package$xstream.create_oe1f0k$ = create_1;
   package$xstream.jsonpStream_rzpbx2$ = jsonpStream;
@@ -22140,6 +22587,19 @@ if(false) {
   package$xstream.throttle_v924oq$ = throttle;
   package$xstream.pairwise_9hvxng$ = pairwise;
   package$xstream.filterNotNull_9hvxng$ = filterNotNull;
+  package$xstream.concatMap_im4ds3$ = concatMap;
+  package$xstream.flatMap_im4ds3$ = flatMap_0;
+  package$xstream.delay_v924oq$ = delay;
+  package$xstream.sample_v924oq$ = sample;
+  package$xstream.couples_9hvxng$ = couples;
+  package$xstream.diagramOptions_if9dm8$ = diagramOptions;
+  package$xstream.diagram_mrwqoh$ = diagram;
+  package$xstream.diagram_oqhr0x$ = diagram_0;
+  package$xstream.reserve_za3lpa$ = reserve;
+  package$xstream.BandwithData = BandwithData;
+  package$xstream.apply_5b2dlw$ = apply_0;
+  package$xstream.Buffer = Buffer;
+  package$xstream.limitBandwidth_u9zbj0$ = limitBandwidth;
   Object.defineProperty(VKReq$Users$Get, 'Companion', {
     get: VKReq$Users$Get$Companion_getInstance
   });
@@ -22153,6 +22613,10 @@ if(false) {
     get: VKReq$Photos$Get$Companion_getInstance
   });
   VKReq$Photos.Get = VKReq$Photos$Get;
+  Object.defineProperty(VKReq$Photos$ReorderPhotos, 'Companion', {
+    get: VKReq$Photos$ReorderPhotos$Companion_getInstance
+  });
+  VKReq$Photos.ReorderPhotos = VKReq$Photos$ReorderPhotos;
   VKReq.Photos = VKReq$Photos;
   Object.defineProperty(VKReq$Groups$Get, 'Companion', {
     get: VKReq$Groups$Get$Companion_getInstance
@@ -22167,7 +22631,7 @@ if(false) {
   });
   package$vk.ResponseStream = ResponseStream;
   package$vk.VKSource = VKSource;
-  package$vk.select_qk4zry$ = select_2;
+  package$vk.select_qk4zry$ = select;
   Object.defineProperty(package$vk, 'VKDriver', {
     get: function () {
       return VKDriver;
@@ -22201,6 +22665,8 @@ if(false) {
   package$vk.get_min_mj8tgy$ = get_min;
   package$vk.get_max_mj8tgy$ = get_max;
   package$vk.AlbumVM = AlbumVM;
+  package$vk.get_url_jogrfr$ = get_url;
+  package$vk.get_albumUrl_cmrbre$ = get_albumUrl;
   package$vk.getForRect_z65jc7$ = getForRect;
   package$vk.get_uid_gqnylz$ = get_uid;
   package$vk.GroupVM = GroupVM;
@@ -22248,6 +22714,7 @@ if(false) {
     get: FeedType$video_getInstance
   });
   package$vk.FeedType = FeedType;
+  helpKey = 'help_seen';
   emptyMap = emptyMap_0();
   attributeStringString = new StringAttribute();
   attributeSetStringStringSet = new StringSetAttribute();
@@ -22447,7 +22914,7 @@ if(false) {
   Kotlin.defineModule('_compiled-tmp', _);
   main([]);
   return _;
-}(module.exports, __webpack_require__(103), __webpack_require__(0), __webpack_require__(47), __webpack_require__(54), __webpack_require__(53), __webpack_require__(33), __webpack_require__(32), __webpack_require__(34), __webpack_require__(102), __webpack_require__(128), __webpack_require__(127)));
+}(module.exports, __webpack_require__(103), __webpack_require__(0), __webpack_require__(47), __webpack_require__(54), __webpack_require__(53), __webpack_require__(33), __webpack_require__(32), __webpack_require__(34), __webpack_require__(102), __webpack_require__(131), __webpack_require__(130), __webpack_require__(129), __webpack_require__(128), __webpack_require__(126)));
 
 //@ sourceMappingURL=_compiled-tmp.js.map
 
@@ -24152,7 +24619,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = getResponseObj;
 
-var _dropRepeats = __webpack_require__(126);
+var _dropRepeats = __webpack_require__(127);
 
 var _dropRepeats2 = _interopRequireDefault(_dropRepeats);
 
@@ -24390,7 +24857,7 @@ exports = module.exports = __webpack_require__(61)();
 
 
 // module
-exports.push([module.i, "body {\n    margin: 0;\n    background: #000;\n}\n\nh1, h2, h3, h4 {\n    margin: 0;\n    padding: 8px 16px 16px;\n    font-weight: 500;\n}\n\nh1 {\n    color: #222;\n    background: #fff;\n}\n\n.app {\n    width: 795px;\n    margin: 0 auto;\n    height: 100vh;\n    background: #000;\n    color: #fff;\n    font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n    font-weight: 300;\n    display: flex;\n    flex-direction: column;\n    overflow: hidden;\n}\n\n.app ~ * {\n    flex-shrink: 0;\n}\n\n.selector {\n    display: flex;\n    flex-grow: 1;\n    overflow: hidden;\n}\n\n.owners {\n    width: 50px;\n    flex-shrink: 0;\n}\n\n.owner {\n    height: 50px;\n    display: flex;\n    position: relative;\n}\n\n.owner > * {\n    flex-shrink: 0;\n}\n\n.blackout {\n    cursor: pointer;\n    background: rgba(0, 0, 0, 0.2);\n    position: absolute;\n    z-index: 1;\n    width: 50px;\n    height: 50px;\n    left: 0;\n    top: 0;\n}\n\n.blackout:not(:hover) {\n    background: rgba(0, 0, 0, 0.6);\n    transition: background 0.15s ease-out;\n}\n\n.selected > .blackout {\n    background: transparent;\n}\n\n.ownerName {\n    padding: 14px 8px;\n    background: rgba(0, 0, 0, 0.8);\n    z-index: 1;\n    color: #fff;\n    transition: color .15s ease-out;\n}\n\na.ownerName {\n    cursor: pointer;\n}\n\na.ownerName:hover {\n    color: #f88;\n    transition: none;\n}\n\n.owner:not(:hover) > .ownerName {\n    display: none;\n}\n\n.albums {\n    flex-grow: 1;\n}\n\n.album {\n    cursor: pointer;\n    position: relative;\n}\n\n.albumImg {\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n}\n\n.description {\n    position: absolute;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    background: rgba(0, 0, 0, 0.6);\n    padding: 8px;\n    line-height: 1.5;\n}\n\n.name {\n    text-overflow: ellipsis;\n    overflow: hidden;\n    white-space: nowrap;\n    font-size: 13px;\n}\n\n.count {\n    font-size: 11px;\n}\n\n.album:not(:hover) .description {\n    background: transparent;\n    color: transparent;\n    transition: background .15s ease-out, color .15s ease-out;\n}\n\n.half {\n    flex: 1 0 0;\n    min-height: 0;\n    min-width: 0;\n    position: relative;\n}\n\n.half > img {\n    cursor: pointer;\n    position: absolute;\n    height: 100%;\n    width: 100%;\n}\n\n.photoBg {\n    object-fit: cover;\n    filter: opacity(0.5) blur(10px);\n}\n\n.photo {\n    object-fit: contain;\n}\n\n.pair {\n    position: relative;\n    flex: 1 0 0;\n    display: flex;\n    outline: none;\n}\n\n.vertical {\n    flex-direction: column;\n}\n\n.button {\n    position: absolute;\n    box-sizing: border-box;\n    z-index: 1;\n    cursor: pointer;\n    background-color: rgba(0, 0, 0, .8);\n    height: 32px;\n    width: 32px;\n    border-radius: 3px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n\n    opacity: .5;\n    transition: opacity .15s ease-out;\n}\n\n.button:hover {\n    transition: none;\n    opacity: 1;\n}\n\n.back {\n    top: 8px;\n    left: 8px;\n    font-size: 24px;\n    padding-bottom: 5px;\n}\n\n.choose {\n    padding-bottom: 1px;\n    transform-origin: 50% 50%;\n}\n\n.vertical .choose {\n    top: 8px;\n    right: 8px;\n}\n\n.vertical .half:last-child .choose {\n    top: auto;\n    bottom: 8px;\n    transform: rotate(180deg);\n}\n\n.horizontal .choose {\n    left: 8px;\n    bottom: 8px;\n    transform: rotate(-90deg);\n}\n\n.horizontal .half:last-child .choose {\n    left: auto;\n    right: 8px;\n    transform: rotate(90deg);\n}\n\n.half:hover .choose {\n    transition: none;\n    opacity: 1;\n}\n\n.winner {\n    opacity: 1;\n    color: #6BC169;\n    transform: none !important;\n}\n", ""]);
+exports.push([module.i, "body {\n    margin: 0;\n    background: #000;\n}\n\nh1, h2, h3, h4 {\n    margin: 0;\n    padding: 8px 16px 16px;\n    font-weight: 500;\n}\n\nh1 {\n    color: #222;\n    background: #fff;\n}\n\n.app {\n    width: 795px;\n    margin: 0 auto;\n    height: 100vh;\n    background: #000;\n    color: #fff;\n    font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n    font-weight: 300;\n    display: flex;\n    flex-direction: column;\n    overflow: hidden;\n}\n\n.app ~ * {\n    flex-shrink: 0;\n}\n\n.selector {\n    display: flex;\n    flex-grow: 1;\n    overflow: hidden;\n}\n\n.owners {\n    width: 50px;\n    flex-shrink: 0;\n}\n\n.owner {\n    height: 50px;\n    display: flex;\n    position: relative;\n}\n\n.owner > * {\n    flex-shrink: 0;\n}\n\n.blackout {\n    cursor: pointer;\n    background: rgba(0, 0, 0, 0.2);\n    position: absolute;\n    z-index: 1;\n    width: 50px;\n    height: 50px;\n    left: 0;\n    top: 0;\n}\n\n.blackout:not(:hover) {\n    background: rgba(0, 0, 0, 0.6);\n    transition: background .15s ease-out;\n}\n\n.selected > .blackout {\n    background: transparent;\n}\n\n.ownerName {\n    padding: 14px 8px;\n    background: rgba(0, 0, 0, 0.8);\n    z-index: 1;\n    color: #fff;\n    transition: color .15s ease-out;\n}\n\na.ownerName {\n    cursor: pointer;\n}\n\na.ownerName:hover {\n    color: #f88;\n    transition: none;\n}\n\n.owner:not(:hover) > .ownerName {\n    display: none;\n}\n\n.albums {\n    flex-grow: 1;\n}\n\n.album {\n    cursor: pointer;\n    position: relative;\n}\n\n.albumImg {\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n}\n\n.description {\n    position: absolute;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    background: rgba(0, 0, 0, 0.6);\n    padding: 8px;\n    line-height: 1.5;\n}\n\n.name {\n    text-overflow: ellipsis;\n    overflow: hidden;\n    white-space: nowrap;\n    font-size: 13px;\n}\n\n.count {\n    font-size: 11px;\n}\n\n.album:not(:hover) .description {\n    background: transparent;\n    color: transparent;\n    transition: background .15s ease-out, color .15s ease-out;\n}\n\n.half {\n    flex: 1 0 0;\n    min-height: 0;\n    min-width: 0;\n    position: relative;\n}\n\n.half > img {\n    cursor: pointer;\n    position: absolute;\n    height: 100%;\n    width: 100%;\n}\n\n.photoBg {\n    object-fit: cover;\n    filter: opacity(0.5) blur(10px);\n}\n\n.photo {\n    object-fit: contain;\n}\n\n.pair {\n    position: relative;\n    flex: 1 0 0;\n    display: flex;\n    outline: none;\n}\n\n.vertical {\n    flex-direction: column;\n}\n\n.button {\n    position: absolute;\n    box-sizing: border-box;\n    z-index: 1;\n    cursor: pointer;\n    background-color: rgba(0, 0, 0, .8);\n    height: 32px;\n    width: 32px;\n    border-radius: 3px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n\n    opacity: .5;\n    transition: opacity .15s ease-out;\n}\n\n.button:hover {\n    transition: none;\n    opacity: 1;\n}\n\n.back {\n    top: 8px;\n    left: 8px;\n    font-size: 48px;\n    padding-bottom: 9px;\n}\n\n.choose {\n    padding-bottom: 1px;\n    transform-origin: 50% 50%;\n}\n\n.vertical .choose {\n    top: 8px;\n    right: 8px;\n}\n\n.vertical .half:last-child .choose {\n    top: auto;\n    bottom: 8px;\n    transform: rotate(180deg);\n}\n\n.horizontal .choose {\n    left: 8px;\n    bottom: 8px;\n    transform: rotate(-90deg);\n}\n\n.horizontal .half:last-child .choose {\n    left: auto;\n    right: 8px;\n    transform: rotate(90deg);\n}\n\n.half:hover .choose {\n    transition: none;\n    opacity: 1;\n}\n\n.ok {\n    opacity: 1;\n    color: #6BC169;\n    transform: none !important;\n}\n\n.snd {\n    top: 8px;\n    left: 48px;\n}\n\n.view {\n    top: 8px;\n    left: 88px;\n    filter: grayscale(1);\n}\n\n.loading {\n    font-size: 32px;\n    padding-bottom: 4px;\n}\n\n.loading > span {\n    animation: spin 1s infinite;\n    padding-bottom: 4px;\n}\n\n@keyframes spin {\n    0% { transform: rotate(0) }\n    100% { transform: rotate(360deg) }\n}\n\n.paranja {\n    position: fixed;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    background: rgba(0, 0, 0, 0.7);\n    z-index: 1;\n    cursor: pointer;\n}\n\n.help {\n    width: 320px;\n    padding: 16px 24px;\n    font-weight: 400;\n    line-height: 1.4;\n    position: fixed;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    background: #fff;\n    color: #444;\n    z-index: 2;\n}\n\n.confirm {\n    display: block;\n    margin-top: 16px;\n    padding: 8px 32px;\n    cursor: pointer;\n    background-color: #5e81a8;\n    color: #fff;\n    border: 0;\n    border-radius: 3px;\n    font: inherit;\n}\n\n.close {\n    color: #fff;\n    font-size: 32px;\n    position: absolute;\n    top: -8px;\n    right: -32px;\n    opacity: 0.7;\n    transition: opacity .15s ease-out;\n    pointer-events: none;\n}\n\n.paranja:hover ~ .help > .close {\n    opacity: 1;\n    transition: none;\n}\n", ""]);
 
 // exports
 
@@ -64914,6 +65381,105 @@ function symbolObservablePonyfill(root) {
 "use strict";
 
 var index_1 = __webpack_require__(0);
+var DelayOperator = (function () {
+    function DelayOperator(dt, ins) {
+        this.dt = dt;
+        this.ins = ins;
+        this.type = 'delay';
+        this.out = null;
+    }
+    DelayOperator.prototype._start = function (out) {
+        this.out = out;
+        this.ins._add(this);
+    };
+    DelayOperator.prototype._stop = function () {
+        this.ins._remove(this);
+        this.out = null;
+    };
+    DelayOperator.prototype._n = function (t) {
+        var u = this.out;
+        if (!u)
+            return;
+        var id = setInterval(function () {
+            u._n(t);
+            clearInterval(id);
+        }, this.dt);
+    };
+    DelayOperator.prototype._e = function (err) {
+        var u = this.out;
+        if (!u)
+            return;
+        var id = setInterval(function () {
+            u._e(err);
+            clearInterval(id);
+        }, this.dt);
+    };
+    DelayOperator.prototype._c = function () {
+        var u = this.out;
+        if (!u)
+            return;
+        var id = setInterval(function () {
+            u._c();
+            clearInterval(id);
+        }, this.dt);
+    };
+    return DelayOperator;
+}());
+/**
+ * Delays periodic events by a given time period.
+ *
+ * Marble diagram:
+ *
+ * ```text
+ * 1----2--3--4----5|
+ *     delay(60)
+ * ---1----2--3--4----5|
+ * ```
+ *
+ * Example:
+ *
+ * ```js
+ * import fromDiagram from 'xstream/extra/fromDiagram'
+ * import delay from 'xstream/extra/delay'
+ *
+ * const stream = fromDiagram('1----2--3--4----5|')
+ *  .compose(delay(60))
+ *
+ * stream.addListener({
+ *   next: i => console.log(i),
+ *   error: err => console.error(err),
+ *   complete: () => console.log('completed')
+ * })
+ * ```
+ *
+ * ```text
+ * > 1  (after 60 ms)
+ * > 2  (after 160 ms)
+ * > 3  (after 220 ms)
+ * > 4  (after 280 ms)
+ * > 5  (after 380 ms)
+ * > completed
+ * ```
+ *
+ * @param {number} period The amount of silence required in milliseconds.
+ * @return {Stream}
+ */
+function delay(period) {
+    return function delayOperator(ins) {
+        return new index_1.Stream(new DelayOperator(period, ins));
+    };
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = delay;
+//# sourceMappingURL=delay.js.map
+
+/***/ }),
+/* 127 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var index_1 = __webpack_require__(0);
 var empty = {};
 var DropRepeatsOperator = (function () {
     function DropRepeatsOperator(ins, fn) {
@@ -65036,7 +65602,231 @@ exports.default = dropRepeats;
 //# sourceMappingURL=dropRepeats.js.map
 
 /***/ }),
-/* 127 */
+/* 128 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var index_1 = __webpack_require__(0);
+var FCIL = (function () {
+    function FCIL(out, op) {
+        this.out = out;
+        this.op = op;
+    }
+    FCIL.prototype._n = function (t) {
+        this.out._n(t);
+    };
+    FCIL.prototype._e = function (err) {
+        this.out._e(err);
+    };
+    FCIL.prototype._c = function () {
+        this.op.less();
+    };
+    return FCIL;
+}());
+var FlattenConcOperator = (function () {
+    function FlattenConcOperator(ins) {
+        this.ins = ins;
+        this.type = 'flattenConcurrently';
+        this.active = 1; // number of outers and inners that have not yet ended
+        this.out = null;
+    }
+    FlattenConcOperator.prototype._start = function (out) {
+        this.out = out;
+        this.ins._add(this);
+    };
+    FlattenConcOperator.prototype._stop = function () {
+        this.ins._remove(this);
+        this.active = 1;
+        this.out = null;
+    };
+    FlattenConcOperator.prototype.less = function () {
+        if (--this.active === 0) {
+            var u = this.out;
+            if (!u)
+                return;
+            u._c();
+        }
+    };
+    FlattenConcOperator.prototype._n = function (s) {
+        var u = this.out;
+        if (!u)
+            return;
+        this.active++;
+        s._add(new FCIL(u, this));
+    };
+    FlattenConcOperator.prototype._e = function (err) {
+        var u = this.out;
+        if (!u)
+            return;
+        u._e(err);
+    };
+    FlattenConcOperator.prototype._c = function () {
+        this.less();
+    };
+    return FlattenConcOperator;
+}());
+exports.FlattenConcOperator = FlattenConcOperator;
+/**
+ * Flattens a "stream of streams", handling multiple concurrent nested streams
+ * simultaneously.
+ *
+ * If the input stream is a stream that emits streams, then this operator will
+ * return an output stream which is a flat stream: emits regular events. The
+ * flattening happens concurrently. It works like this: when the input stream
+ * emits a nested stream, *flattenConcurrently* will start imitating that
+ * nested one. When the next nested stream is emitted on the input stream,
+ * *flattenConcurrently* will also imitate that new one, but will continue to
+ * imitate the previous nested streams as well.
+ *
+ * Marble diagram:
+ *
+ * ```text
+ * --+--------+---------------
+ *   \        \
+ *    \       ----1----2---3--
+ *    --a--b----c----d--------
+ *     flattenConcurrently
+ * -----a--b----c-1--d-2---3--
+ * ```
+ *
+ * @return {Stream}
+ */
+function flattenConcurrently(ins) {
+    return new index_1.Stream(new FlattenConcOperator(ins));
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = flattenConcurrently;
+//# sourceMappingURL=flattenConcurrently.js.map
+
+/***/ }),
+/* 129 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var index_1 = __webpack_require__(0);
+var FSInner = (function () {
+    function FSInner(out, op) {
+        this.out = out;
+        this.op = op;
+    }
+    FSInner.prototype._n = function (t) {
+        this.out._n(t);
+    };
+    FSInner.prototype._e = function (err) {
+        this.out._e(err);
+    };
+    FSInner.prototype._c = function () {
+        this.op.less();
+    };
+    return FSInner;
+}());
+var FlattenSeqOperator = (function () {
+    function FlattenSeqOperator(ins) {
+        this.type = 'flattenSequentially';
+        this.ins = ins;
+        this.out = null;
+        this.open = true;
+        this.active = null;
+        this.activeIL = null;
+        this.seq = [];
+    }
+    FlattenSeqOperator.prototype._start = function (out) {
+        this.out = out;
+        this.open = true;
+        this.active = null;
+        this.activeIL = new FSInner(out, this);
+        this.seq = [];
+        this.ins._add(this);
+    };
+    FlattenSeqOperator.prototype._stop = function () {
+        this.ins._remove(this);
+        if (this.active && this.activeIL) {
+            this.active._remove(this.activeIL);
+        }
+        this.open = true;
+        this.active = null;
+        this.activeIL = null;
+        this.seq = [];
+        this.out = null;
+    };
+    FlattenSeqOperator.prototype.less = function () {
+        this.active = null;
+        var seq = this.seq;
+        if (seq.length > 0) {
+            this._n(seq.shift());
+        }
+        if (!this.open && !this.active) {
+            this.out._c();
+        }
+    };
+    FlattenSeqOperator.prototype._n = function (s) {
+        var u = this.out;
+        if (!u)
+            return;
+        if (this.active) {
+            this.seq.push(s);
+        }
+        else {
+            this.active = s;
+            s._add(this.activeIL);
+        }
+    };
+    FlattenSeqOperator.prototype._e = function (err) {
+        var u = this.out;
+        if (!u)
+            return;
+        u._e(err);
+    };
+    FlattenSeqOperator.prototype._c = function () {
+        var u = this.out;
+        if (!u)
+            return;
+        this.open = false;
+        if (!this.active && this.seq.length === 0) {
+            u._c();
+        }
+    };
+    return FlattenSeqOperator;
+}());
+exports.FlattenSeqOperator = FlattenSeqOperator;
+/**
+ * Flattens a "stream of streams", handling only one nested stream at a time,
+ * with no concurrency, but does not drop nested streams like `flatten` does.
+ *
+ * If the input stream is a stream that emits streams, then this operator will
+ * return an output stream which is a flat stream: emits regular events. The
+ * flattening happens sequentially and without concurrency. It works like this:
+ * when the input stream emits a nested stream, *flattenSequentially* will start
+ * imitating that nested one. When the next nested stream is emitted on the
+ * input stream, *flattenSequentially* will keep that in a buffer, and only
+ * start imitating it once the previous nested stream completes.
+ *
+ * In essence, `flattenSequentially` concatenates all nested streams.
+ *
+ * Marble diagram:
+ *
+ * ```text
+ * --+--------+-------------------------
+ *   \        \
+ *    \       ----1----2---3--|
+ *    --a--b----c----d--|
+ *          flattenSequentially
+ * -----a--b----c----d------1----2---3--
+ * ```
+ *
+ * @return {Stream}
+ */
+function flattenSequentially(ins) {
+    return new index_1.Stream(new FlattenSeqOperator(ins));
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = flattenSequentially;
+//# sourceMappingURL=flattenSequentially.js.map
+
+/***/ }),
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65132,7 +65922,7 @@ exports.default = pairwise;
 //# sourceMappingURL=pairwise.js.map
 
 /***/ }),
-/* 128 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65237,7 +66027,7 @@ exports.default = throttle;
 //# sourceMappingURL=throttle.js.map
 
 /***/ }),
-/* 129 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(38);
